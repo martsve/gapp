@@ -25,8 +25,24 @@ Name <input id='player_name'> <button id='add_player'>Add player</button>
     </li>
 </ul>
 
+<ul id='difficulty'>
+    <li><button id='easy' data-val='-1'>Easy (-1)</button></li>
+    <li><button id='normal' data-val='0'>Normal (0)</button></li>
+    <li><button id='medium' data-val='1'>Medium (+1)</button></li>
+    <li><button id='hard' data-val='2'>Hard (+2)</button></li>
+    <li><button id='legendary' data-val='3'>Legendary (+3)</button></li>
+</ul>
+
 <div id='scenario_content'>
-    Scenario level: <input id='scenario_level' class='level'>
+    Scenario level: <input id='scenario_level' class='level' disabled>
+</div>
+
+<div id='donations_content'>
+    <div>
+        Total donations: <input id='donations' class='number'>
+        <button class='up'>+</button>
+        <button class='down'>-</button>
+    </div>
 </div>
 
 <div id='properity_content'>
@@ -48,6 +64,8 @@ Name <input id='player_name'> <button id='add_player'>Add player</button>
 </div>
 
 <div id='settings'>
+    <button id='save_file_button'>Save data</button>
+
     <input type='file' id='load_file' class='d-none'>
     <button id='load_file_button'>Load file</button>
 

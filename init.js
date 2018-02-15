@@ -43,16 +43,25 @@ $(function() {
         $('#prosperity_level').val(Gloomhaven.GetProsperityLevel());
     });
 
-
-    Gloomhaven.Initialize();
-
-    $('#reputation_level').val(Gloomhaven.ReputationLevel());
-    $('#reputation_price').val(Gloomhaven.GetReputationPrice());
+    $('#donations_content').on('click', '.up', function() {
+        $('#donations').val(Gloomhaven.IncreaseDonations(10, function(){
+            alert('Open letter B!');
+        }));
+    });
     
-    $('#prosperity_level').val(Gloomhaven.GetProsperityLevel());
-    $('#prosperity_number').val(Gloomhaven.IncreaseProsperity(0));  
+    $('#donations_content').on('click', '.down', function() {
+        $('#donations').val(Gloomhaven.IncreaseDonations(-10, function(){}));
+    });
 
-    //download(Gloomhaven.GetData(), 'save.txt');
+    $('#difficulty button').on('click', function() {
+        Gloomhaven.SetDifficulty(parseInt($(this).data('val')));
+        $('#difficulty button').toggleClass('selected', false);
+        $(this).toggleClass('selected', true);
+    });
+
+    $('#save_file_button').on('click', function() {
+        download(Gloomhaven.GetData(), Gloomhaven.Name() + '.txt');
+    });
 
     upload($('#load_file'), function(data) {
         Gloomhaven.LoadData(JSON.parse(data));
@@ -64,4 +73,20 @@ $(function() {
             window.location.reload();        
         }
     });
+
+    Gloomhaven.Initialize();
+
+    $('#reputation_level').val(Gloomhaven.ReputationLevel());
+    $('#reputation_price').val(Gloomhaven.GetReputationPrice());
+    
+    $('#prosperity_level').val(Gloomhaven.GetProsperityLevel());
+    $('#prosperity_number').val(Gloomhaven.IncreaseProsperity(0));  
+
+    $('#prosperity_number').val(Gloomhaven.IncreaseProsperity(0));  
+
+    $('#donations').val(Gloomhaven.GetDonations());
+    
+    var difficulty = Gloomhaven.GetDifficulty();
+    $('#difficulty button[data-val="'+difficulty+'"]').toggleClass('selected', true);
+
 });

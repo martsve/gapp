@@ -1,3 +1,4 @@
 input.level { width: 30px; }
 .template, .d-none { display: none; }
 #level_list .player_name { font-weight: bold; }
+button.selected { background: lightgreen; }

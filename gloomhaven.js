@@ -4,16 +4,24 @@ var Gloomhaven = {};
     var playerList = {};
     var reputation = 0;
     var prosperity = 0;
+    var donations = 0;
+    var difficulty = 0;
+    var hasDonatedEnough = false;
 
     self.GetData = function() { 
         return {
             "playerList": playerList,
             "reputation": reputation,
             "prosperity": prosperity,
+            "donations": donations,
+            "difficulty": difficulty
         };
     };
 
+    self.Name = function() { return 'Gloomhaven' };
+    self.GetDifficulty = function() { return difficulty ;};
     self.GetPlayerList = function() { return playerList ;};
+    self.GetDonations = function() { return donations ;};
     self.ReputationLevel = function() { return reputation; };
     self.GetReputationPrice = function() { 
         return reputation == 0 ? 0 : -1*(reputation / Math.abs(reputation) *  Math.ceil( Math.abs(reputation) / 5));
@@ -26,6 +34,8 @@ var Gloomhaven = {};
         playerList = data.playerList;
         reputation = data.reputation;
         prosperity = data.prosperity;
+        donations = data.donations;
+        difficulty = data.difficulty;
 
         self.SaveAll();
         window.location.reload();
@@ -34,25 +44,53 @@ var Gloomhaven = {};
     self.SaveAll = function() {
         self.SavePlayerList();
 
+        localStorage.setItem("difficulty", difficulty);
         localStorage.setItem("prosperity", prosperity);
+        localStorage.setItem("donations", donations);        
         localStorage.setItem("reputation", reputation);
     }
 
     self.Initialize = function() {
-        self.LoadPlayers();
-        self.UpdateLevelInfo();
+        var val = localStorage.getItem("difficulty");
+        if (val) {
+            difficulty = parseInt(val);
+        }
 
         var val = localStorage.getItem("reputation");
         if (val) {
             reputation = parseInt(val);
         }
+
+        var val = localStorage.getItem("donations");
+        if (val) {
+            donations = parseInt(val);
+        }        
         
         var val = localStorage.getItem("prosperity");
         if (val) {
             prosperity = parseInt(val);
         }
+
+        self.LoadPlayers();
+        self.UpdateLevelInfo();
     }
 
+    self.SetDifficulty = function(val) {
+        difficulty = val;
+        localStorage.setItem("difficulty", difficulty);
+        self.UpdateLevelInfo();
+    }
+
+    self.IncreaseDonations = function(val, callback) {
+        donations = donations + val;
+        localStorage.setItem("donations", donations);
+        if (!hasDonatedEnough && donations >= 100)
+        {
+            callback();
+        }
+        return donations;
+    }
+    
     self.IncreaseProsperity = function(val) {
         prosperity = prosperity + val;
         localStorage.setItem("prosperity", prosperity);
@@ -121,7 +159,7 @@ var Gloomhaven = {};
             level = level + item['level'];
         }
         level = N == 0 ? 0 : Math.ceil(level / (N * 2));
-        $('#scenario_level').val(level);
+        $('#scenario_level').val(level + difficulty);
     }
 
 })(Gloomhaven);
