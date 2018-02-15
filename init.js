@@ -3,12 +3,24 @@ var AddPlayerToDom = function(name, level) {
     clone.toggleClass('template');
     clone.find('.player_name').text(name);
     clone.find('.level').val(level);
+    clone.find('.equip').text(Math.ceil(level/2));
     clone.appendTo($('#level_list'));
 }
 
 var UpdateScenarioLevel = function() {
     $('#scenario_level').val(Gloomhaven.data.ScenarioLevel);
 }
+
+var UpdateScenarioView = function() {
+    $('#manual_scenario_start').toggleClass('d-none', Gloomhaven.data.ScenarioIsActive == true);
+    $('#scenario_view').toggleClass('d-none', Gloomhaven.data.ScenarioIsActive != true);
+    if (Gloomhaven.data.ScenarioIsActive) {
+        var loc = Locations[Gloomhaven.data.ScenarioKey];
+        var name = loc.Name;
+        $('#scenario_view h2').text(name);
+    }    
+    SetActiveTab(Gloomhaven.data.ActiveTab);
+};
 
 var SetActiveTab = function(active) {
     if ($('#'+active).length == 0) {
@@ -53,8 +65,11 @@ $(function() {
         var $li = $(this).parent('li');
         var name = $li.find('.player_name').text();
         var level = parseInt($(this).val());
-        Gloomhaven.UpdateLevel(name, level);
-        UpdateScenarioLevel();
+        if (level > 0) {
+            $li.find('.equip').text(Math.ceil(level/2));
+            Gloomhaven.UpdateLevel(name, level);
+            UpdateScenarioLevel();
+        }
     });
 
     $('#load_file_button').click(function() {
@@ -120,8 +135,6 @@ $(function() {
     });
 
     // Initialize
-    SetActiveTab(Gloomhaven.data.ActiveTab);
-
     for (var key in Gloomhaven.data.PlayerList) {
         AddPlayerToDom(key, Gloomhaven.data.PlayerList[key].level);
     }
@@ -141,11 +154,13 @@ $(function() {
 
     UpdateScenarioLevel();
 
+    UpdateScenarioView(Gloomhaven.data.ActiveTab);
+
     var AddAvilibleLocation = function(listId, key) {
         var clone = $(listId + ' .template').clone();
         var loc = Locations[key];
         clone.toggleClass('template');
-        clone.find('.complete, .remove').data('id', key);
+        clone.data('id', key);
         clone.find('.img').css('background-image', 'url(img/map/'+key+'.jpg)');
         clone.find('.title').text(loc.Name);
         clone.appendTo($(listId));
@@ -179,7 +194,7 @@ $(function() {
     });
 
     $('#availible_locations').on('click','.complete', function() {
-        var key = $(this).data('id');
+        var key = $(this).parent('li').data('id');
         var name = Locations[key].Name;
         if (confirm('Are you sure you have completed #'+ key +' "'+ name+'"?'))
         {
@@ -188,8 +203,39 @@ $(function() {
         }
     });
 
+    $('#availible_locations').on('click','.start', function() {
+        var key = $(this).parent('li').data('id');
+        var name = Locations[key].Name;
+        if (confirm('You will now start scenario #'+ key +' "'+ name+'"')) {            
+            Gloomhaven.StartScenario(key);
+            UpdateScenarioView();
+        }
+    });
+
+    $('#complete_scenario').on('click', function(){
+        var key = Gloomhaven.data.ScenarioKey;
+        var name = Locations[key].Name;
+        if (confirm('Are you sure you have completed #'+ key +' "'+ name+'"?'))
+        {
+            Gloomhaven.CompleteLocation(key);
+            PopulateLocations();
+            UpdateScenarioView();
+        }
+    });
+    
+    $('#quit_scenario').on('click', function(){
+        var key = Gloomhaven.data.ScenarioKey;
+        var name = Locations[key].Name;
+        if (confirm('Are you sure you want to quit scenario #'+ key +' "'+ name+'"?'))
+        {
+            Gloomhaven.QuitScenario();
+            PopulateLocations();
+            UpdateScenarioView();
+        }
+    });
+
     $('#completed_locations').on('click','.remove', function() {
-        var key = $(this).data('id');
+        var key = $(this).parent('li').data('id');
         var name = Locations[key].Name;
         if (confirm('Are you sure you want to remove #'+ key +' "'+ name+'" from the completed list?'))
         {

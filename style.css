@@ -20,3 +20,15 @@ input.header {
     height: 80px;
     background-size: cover;    
 }
+
+#availible_locations, #completed_locations {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex; 
+    flex-wrap: wrap;    
+}
+
+#availible_locations li, #completed_locations li {
+    margin: 5px;
+}

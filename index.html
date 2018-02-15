@@ -10,6 +10,7 @@
 
     <script src="saveas.js"></script>
     <script src="Locations.js"></script>
+    <script src="Monsters.js"></script>
 
     <script src="gloomhaven.js"></script>
     <script src="init.js"></script>
@@ -36,7 +37,8 @@
                     <li class='template'>
                         Player <span class='player_name'>#0</span>, level <input class='level'>
                         <button class='remove'>Remove</button>
-                        Small items: ceil(Level/2)
+                        <span class='equip'>X</span>
+                        <img src='img/icons/Equip Slots-6 copy.png' width="25" />  
                     </li>
                 </ul>
             </div>
@@ -101,19 +103,33 @@
 
             <h2>Availible Locations</h2>
             <ul id='availible_locations'>
-                <li class='template'><button data-id='' class='complete'><div class='img'></div><span class='title'>Title</span></button></li>
+                <li class='template'>
+                    <button class='start'><div class='img'></div><span class='title'>Title</span></button>
+                    <div><button class='complete'>Complete</button></div>
+                </li>
             </ul>
 
             <h2>Completed Locations</h2>
             <ul id='completed_locations'>
-                <li class='template'><button data-id='' class='remove'><div class='img'></div><span class='title'>Title</span></button></li>
+                <li class='template'><button class='remove'><div class='img'></div><span class='title'>Title</span></button></li>
             </ul>
     </div>
 
 
     <div id='scenario-tab' class='tab d-none'>
             <h1>Sceneraio</h1>
+            <div id='manual_scenario_start'>
+                <input id='scenario_key'>
+                <button id='start_scenario'>Start Scenario</button>
+                <span id='scenario_name'></span>
+            </div>
 
+            <div id='scenario_view' class='d-none'>
+                <h2>Title</h2>
+                <button id='complete_scenario'>Complete scenario</button>
+
+                <button id='quit_scenario'>Quit scenario</button>
+            </div>
     </div>
 
 </div>

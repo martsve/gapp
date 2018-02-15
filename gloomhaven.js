@@ -12,6 +12,23 @@ var Gloomhaven = {};
         ActiveTab: 'general-tab',
         AvailibleLocations: {'1': true},
         CompletedLocations: {},
+
+        ScenarioIsActive: false,
+        ScenarioKey: '',        
+    };
+
+    self.StartScenario = function(key) {
+        self.data.ActiveTab = 'scenario-tab';
+        self.data.ScenarioIsActive = true;
+        self.data.ScenarioKey = key;
+        self.SaveAll();
+    };
+
+    self.QuitScenario = function() {
+        self.data.ActiveTab = 'location-tab';
+        self.data.ScenarioIsActive = false;
+        self.data.ScenarioKey = '';
+        self.SaveAll();
     };
 
     self.ResetLocation = function(key) {
@@ -40,6 +57,11 @@ var Gloomhaven = {};
             if (!self.data.CompletedLocations[next[item]])
                 self.data.AvailibleLocations[next[item]] = true;
         }
+
+        self.data.ActiveTab = 'location-tab';
+        self.data.ScenarioIsActive = false;
+        self.data.ScenarioKey = '';   
+
         self.SaveAll();
     };
 
