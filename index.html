@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <title>Gloomhaven Tracker</title>
+	<meta name="author" content="Martin Svendsen">
+	<meta name="description" content="Gloomhaven monster and level tracker">
+	<meta name="viewport" content="width=device-width">
+	<link rel="shortcut icon" href="favicon.png">
+	<link rel="stylesheet" href="style.css">
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="gloomhaven.js"></script>
+    <script src="init.js"></script>
+</head>
+<body>
+
+Name <input id='player_name'> <button id='add_player'>Add player</button>
+
+<ul id='level_list'>
+    <li class='template'>
+        Player <span class='player_name'>#0</span>, level <input class='level'>
+        <button class='remove'>Remove</button>
+    </li>
+</ul>
+
+Scenario level: <input id='scenario_level' class='level'>
+
+</body>
+</html>
+
