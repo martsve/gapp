@@ -2,8 +2,21 @@ input.level { width: 30px; }
 .template, .d-none { display: none; }
 #level_list .player_name { font-weight: bold; }
 button.selected { background: lightgreen; }
+* { font-family: gloomhaven; }
 
 input.header {
     border: 0px;
-    font: 2em bold;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: gloomhaven;
+    src: url(res/PirataOne-Regular.ttf);
+}
+
+#availible_locations li .img, #completed_locations li .img {
+    width: 150px;
+    height: 80px;
+    background-size: cover;    
 }

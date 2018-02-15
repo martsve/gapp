@@ -146,7 +146,7 @@ $(function() {
         var loc = Locations[key];
         clone.toggleClass('template');
         clone.find('.complete, .remove').data('id', key);
-        clone.find('img')[0].src = '';
+        clone.find('.img').css('background-image', 'url(img/map/'+key+'.jpg)');
         clone.find('.title').text(loc.Name);
         clone.appendTo($(listId));
     }
