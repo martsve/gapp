@@ -10,6 +10,37 @@ var Gloomhaven = {};
         Difficulty: 0,
         ScenarioLevel: 0,
         ActiveTab: 'general-tab',
+        AvailibleLocations: {'1': true},
+        CompletedLocations: {},
+    };
+
+    self.ResetLocation = function(key) {
+        var loc = self.data.CompletedLocations[key];    
+        if (loc)    
+            delete self.data.CompletedLocations[key];
+        self.SaveAll();
+    };
+
+    self.AddLocation = function(key) {
+        var loc = self.data.CompletedLocations[key];    
+        if (loc)    
+            delete self.data.CompletedLocations[key];
+        self.data.AvailibleLocations[key] = true;
+        self.SaveAll();
+    };
+
+    self.CompleteLocation = function(key) {
+        var loc = self.data.AvailibleLocations[key];        
+        if (loc)
+            delete self.data.AvailibleLocations[key];
+        
+        self.data.CompletedLocations[key] = true;
+        var next = Locations[key].Next;
+        for (var item in next) {
+            if (!self.data.CompletedLocations[next[item]])
+                self.data.AvailibleLocations[next[item]] = true;
+        }
+        self.SaveAll();
     };
 
     self.GetGoldConversion = function() {

@@ -9,6 +9,7 @@
     <script src="jquery-3.3.1.min.js"></script>
 
     <script src="saveas.js"></script>
+    <script src="Locations.js"></script>
 
     <script src="gloomhaven.js"></script>
     <script src="init.js"></script>
@@ -92,7 +93,21 @@
 
     <div id='location-tab' class='tab d-none'>
             <h1>Locations</h1>
-    
+            <div>
+                <input id='location_key'>
+                <button id='add_location'>Add location manually</button>
+                <span id='location_name'></span>
+            </div>
+
+            <h2>Availible Locations</h2>
+            <ul id='availible_locations'>
+                <li class='template'><button data-id='' class='complete'><img src=''><span class='title'>Title</span></button></li>
+            </ul>
+
+            <h2>Completed Locations</h2>
+            <ul id='completed_locations'>
+                <li class='template'><button data-id='' class='remove'><img src=''><span class='title'>Title</span></button></li>
+            </ul>
     </div>
 
 
