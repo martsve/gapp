@@ -1,165 +1,110 @@
 var Gloomhaven = {};
 (function(self) { 
 
-    var playerList = {};
-    var reputation = 0;
-    var prosperity = 0;
-    var donations = 0;
-    var difficulty = 0;
-    var hasDonatedEnough = false;
-
-    self.GetData = function() { 
-        return {
-            "playerList": playerList,
-            "reputation": reputation,
-            "prosperity": prosperity,
-            "donations": donations,
-            "difficulty": difficulty
-        };
+    self.data = {
+        Name: "Gloomhaven",
+        PlayerList: {},
+        Reputation: 0,
+        Prosperity: 0,
+        Donations: 0,
+        Difficulty: 0,
+        ActiveTab: 'general-tab',
+        HasDonatedEnough: false,
     };
 
-    self.Name = function() { return 'Gloomhaven' };
-    self.GetDifficulty = function() { return difficulty ;};
-    self.GetPlayerList = function() { return playerList ;};
-    self.GetDonations = function() { return donations ;};
-    self.ReputationLevel = function() { return reputation; };
     self.GetReputationPrice = function() { 
-        return reputation == 0 ? 0 : -1*(reputation / Math.abs(reputation) *  Math.ceil( Math.abs(reputation) / 5));
+        return self.data.Reputation == 0 ? 0 : -1*(self.data.Reputation / Math.abs(self.data.Reputation) *  Math.ceil( Math.abs(self.data.Reputation) / 5));
     };
+
     self.GetProsperityLevel = function() {
-        return Math.floor(prosperity / 5);
+        return Math.floor(self.data.Prosperity / 5);
     };
 
-    self.LoadData = function(data) { 
-        playerList = data.playerList;
-        reputation = data.reputation;
-        prosperity = data.prosperity;
-        donations = data.donations;
-        difficulty = data.difficulty;
+    self.SetName = function(val) {
+        self.data.Name = val;
+        self.SaveAll();
+    }
 
+    self.SetDifficulty = function(val) {
+        self.data.Difficulty = val;
+        self.SaveAll();
+    }
+
+    self.SetActiveTab = function(val) {
+        self.data.ActiveTab = val;
+        self.SaveAll();
+    }
+
+    self.IncreaseDonations = function(val, callback) {
+        self.data.Donations = self.data.Donations + val;
+        self.SaveAll();
+        if (!self.data.HasDonatedEnough && self.data.Donations >= 100)
+        {
+            callback();
+        }
+    }
+    
+    self.IncreaseProsperity = function(val) {
+        self.data.Prosperity = self.data.Prosperity + val;
+        self.SaveAll();
+    }
+
+    self.IncreaseReputationLevel = function(val) {
+        self.data.Reputation = self.data.Reputation + val;
+        self.SaveAll();
+    }
+
+    self.UpdateLevel = function(name, level) {
+        self.data.PlayerList[name].level = level;
+        self.SaveAll();
+    }
+
+    self.GetScenarioLevel = function() {
+        var level = 0;
+        var N = Object.keys(self.data.PlayerList).length;
+        for (var key in self.data.PlayerList) {
+            var item = self.data.PlayerList[key];
+            level = level + item['level'];
+        }
+        level = N == 0 ? 0 : Math.ceil(level / (N * 2));
+        return level + self.data.Difficulty;
+    }
+
+    // Add or remove players
+    self.AddPlayer = function(name) {
+        var level = 1;
+        self.data.PlayerList[name] = { level: level };
+        self.SaveAll();
+    }
+
+    self.RemovePlayer = function(name) {
+        delete self.data.PlayerList[name];
+        self.SaveAll();
+    }
+
+    // Load and save data
+    self.LoadData = function(data) { 
+        self.data = data;
         self.SaveAll();
         window.location.reload();
     };
 
     self.SaveAll = function() {
-        self.SavePlayerList();
-
-        localStorage.setItem("difficulty", difficulty);
-        localStorage.setItem("prosperity", prosperity);
-        localStorage.setItem("donations", donations);        
-        localStorage.setItem("reputation", reputation);
+        var item = JSON.stringify(self.data);
+        localStorage.setItem("gloomhaven.data", item);
     }
 
     self.Initialize = function() {
-        var val = localStorage.getItem("difficulty");
-        if (val) {
-            difficulty = parseInt(val);
-        }
-
-        var val = localStorage.getItem("reputation");
-        if (val) {
-            reputation = parseInt(val);
-        }
-
-        var val = localStorage.getItem("donations");
-        if (val) {
-            donations = parseInt(val);
-        }        
+        var data = localStorage.getItem("gloomhaven.data");
         
-        var val = localStorage.getItem("prosperity");
-        if (val) {
-            prosperity = parseInt(val);
+        if (data) {
+            data = JSON.parse(data);
+            for (var key in data) {
+                self.data[key] = data[key];
+            }
         }
-
-        self.LoadPlayers();
-        self.UpdateLevelInfo();
-    }
-
-    self.SetDifficulty = function(val) {
-        difficulty = val;
-        localStorage.setItem("difficulty", difficulty);
-        self.UpdateLevelInfo();
-    }
-
-    self.IncreaseDonations = function(val, callback) {
-        donations = donations + val;
-        localStorage.setItem("donations", donations);
-        if (!hasDonatedEnough && donations >= 100)
-        {
-            callback();
-        }
-        return donations;
-    }
-    
-    self.IncreaseProsperity = function(val) {
-        prosperity = prosperity + val;
-        localStorage.setItem("prosperity", prosperity);
-        return prosperity;
-    }
-
-    self.IncreaseReputationLevel = function(val) {
-        reputation = reputation + val;
-        localStorage.setItem("reputation", reputation);
-        return reputation;
-    }
-
-    self.AddPlayerToDom = function(name, level) {
-        var clone = $('#level_list .template').clone();
-        clone.toggleClass('template');
-        clone.find('.player_name').text(name);
-        clone.find('.level').val(level);
-        clone.appendTo($('#level_list'));
-    }
-
-    self.SavePlayerList = function() {
-        var item = JSON.stringify(playerList);
-        localStorage.setItem("players", item);
-    }
-
-    self.AddPlayer = function(name) {
-        var level = 1;
-        self.AddPlayerToDom(name, level);
-
-        playerList[name] = { level: level };
-        self.SavePlayerList();
-        self.UpdateLevelInfo();
-    }
-
-    self.RemovePlayer = function(name, $domObject) {
-        delete playerList[name];
-        self.SavePlayerList();
-        self.UpdateLevelInfo();
-        $domObject.remove();
-    }
-
-    self.UpdateLevel = function(name, level) {
-        playerList[name].level = level;
-        self.UpdateLevelInfo();
-        self.SavePlayerList();
-    }
-
-    self.LoadPlayers = function() {
-        var players = localStorage.getItem("players");
-
-        if (players) {
-            playerList = JSON.parse(players);
-        }
-
-        for (var key in playerList) {
-            var item = playerList[key];
-            self.AddPlayerToDom(key, item['level']);
-        }
-    }
-
-    self.UpdateLevelInfo = function() {
-        var level = 0;
-        var N = Object.keys(playerList).length;
-        for (var key in playerList) {
-            var item = playerList[key];
-            level = level + item['level'];
-        }
-        level = N == 0 ? 0 : Math.ceil(level / (N * 2));
-        $('#scenario_level').val(level + difficulty);
     }
 
 })(Gloomhaven);
+
+Gloomhaven.Initialize();

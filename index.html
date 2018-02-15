@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en-US">
 <head>
     <title>Gloomhaven Tracker</title>
@@ -16,60 +15,92 @@
 </head>
 <body>
 
-Name <input id='player_name'> <button id='add_player'>Add player</button>
+<header>
+    <ul id='tab-selection'>
+        <li><a href='javascript:;' data-tab='general-tab'>General</a></li>
+        <li><a href='javascript:;' data-tab='location-tab'>Locations</a></li>
+        <li><a href='javascript:;' data-tab='scenario-tab'>Scenario</a></li>
+    </ul>
+</header>
 
-<ul id='level_list'>
-    <li class='template'>
-        Player <span class='player_name'>#0</span>, level <input class='level'>
-        <button class='remove'>Remove</button>
-    </li>
-</ul>
+<div id='tabs'>
+     <div id='general-tab' class='tab d-none'>
+            <h1><input id='gameName' value='' class='header'></h1>
 
-<ul id='difficulty'>
-    <li><button id='easy' data-val='-1'>Easy (-1)</button></li>
-    <li><button id='normal' data-val='0'>Normal (0)</button></li>
-    <li><button id='medium' data-val='1'>Medium (+1)</button></li>
-    <li><button id='hard' data-val='2'>Hard (+2)</button></li>
-    <li><button id='legendary' data-val='3'>Legendary (+3)</button></li>
-</ul>
+            <div id='players'>
+                <div>
+                    Name <input id='player_name'> <button id='add_player'>Add player</button>
+                </div>
+                <ul id='level_list'>
+                    <li class='template'>
+                        Player <span class='player_name'>#0</span>, level <input class='level'>
+                        <button class='remove'>Remove</button>
+                        Small items: ceil(Level/2)
+                    </li>
+                </ul>
+            </div>
 
-<div id='scenario_content'>
-    Scenario level: <input id='scenario_level' class='level' disabled>
-</div>
+            <ul id='difficulty'>
+                <li><button id='easy' data-val='-1'>Easy (-1)</button></li>
+                <li><button id='normal' data-val='0'>Normal (0)</button></li>
+                <li><button id='medium' data-val='1'>Hard (+1)</button></li>
+                <li><button id='hard' data-val='2'>Very hard (+2)</button></li>
+            </ul>
 
-<div id='donations_content'>
-    <div>
-        Total donations: <input id='donations' class='number'>
-        <button class='up'>+</button>
-        <button class='down'>-</button>
+            <div id='scenario_content'>
+                Scenario level: <input id='scenario_level' class='level' disabled>
+            </div>
+
+            <div id='donations_content'>
+                <div>
+                    Total donations: <input id='donations' class='number'>
+                    <button class='up'>+</button>
+                    <button class='down'>-</button>
+                </div>
+            </div>
+
+            <div id='properity_content'>
+                <div>
+                    Gloomhaven Prosperity: <input id='prosperity_number' class='level'>
+                    <button class='up'>+</button>
+                    <button class='down'>-</button>
+                </div>
+                <div>Gloomhaven Prosperity level: <input id='prosperity_level' class='level' disabled></div>
+            </div>
+
+            <div id='reputation_content'>
+                <div>
+                    Party Reputation: <input id='reputation_level' class='level'>
+                    <button class='up'>+</button>
+                    <button class='down'>-</button>
+                </div>
+                <div>Item price modifier: <input id='reputation_price' class='level' disabled></div>    
+            </div>
+
+            <div id='settings'>
+                <button id='save_file_button'>Save data</button>
+
+                <input type='file' id='load_file' class='d-none'>
+                <button id='load_file_button'>Load file</button>
+
+                <button id='clear'>Clear all settings</button>
+            </div>
+
+
     </div>
-</div>
 
-<div id='properity_content'>
-    <div>
-        Gloomhaven Prosperity: <input id='prosperity_number' class='level'>
-        <button class='up'>+</button>
-        <button class='down'>-</button>
+
+    <div id='location-tab' class='tab d-none'>
+            <h1>Locations</h1>
+    
     </div>
-    <div>Gloomhaven Prosperity level: <input id='prosperity_level' class='level' disabled></div>
-</div>
 
-<div id='reputation_content'>
-    <div>
-        Party Reputation: <input id='reputation_level' class='level'>
-        <button class='up'>+</button>
-        <button class='down'>-</button>
+
+    <div id='scenario-tab' class='tab d-none'>
+            <h1>Sceneraio</h1>
+
     </div>
-    <div>Item price modifier: <input id='reputation_price' class='level' disabled></div>    
-</div>
 
-<div id='settings'>
-    <button id='save_file_button'>Save data</button>
-
-    <input type='file' id='load_file' class='d-none'>
-    <button id='load_file_button'>Load file</button>
-
-    <button id='clear'>Clear all settings</button>
 </div>
 
 </body>
