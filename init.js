@@ -7,8 +7,8 @@ var AddPlayerToDom = function(name, level) {
 }
 
 var UpdateScenarioLevel = function() {
-    $('#scenario_level').val(Gloomhaven.GetScenarioLevel());
-} 
+    $('#scenario_level').val(Gloomhaven.data.ScenarioLevel);
+}
 
 var SetActiveTab = function(active) {
     if ($('#'+active).length == 0) {
@@ -62,13 +62,13 @@ $(function() {
     });
 
     $('#reputation_content').on('click', '.up', function() {
-        Gloomhaven.IncreaseReputationLevel(1);
+        Gloomhaven.IncreaseReputationLevel(1, function(msg) { alert(msg); });
         $('#reputation_level').val(Gloomhaven.data.Reputation);
         $('#reputation_price').val(Gloomhaven.GetReputationPrice());
     });
     
     $('#reputation_content').on('click', '.down', function() {
-        Gloomhaven.IncreaseReputationLevel(-1)
+        Gloomhaven.IncreaseReputationLevel(-1, function(msg) { alert(msg); });
         $('#reputation_level').val(Gloomhaven.data.Reputation);
         $('#reputation_price').val(Gloomhaven.GetReputationPrice());
     });
@@ -87,7 +87,7 @@ $(function() {
 
     $('#donations_content').on('click', '.up', function() {
         Gloomhaven.IncreaseDonations(10, function(){
-            alert('Open letter B!');
+            alert('Donated 100g total! Open letter B!');
         })
         $('#donations').val(Gloomhaven.data.Donations);
     });
