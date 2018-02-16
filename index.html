@@ -118,6 +118,7 @@
 
     <div id='scenario-tab' class='tab d-none'>
             <h1>Sceneraio</h1>
+
             <div id='manual_scenario_start'>
                 <input id='scenario_key'>
                 <button id='start_scenario'>Start Scenario</button>
@@ -126,10 +127,68 @@
 
             <div id='scenario_view' class='d-none'>
                 <h2>Title</h2>
-                <button id='complete_scenario'>Complete scenario</button>
-
-                <button id='quit_scenario'>Quit scenario</button>
+                <div id='control_scenario_buttons'>
+                    <button id='complete_scenario'>Complete scenario</button>
+                    <button id='quit_scenario'>Quit scenario</button>
+                </div>
             </div>
+
+            <div class='scenario_monsters'>
+                <div class='monster template'>
+                    <div class='image'></div>
+
+                    <span class='name'>Monster Name</span>
+                    <span class='level'>0</span>
+
+                    <span class='hp'>10</span>
+                    <span class='move'>2</span>
+                    <span class='attack'>2</span>
+                    <span class='range'>-</span>                    
+
+                    <span class='shield'></span>                    
+                    <span class='retaliate'></span>                    
+                    
+                    <span class='additional'></span>
+                </div>
+            </div>
+
+            <div class='scenario_decks'>
+                <div class='deck template'>                    
+                    <span class='initative'>50</span>
+                    <span class='name'>Monster Name</span>
+
+                    <span class='hp'>10</span>
+                    <span class='move'>2</span>
+                    <span class='attack'>2</span>
+                    <span class='range'>-</span>                    
+
+                    <span class='shield'></span>                    
+                    <span class='retaliate'></span>                    
+                    
+                    <span class='additional'></span>
+                </div>
+            </div>
+
+            <div class='monster_modifiers'>
+                <div class='modifiers template'>                    
+                    <div class='image'></div>
+                </div>
+            </div>
+
+            <div class='mmonster_total'>
+                <div class='total template'>             
+                    <div class='image'></div>       
+
+                    <span class='number'>3</span>
+
+                    <span class='move'>2</span>
+                    <span class='attack'>2</span>
+                    <span class='range'>-</span>                    
+                    
+                    <span class='additional'></span>
+                </div>
+            </div>
+
     </div>
 
 </div>
