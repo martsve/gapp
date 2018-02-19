@@ -139,3 +139,24 @@ input.header {
 #active_monster_list span {
     display: block;
 }
+
+#modifier_deck_draws > div {
+    background: url(img/modifier_blank.jpg) no-repeat 10px 10px;
+    display: inline-block;
+    width: 240px;
+    height: 170px;
+    background-size: 220px;
+    text-align: center;
+}
+
+#modifier_deck_draws div.card {
+    text-align: center;
+}
+#modifier_deck_draws img {
+    width: 190px;
+    padding-top: 20px;
+}
+
+#modifier_deck_draws div.selected {
+    background-color: green;
+}

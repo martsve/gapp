@@ -14,6 +14,9 @@ var Gloomhaven = {};
         CompletedLocations: {},
         ActiveMonsters: [],
         ActiveRound: 0,
+        ModifierDeck: [],
+        ModifierDeckDiscard: [],
+        ShuffleAtEndOfRund: false,
 
         ScenarioIsActive: false,
         ScenarioKey: '',        
@@ -31,6 +34,9 @@ var Gloomhaven = {};
             return self.GetTrapDamage();
         if (key == 'BonusExperience')
             return self.GetBonusExperience();
+
+        if (key == 'ModifierDeckLength')
+            return self.data.ModifierDeck.length;
 
         return self.data[key];
     }
@@ -77,7 +83,18 @@ var Gloomhaven = {};
         self.data.showTileList = true;
         self.data.ActiveMonsters = [];
         self.data.ActiveRound = 0;
+        MakeNewModifierDeck();
         self.SaveAll();
+    };
+
+    self.StartRound = function() {
+        self.data.ShuffleAtEndOfRund = false;
+    };
+
+    self.EndRound = function() {
+        if (self.data.ShuffleAtEndOfRund) {
+            self.ShuffleModifierDeck();
+        }
     };
 
     self.QuitScenario = function() {
@@ -266,6 +283,80 @@ var Gloomhaven = {};
         }
     };
 
+
+
+    /* Modifier deck */
+    var shuffle = function(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    };
+
+    self.AddCurse = function() {
+        self.data.ModifierDeck.push(ModifierDeck_Curse);
+        self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
+    };
+
+    self.AddBless = function() {
+        self.data.ModifierDeck.push(ModifierDeck_Bless);
+        self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
+    };
+        
+    var MakeNewModifierDeck = function() {
+        self.data.ModifierDeckDiscard = [];
+        self.data.ModifierDeck = ModifierDeck_cards;
+        self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
+    };
+
+    self.DrawFromModifierDeck = function(advantage, disadvantage) {
+        var result = {};
+        result.Card1 = GetModifierDeckCard();
+        result.Selected = 0;
+        result.Advantage = (advantage != disadvantage) && advantage;
+        result.Disadvantage = (advantage != disadvantage) && disadvantage;
+        if (result.Advantage || result.Disadvantage) {
+            result.Card2 = GetModifierDeckCard();
+            if (advantage && result.Card2.Value > result.Card1.Value)
+                result.Selected = 1;
+            else if (disadvantage && result.Card2.Value < result.Card1.Value)
+                result.Selected = 1;
+        }
+        return result;
+    };
+
+    self.ShuffleModifierDeck = function() {
+        for (var i in self.data.ModifierDeckDiscard) {
+            self.data.ModifierDeck.push(self.data.ModifierDeckDiscard[i]);
+        }
+        self.data.ModifierDeckDiscard = [];
+        self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
+        console.log('shuffle');
+    };
+
+    var GetModifierDeckCard = function() {
+        if (self.data.ModifierDeck.length == 0) {
+            self.ShuffleModifierDeck();
+        }
+
+        var card = self.data.ModifierDeck.pop();
+
+        if (!card.Discard) {
+            self.data.ModifierDeckDiscard.push(card);
+        }
+
+        if (card.Shuffle) {
+            self.data.ShuffleAtEndOfRund = true;
+        }
+
+        return card;
+    };
+    
 })(Gloomhaven);
 
 Gloomhaven.Initialize();

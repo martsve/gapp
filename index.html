@@ -10,6 +10,7 @@
 
     <script src="Data/Locations.js"></script>
     <script src="Data/Monsters.js"></script>
+    <script src="Data/ModifierDeck.js"></script>
 
     <script src="Data/Gloomhaven.js"></script>
     <script src="Data/SaveState.js"></script>
@@ -150,8 +151,9 @@
 
                 <div class='statblock'>
                     <div>Round</div>
-                    <div><input class='level' disabled data-bind='ActiveRound'></div>
+                    <div><input id='round_counter' class='level' disabled data-bind='ActiveRound'></div>
                     <div><button id='start_new_round' data-val='1' data-change='ActiveRound'>Start next round</button></div>
+                    <div><button id='end_round'>End round</button></div>
                 </div>
 
                 <div class='statblock'>
@@ -167,6 +169,22 @@
                 <div class='statblock'>
                     <div>Bonus Experience:</div>
                     <div><input class='level' disabled data-bind='BonusExperience' data-parent='ScenarioLevel'></div>
+                </div>
+
+                <div class='flex'>
+                    <div><button id='modifier_draw'>Draw modifier card</button></div>
+                    <div><button id='modifier_draw_adv'>Draw modifier card (adv)</button></div>
+                    <div><button id='modifier_draw_dis'>Draw modifier card (dis)</button></div>
+                    <div><button id='modifier_shuffle'>Shuffle modifier deck</button></div>
+                    <div><button id='modifier_bless'>Add Bless card</button></div>
+                    <div><button id='modifier_curse'>Add Curse card</button></div>
+                    <div>Decksize: <span id='modifier_size' data-bind='ModifierDeckLength'></span></div>
+                </div>
+
+                <div id='modifier_deck_draws'>
+                    <div class='template'>
+                        <div class='card'><img src /></div>
+                    </div>
                 </div>
 
                 <div id='tiles_box'>

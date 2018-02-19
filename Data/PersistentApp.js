@@ -1,4 +1,15 @@
 /* Persistent App Binding */
+var Persistent = {};
+(function(self) { 
+
+    self.Trigger = function(key) {
+        $('[data-key="'+key+'"]').trigger('update'); 
+        $('[data-parent="'+key+'"]').trigger('update'); 
+        $('[data-bind="'+key+'"]').trigger('update'); 
+    };
+
+})(Persistent);
+
 $(function() {
 
     /* Persitent App Functions */
@@ -98,6 +109,11 @@ $(function() {
             Gloomhaven.Set(key, state);
         }
         $(item).toggleClass('d-none', !state);
+
+        $this.on('update', function() {
+            var state = Gloomhaven.Get(key);
+            $(item).toggleClass('d-none', !state);
+        });
     });
 
 });
