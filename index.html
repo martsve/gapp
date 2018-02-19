@@ -13,7 +13,12 @@
     <script src="Monsters.js"></script>
 
     <script src="gloomhaven.js"></script>
-    <script src="init.js"></script>
+
+    <script src="PersistentApp.js"></script>
+    <script src="tabs.js"></script>
+    <script src="general-tab.js"></script>
+    <script src="scenario-tab.js"></script>
+    <script src="location-tab.js"></script>
 </head>
 <body>
 
@@ -27,57 +32,57 @@
 
 <div id='tabs'>
      <div id='general-tab' class='tab d-none'>
-            <h1><input id='gameName' value='' class='header'></h1>
+            <h1><input id='gameName' value='' class='header' data-bind="Name"></h1>
 
             <div id='players'>
                 <div>
-                    Name <input id='player_name'> <button id='add_player'>Add player</button>
+                    Name <input id='player_name'> <button id='add_player' data-trigger='AddPlayer'>Add player</button>
                 </div>
-                <ul id='level_list'>
+                <ul id='level_list' data-onload='AddPlayerList'>
                     <li class='template'>
                         Player <span class='player_name'>#0</span>, level <input class='level'>
-                        <button class='remove'>Remove</button>
+                        <button class='remove' data-trigger='RemovePlayer'>Remove</button>
                         <span class='equip'>X</span>
                         <img src='img/icons/Equip Slots-6 copy.png' width="25" />  
                     </li>
                 </ul>
             </div>
 
-            <ul id='difficulty'>
-                <li><button id='easy' data-val='-1'>Easy (-1)</button></li>
-                <li><button id='normal' data-val='0'>Normal (0)</button></li>
-                <li><button id='medium' data-val='1'>Hard (+1)</button></li>
-                <li><button id='hard' data-val='2'>Very hard (+2)</button></li>
+            <ul id='difficulty' data-bind='Difficulty' data-type='int'>
+                <li data-val='-1'><button class='select' id='easy'>Easy (-1)</button></li>
+                <li data-val='0'><button class='select' id='normal'>Normal (0)</button></li>
+                <li data-val='1'><button class='select' id='medium'>Hard (+1)</button></li>
+                <li data-val='2'><button class='select' id='hard'>Very hard (+2)</button></li>
             </ul>
 
             <div id='scenario_content'>
-                Scenario level: <input id='scenario_level' class='level' disabled>
+                Scenario level: <input id='scenario_level' class='level' disabled data-bind='ScenarioLevel' data-parent='Difficulty'>
             </div>
 
             <div id='donations_content'>
                 <div>
-                    Total donations: <input id='donations' class='number'>
-                    <button class='up'>+</button>
-                    <button class='down'>-</button>
+                    Total donations: <input id='donations' class='number' data-bind='Donations' data-type='int'>
+                    <button class='up' data-val='10' data-change='Donations'>+</button>
+                    <button class='down' data-val='-10' data-change='Donations'>-</button>
                 </div>
             </div>
 
             <div id='properity_content'>
                 <div>
-                    Gloomhaven Prosperity: <input id='prosperity_number' class='level'>
-                    <button class='up'>+</button>
-                    <button class='down'>-</button>
+                    Gloomhaven Prosperity: <input id='prosperity_number' class='level' data-bind='Prosperity' data-type='int'>
+                    <button class='up' data-val='1' data-change='Prosperity'>+</button>
+                    <button class='down' data-val='-1' data-change='Prosperity'>-</button>
                 </div>
-                <div>Gloomhaven Prosperity level: <input id='prosperity_level' class='level' disabled></div>
+                <div>Gloomhaven Prosperity level: <input id='prosperity_level' class='level' disabled data-bind='ProsperityLevel' data-parent='Prosperity'></div>
             </div>
 
             <div id='reputation_content'>
                 <div>
-                    Party Reputation: <input id='reputation_level' class='level'>
-                    <button class='up'>+</button>
-                    <button class='down'>-</button>
+                    Party Reputation: <input id='reputation_level' class='level' data-bind='Reputation' data-type='int'>
+                    <button class='up' data-val='1' data-change='Reputation'>+</button>
+                    <button class='down' data-val='-1' data-change='Reputation'>-</button>
                 </div>
-                <div>Item price modifier: <input id='reputation_price' class='level' disabled></div>    
+                <div>Item price modifier: <input id='reputation_price' class='level' disabled data-bind='ReputationPrice' data-parent='Reputation'></div>    
             </div>
 
             <div id='settings'>

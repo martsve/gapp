@@ -17,6 +17,37 @@ var Gloomhaven = {};
         ScenarioKey: '',        
     };
 
+    self.Get = function(key) {
+        if (key == 'ProsperityLevel')
+            return self.GetProsperityLevel();
+
+        if (key == 'ReputationPrice')
+            return self.GetReputationPrice();
+
+        return self.data[key];
+    }
+
+    self.Set = function(key, val) {
+        self.data[key] = val;
+
+        if (key == 'Difficulty')
+            self.SetScenarioLevel();
+
+        if (key == 'Reputation')
+        {
+            if (self.data.Reputation < -20) self.data.Reputation = -20
+            if (self.data.Reputation > 20) self.data.Reputation = 20   
+        }
+
+        self.SaveAll();
+        return self.data[key];
+    }
+
+    self.Add = function(key, num) {
+        var val = self.Get(key);
+        self.Set(key, parseFloat(val) + parseFloat(num));
+    }
+
     self.StartScenario = function(key) {
         self.data.ActiveTab = 'scenario-tab';
         self.data.ScenarioIsActive = true;
@@ -116,58 +147,44 @@ var Gloomhaven = {};
         self.SaveAll();
     };
 
-    self.SetDifficulty = function(val) {
-        self.data.Difficulty = val;
-        self.SetScenarioLevel();
-        self.SaveAll();
-    };
-
     self.SetActiveTab = function(val) {
         self.data.ActiveTab = val;
         self.SaveAll();
     };
 
-    self.IncreaseDonations = function(val, callback) {
-        self.data.Donations = self.data.Donations + val;
+    self.CheckDonations = function(callback) {
         if (!self.data.HasDonatedEnough && self.data.Donations >= 100)
         {
             self.data.HasDonatedEnough = true;
+            self.SaveAll();
             callback();
         }
-        self.SaveAll();
-    };
-    
-    self.IncreaseProsperity = function(val) {
-        self.data.Prosperity = self.data.Prosperity + val;
-        self.SaveAll();
     };
 
-    self.IncreaseReputationLevel = function(val, callback) {
-        self.data.Reputation = self.data.Reputation + val;
-        if (self.data.Reputation < -20) self.data.Reputation = -20
-        if (self.data.Reputation > 20) self.data.Reputation = 20
-
+    self.CheckReputationLevel = function(callback) {
         if (self.data.Reputation >= 10 && !self.data.HasRepPlus10) {
             callback('Party Reputation pluss 10! Open box Sun');
             self.data.HasRepPlus10 = true;
+            self.SaveAll();
         }
 
         if (self.data.Reputation >= 20 && !self.data.HasRepPlus20) {
             callback('Party Reputation pluss 20! Add City Event 76 and Road Event 67 to the decks.');
             self.data.HasRepPlus20 = true;
+            self.SaveAll();
         }
 
         if (self.data.Reputation <= -10 && !self.data.HasRepNeg10) {
             callback('Party Reputation negative 10! Open box Moons');
             self.data.HasRepNeg10 = true;
+            self.SaveAll();
         }
 
         if (self.data.Reputation <= -20 && !self.data.HasRepNeg20) {
             callback('Party Reputation negative 20! Add City Event 77 and Road Event 68 to the decks.');
             self.data.HasRepNeg20 = true;
+            self.SaveAll();
         }
-
-        self.SaveAll();
     };
 
     self.UpdateLevel = function(name, level) {

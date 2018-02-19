@@ -1,7 +1,7 @@
 input.level { width: 30px; }
 .template, .d-none { display: none; }
 #level_list .player_name { font-weight: bold; }
-button.selected { background: lightgreen; }
+li.selected button { background: lightgreen; }
 * { font-family: gloomhaven; }
 
 input.header {
