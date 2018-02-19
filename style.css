@@ -26,6 +26,20 @@ input.header {
     flex: 1 100%;
 }
 
+button.icon {
+    width: 48px;
+    height: 48px;
+    border: 0px;
+    text-indent: 1000px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+button.icon.up { background: url(img/icons/pluss.png); background-size: 48px; }
+button.icon.down { background: url(img/icons/minus.png); background-size: 48px; }
+button.icon.add { background: url(img/icons/pluss.png); background-size: 48px; }
+button.icon.remove { background: url(img/icons/no.png); background-size: 48px; }
+
 .statblock {
     display: flex;
     margin: 0px;
@@ -159,4 +173,16 @@ input.header {
 
 #modifier_deck_draws div.selected {
     background-color: green;
+}
+
+#decksize span {
+    background: url(img/modifier_back.jpg) no-repeat;
+    display: inline-block;
+    width: 70px;
+    height: 40px;
+    background-size: 70px;
+    text-align: center;   
+    color: white;
+    text-shadow: 2px 2px 5px black;    
+    font-size: 30px;
 }

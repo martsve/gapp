@@ -42,10 +42,10 @@
                 <ul id='level_list'>
                     <li class='template'>
                         Player <span class='player_name'>#0</span>, level <input class='level'>
-                        <button class='up'>+</button>
-                        <button class='down'>-</button>
+                        <button class='icon up'>+</button>
+                        <button class='icon down'>-</button>
 
-                        <button class='remove'>Remove</button>
+                        <button class='icon remove'>Remove</button>
                         <span class='equip'>X</span>
                         <img src='img/icons/Equip Slots-6 copy.png' width="25" />  
                     </li>
@@ -67,15 +67,15 @@
             <div id='donations_content' class='statblock'>
                 <div>Total donations:</div>
                 <div><input id='donations' class='number' data-bind='Donations' data-type='int'></div>
-                <div><button class='up' data-val='10' data-change='Donations'>+</button></div>
-                <div><button class='down' data-val='-10' data-change='Donations'>-</button></div>
+                <div><button class='icon up' data-val='10' data-change='Donations'>+</button></div>
+                <div><button class='icon down' data-val='-10' data-change='Donations'>-</button></div>
             </div>
 
             <div id='properity_content' class='statblock'>
                 <div>Gloomhaven Prosperity:</div>
                 <div><input id='prosperity_number' class='level' data-bind='Prosperity' data-type='int'></div>
-                <div><button class='up' data-val='1' data-change='Prosperity'>+</button></div>
-                <div><button class='down' data-val='-1' data-change='Prosperity'>-</button></div>
+                <div><button class='icon up' data-val='1' data-change='Prosperity'>+</button></div>
+                <div><button class='icon down' data-val='-1' data-change='Prosperity'>-</button></div>
             </div>
 
             <div id='properity_level_box' class='statblock'>
@@ -86,8 +86,8 @@
             <div id='reputation_content' class='statblock'>
                 <div>Party Reputation:</div>
                 <div><input id='reputation_level' class='level' data-bind='Reputation' data-type='int'></div>
-                <div><button class='up' data-val='1' data-change='Reputation'>+</button></div>
-                <div><button class='down' data-val='-1' data-change='Reputation'>-</button></div>
+                <div><button class='icon up' data-val='1' data-change='Reputation'>+</button></div>
+                <div><button class='icon down' data-val='-1' data-change='Reputation'>-</button></div>
             </div>
 
             
@@ -178,7 +178,7 @@
                     <div><button id='modifier_shuffle'>Shuffle modifier deck</button></div>
                     <div><button id='modifier_bless'>Add Bless card</button></div>
                     <div><button id='modifier_curse'>Add Curse card</button></div>
-                    <div>Decksize: <span id='modifier_size' data-bind='ModifierDeckLength'></span></div>
+                    <div id='decksize'><span id='modifier_size' data-bind='ModifierDeckLength'></span></div>
                 </div>
 
                 <div id='modifier_deck_draws'>
@@ -198,12 +198,12 @@
                 </div>
                 
                 <div id='monster_box'>
-                    <h2>Monsters</h2>
+                    <h2><a href='javascript:;' data-toggle='#monster_list' data-key='showMonsterList'>Monsters</a></h2>
                     <ul id='monster_list' class='flex'>
                         <li class='template' data-id=''>
                             <img src  />
                             <span class='name'></span>
-                            <button class='add'>Add</button>
+                            <button class='icon add'>Add</button>
                         </li>
                     </ul>
                 </div>
@@ -214,7 +214,7 @@
                         <li class='template' data-id=''>
                             <img src  />
                             <span class='name'></span>
-                            <button class='remove'>Remove</button>
+                            <button class='icon remove'>Remove</button>
                         </li>
                     </ul>
                 </div>

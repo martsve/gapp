@@ -81,8 +81,14 @@ var Gloomhaven = {};
         self.data.ScenarioIsActive = true;
         self.data.ScenarioKey = key;
         self.data.showTileList = true;
+        self.data.showMonsterList = true;
         self.data.ActiveMonsters = [];
         self.data.ActiveRound = 0;
+
+        Persistent.Trigger('ActiveRound');
+        Persistent.Trigger('showTileList');
+        Persistent.Trigger('showMonsterList');
+
         MakeNewModifierDeck();
         self.SaveAll();
     };
@@ -301,11 +307,13 @@ var Gloomhaven = {};
     self.AddCurse = function() {
         self.data.ModifierDeck.push(ModifierDeck_Curse);
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
+        Persistent.Trigger('ModifierDeckLength');
     };
 
     self.AddBless = function() {
         self.data.ModifierDeck.push(ModifierDeck_Bless);
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
+        Persistent.Trigger('ModifierDeckLength');
     };
         
     var MakeNewModifierDeck = function() {
@@ -327,6 +335,7 @@ var Gloomhaven = {};
             else if (disadvantage && result.Card2.Value < result.Card1.Value)
                 result.Selected = 1;
         }
+        Persistent.Trigger('ModifierDeckLength');
         return result;
     };
 
@@ -336,7 +345,7 @@ var Gloomhaven = {};
         }
         self.data.ModifierDeckDiscard = [];
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
-        console.log('shuffle');
+        Persistent.Trigger('ModifierDeckLength');
     };
 
     var GetModifierDeckCard = function() {

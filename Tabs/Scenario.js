@@ -27,11 +27,7 @@ var UpdateScenarioView = function() {
             clone.find('span').text(loc.Monsters[key]);
             clone.data('id', name);
             clone.appendTo($list);
-        }
-
-        $('#round_counter').trigger('update');
-
-        Persistent.Trigger('showTileList');
+        }      
 
         PopulateActiveMonsterList();
     }   
@@ -139,8 +135,7 @@ $(function() {
             clone.toggleClass('selected', result.Selected == 1);
             clone.find('img')[0].src = result.Card2.Image;
             clone.appendTo($box);    
-        }
-        $('#modifier_size').trigger('update');            
+        }   
     };
 
     $('#modifier_draw').on('click', function() {
@@ -160,12 +155,10 @@ $(function() {
 
     $('#modifier_bless').on('click', function() {
         Gloomhaven.AddBless();
-        $('#modifier_size').trigger('update');            
     });
 
     $('#modifier_curse').on('click', function() {
         Gloomhaven.AddCurse();
-        $('#modifier_size').trigger('update');            
     });
 
     // Initialize
