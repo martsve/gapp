@@ -14,7 +14,7 @@
     <script src="Data/Gloomhaven.js"></script>
     <script src="Data/SaveState.js"></script>
     <script src="Data/PersistentApp.js"></script>
-    
+
     <script src="tabs.js"></script>
     <script src="Tabs/General.js"></script>
     <script src="Tabs/Scenario.js"></script>
@@ -139,10 +139,58 @@
 
             <div id='scenario_view' class='d-none'>
                 <h1>Title</h1>
+
                 <div id='control_scenario_buttons'>
                     <button id='complete_scenario'>Complete scenario</button>
                     <button id='quit_scenario'>Quit scenario</button>
                 </div>
+
+                <div class='statblock'>
+                    <div>Gold Conversion</div>
+                    <div><input class='level' disabled data-bind='GoldConversion' data-parent='ScenarioLevel'></div>
+                </div>
+
+                <div class='statblock'>
+                    <div>Trap Damage</div>
+                    <div><input class='level' disabled data-bind='TrapDamage' data-parent='ScenarioLevel'></div>
+                </div>
+
+                <div class='statblock'>
+                    <div>Bonus Experience:</div>
+                    <div><input class='level' disabled data-bind='BonusExperience' data-parent='ScenarioLevel'></div>
+                </div>
+
+                <div id='tiles_box'>
+                    <h2><a href='javascript:;' data-toggle='#tile_list' data-key='showTileList'>Tiles</a></h2>
+                    <ul id='tile_list' class='flex'>
+                        <li class='template'>
+                            <img src  />
+                            <span class='tilename'></span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div id='monster_box'>
+                    <h2>Monsters</h2>
+                    <ul id='monster_list' class='flex'>
+                        <li class='template' data-id=''>
+                            <img src  />
+                            <span class='name'></span>
+                            <button class='add'>Add</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id='active_monsters'>
+                    <h2>Active Monsters</h2>
+                    <ul id='active_monster_list' class='flex'>
+                        <li class='template' data-id=''>
+                            <img src  />
+                            <span class='name'></span>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
 

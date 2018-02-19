@@ -5,9 +5,49 @@ var UpdateScenarioView = function() {
         var loc = Locations[Gloomhaven.data.ScenarioKey];
         var name = loc.Name;
         $('#scenario_view h1').text(name);
-    }    
+    
+        var $list = $('#tile_list');
+        for (var key in loc.Maps) {
+            var clone = $list.find('.template').clone();
+            clone.toggleClass('template', false);
+            clone.find('img')[0].src = 'img/Tiles/'+loc.Maps[key]+'.png';
+            clone.find('span').text(loc.Maps[key]);
+            clone.appendTo($list);
+        }
+
+        var $list = $('#monster_list');
+        for (var key in loc.Monsters)
+        {
+            var name = loc.Monsters[key].toLowerCase().replace(' ', '');
+            var clone = $list.find('.template').clone();
+            clone.toggleClass('template', false);
+            clone.find('img')[0].src = 'img/Monsters/'+name+'.png';
+            clone.find('span').text(loc.Monsters[key]);
+            clone.data('id', name);
+            clone.appendTo($list);
+        }
+
+        PopulateActiveMonsterList();
+    }   
+
     SetActiveTab(Gloomhaven.data.ActiveTab);
 };
+
+var PopulateActiveMonsterList = function() {
+    var $list = $('#active_monster_list');
+    $list.find('li:not(.template)').remove();
+    for (var key in Gloomhaven.data.ActiveMonsters)
+    {
+        var name = Gloomhaven.data.ActiveMonsters[key].Name;
+        var key = Gloomhaven.data.ActiveMonsters[key].Id;
+        var clone = $list.find('.template').clone();
+        clone.toggleClass('template', false);
+        clone.find('img')[0].src = 'img/Monsters/'+key+'.png';
+        clone.find('span').text(name);
+        clone.data('id', key);
+        clone.appendTo($list);
+    }
+}
 
 $(function() {
 
@@ -49,6 +89,12 @@ $(function() {
             text: key+". "+ Locations[key].Name
         }));
     }
+
+    $('#monster_list').on('click', 'li .add', function() {
+        var type = $(this).closest('li').data('id');
+        Gloomhaven.AddActiveMonster(type);
+        PopulateActiveMonsterList();
+    });    
 
     // Initialize
     UpdateScenarioView(Gloomhaven.data.ActiveTab);

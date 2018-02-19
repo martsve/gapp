@@ -12,6 +12,7 @@ var Gloomhaven = {};
         ActiveTab: 'general-tab',
         AvailibleLocations: {'1': true},
         CompletedLocations: {},
+        ActiveMonsters: [],
 
         ScenarioIsActive: false,
         ScenarioKey: '',        
@@ -20,9 +21,15 @@ var Gloomhaven = {};
     self.Get = function(key) {
         if (key == 'ProsperityLevel')
             return self.GetProsperityLevel();
-
         if (key == 'ReputationPrice')
             return self.GetReputationPrice();
+
+        if (key == 'GoldConversion')
+            return self.GetGoldConversion();
+        if (key == 'TrapDamage')
+            return self.GetTrapDamage();
+        if (key == 'BonusExperience')
+            return self.GetBonusExperience();
 
         return self.data[key];
     }
@@ -48,10 +55,21 @@ var Gloomhaven = {};
         self.Set(key, parseFloat(val) + parseFloat(num));
     }
 
+    self.AddActiveMonster = function(name) {
+        var N = self.data.ActiveMonsters.length;
+        self.data.ActiveMonsters.push({
+            Name: "#" + N + " " + name,
+            Id: name
+        });
+        self.SaveAll();
+    }
+
     self.StartScenario = function(key) {
         self.data.ActiveTab = 'scenario-tab';
         self.data.ScenarioIsActive = true;
         self.data.ScenarioKey = key;
+        self.data.showTileList = true;
+        self.data.ActiveMonsters = [];
         self.SaveAll();
     };
 

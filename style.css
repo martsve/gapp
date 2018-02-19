@@ -1,5 +1,5 @@
 input.level { width: 30px; }
-.template, .d-none { display: none; }
+.template, .d-none { display: none !important; }
 #level_list .player_name { font-weight: bold; }
 
 * { font-family: gloomhaven; }
@@ -101,3 +101,41 @@ input.header {
 }
 
 
+#tile_list li {
+    text-align: center;
+}
+#tile_list img {
+    width: 100px;
+}
+#tile_list span {
+    font-size: 300%;
+    display: block;
+}
+
+#monster_list li {
+    text-align: center;
+}
+#monster_list img {
+    width: 100px;
+}
+#monster_list span {
+    display: block;
+}
+
+
+
+#active_monster_list  {
+    flex-wrap: wrap;
+}
+#active_monster_list.flex li {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 100px;
+    text-align: center;
+}
+#active_monster_list img {
+    width: 50px;
+}
+#active_monster_list span {
+    display: block;
+}

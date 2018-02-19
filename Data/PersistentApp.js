@@ -78,4 +78,24 @@ $(function() {
         window[func]();
     });
 
+    $('[data-toggle]').on('click', function() {
+        var $this = $(this);
+        var item = $this.data('toggle');
+        var key = $this.data('key');
+        $(item).toggleClass('d-none');
+        Gloomhaven.Set(key, !$(item).is('.d-none'));
+    });
+
+    $('[data-toggle]').each(function() {
+        var $this = $(this);
+        var item = $this.data('toggle');
+        var key = $this.data('key');
+        var state = Gloomhaven.Get(key);
+        if (state == undefined) {
+            state = true;
+            Gloomhaven.Set(key, state);
+        }
+        $(item).toggleClass('d-none', !state);
+    });
+
 });
