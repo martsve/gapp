@@ -36,15 +36,17 @@ var UpdateScenarioView = function() {
 var PopulateActiveMonsterList = function() {
     var $list = $('#active_monster_list');
     $list.find('li:not(.template)').remove();
-    for (var key in Gloomhaven.data.ActiveMonsters)
+    for (var item in Gloomhaven.data.ActiveMonsters)
     {
-        var name = Gloomhaven.data.ActiveMonsters[key].Name;
-        var key = Gloomhaven.data.ActiveMonsters[key].Id;
+        if (Gloomhaven.data.ActiveMonsters[item] == null) continue;
+
+        var name = Gloomhaven.data.ActiveMonsters[item].Name;
+        var key = Gloomhaven.data.ActiveMonsters[item].Id;
         var clone = $list.find('.template').clone();
         clone.toggleClass('template', false);
         clone.find('img')[0].src = 'img/Monsters/'+key+'.png';
         clone.find('span').text(name);
-        clone.data('id', key);
+        clone.data('id', item);
         clone.appendTo($list);
     }
 }
@@ -95,6 +97,16 @@ $(function() {
         Gloomhaven.AddActiveMonster(type);
         PopulateActiveMonsterList();
     });    
+
+    $('#active_monster_list').on('click', 'li .remove', function() {
+        var key = $(this).closest('li').data('id');
+        Gloomhaven.RemoveActiveMonster(key);
+        PopulateActiveMonsterList();
+    });    
+
+    $('#start_new_round').on('click', function() {
+        // perform round stuff
+    });
 
     // Initialize
     UpdateScenarioView(Gloomhaven.data.ActiveTab);

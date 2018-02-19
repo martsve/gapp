@@ -61,6 +61,8 @@ $(function() {
             else {
                 $this.text(val);
             }
+
+            $('[data-parent="'+key+'"]').trigger('update'); 
         });
     });
 

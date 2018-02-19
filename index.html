@@ -41,7 +41,10 @@
                 <ul id='level_list'>
                     <li class='template'>
                         Player <span class='player_name'>#0</span>, level <input class='level'>
-                        <button class='remove' onClick='RemovePlayer()'>Remove</button>
+                        <button class='up'>+</button>
+                        <button class='down'>-</button>
+
+                        <button class='remove'>Remove</button>
                         <span class='equip'>X</span>
                         <img src='img/icons/Equip Slots-6 copy.png' width="25" />  
                     </li>
@@ -146,6 +149,12 @@
                 </div>
 
                 <div class='statblock'>
+                    <div>Round</div>
+                    <div><input class='level' disabled data-bind='ActiveRound'></div>
+                    <div><button id='start_new_round' data-val='1' data-change='ActiveRound'>Start next round</button></div>
+                </div>
+
+                <div class='statblock'>
                     <div>Gold Conversion</div>
                     <div><input class='level' disabled data-bind='GoldConversion' data-parent='ScenarioLevel'></div>
                 </div>
@@ -187,12 +196,12 @@
                         <li class='template' data-id=''>
                             <img src  />
                             <span class='name'></span>
+                            <button class='remove'>Remove</button>
                         </li>
                     </ul>
                 </div>
 
             </div>
-
 
 
             <div class='scenario_monsters'>

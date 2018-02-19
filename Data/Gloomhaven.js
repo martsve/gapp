@@ -13,6 +13,7 @@ var Gloomhaven = {};
         AvailibleLocations: {'1': true},
         CompletedLocations: {},
         ActiveMonsters: [],
+        ActiveRound: 0,
 
         ScenarioIsActive: false,
         ScenarioKey: '',        
@@ -64,12 +65,18 @@ var Gloomhaven = {};
         self.SaveAll();
     }
 
+    self.RemoveActiveMonster = function(key) {
+        self.data.ActiveMonsters.splice(key, 1);
+        self.SaveAll();
+    }
+
     self.StartScenario = function(key) {
         self.data.ActiveTab = 'scenario-tab';
         self.data.ScenarioIsActive = true;
         self.data.ScenarioKey = key;
         self.data.showTileList = true;
         self.data.ActiveMonsters = [];
+        self.data.ActiveRound = 0;
         self.SaveAll();
     };
 
