@@ -1,37 +1,26 @@
-$(function() {
+var AddAvilibleLocation = function(listId, key) {
+    var clone = $(listId + ' .template').clone();
+    var loc = Locations[key];
+    clone.toggleClass('template');
+    clone.data('id', key);
+    clone.find('.img').css('background-image', 'url(img/map/'+key+'.jpg)');
+    clone.find('.title').text(loc.Name);
+    clone.appendTo($(listId));
+}
 
-    var AddAvilibleLocation = function(listId, key) {
-        var clone = $(listId + ' .template').clone();
-        var loc = Locations[key];
-        clone.toggleClass('template');
-        clone.data('id', key);
-        clone.find('.img').css('background-image', 'url(img/map/'+key+'.jpg)');
-        clone.find('.title').text(loc.Name);
-        clone.appendTo($(listId));
+var PopulateLocations = function() {
+    $('#completed_locations li, #availible_locations li').not('.template').each(function(){ $(this).remove() });
+
+    for (var key in Gloomhaven.data.CompletedLocations) {
+        AddAvilibleLocation('#completed_locations', key);
     }
 
-    var PopulateLocations = function() {
-        $('#completed_locations li, #availible_locations li').not('.template').each(function(){ $(this).remove() });
+    for (var key in Gloomhaven.data.AvailibleLocations) {
+        AddAvilibleLocation('#availible_locations', key);
+    }
+};
 
-        for (var key in Gloomhaven.data.CompletedLocations) {
-            AddAvilibleLocation('#completed_locations', key);
-        }
-
-        for (var key in Gloomhaven.data.AvailibleLocations) {
-            AddAvilibleLocation('#availible_locations', key);
-        }
-    };
-
-    PopulateLocations();
-
-    $('#location_key').on('keyup blur', function() {
-        var key = $(this).val();
-        var loc = Locations[key];
-        if (loc)
-            $('#location_name').text(loc.Name);
-        else 
-            $('#location_name').text('');
-    });
+$(function() {
     $('#add_location').on('click', function() {
         Gloomhaven.AddLocation($('#location_key').val());
         PopulateLocations();
@@ -65,4 +54,14 @@ $(function() {
             $(this).parent('li').remove();
         }
     });
+
+    PopulateLocations();
+
+    var $loc = $('#location_key');
+    for (var key in Locations) {
+        $loc.append($('<option>', {
+            value: key,
+            text: key+". "+ Locations[key].Name
+        }));
+    }
 });

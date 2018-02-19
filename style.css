@@ -1,7 +1,7 @@
 input.level { width: 30px; }
 .template, .d-none { display: none; }
 #level_list .player_name { font-weight: bold; }
-li.selected button { background: lightgreen; }
+
 * { font-family: gloomhaven; }
 
 input.header {
@@ -13,6 +13,44 @@ input.header {
 @font-face {
     font-family: gloomhaven;
     src: url(res/PirataOne-Regular.ttf);
+}
+
+.flex {
+    width: 100%;
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.flex > *  {
+    flex: 1 100%;
+}
+
+.statblock {
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    width: 100%;
+}
+
+.statblock > *:nth-child(1)  {
+    width: 30%;
+}
+.statblock > *:nth-child(2)  {
+    width: 30%;
+}
+.statblock > *:nth-child(3)  {
+    width: 20%;
+    text-align: center;
+}
+.statblock > *:nth-child(4)  {
+    width: 20%;
+    text-align: center;
+}
+
+#general-tab > div, #general-tab > ul {
+    margin-bottom: 30px;
 }
 
 #availible_locations li .img, #completed_locations li .img {
@@ -32,3 +70,34 @@ input.header {
 #availible_locations li, #completed_locations li {
     margin: 5px;
 }
+
+#settings > div > button {
+    width: 100%;
+    line-height: 48px;
+}
+
+#tab-selection {
+    margin-bottom: 10px;
+}
+#tab-selection > li > a {
+    display: block;
+    line-height: 48px;
+    text-align: center;
+    background: lightgray;
+}
+
+#tab-selection li a.selected {
+    background: lightgreen;
+}
+
+#difficulty > li > button {
+    line-height: 48px;
+    width: 100%;
+    background: lightgray;
+}
+
+#difficulty li.selected button {
+    background: lightgreen;
+}
+
+

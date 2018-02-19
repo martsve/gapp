@@ -12,33 +12,27 @@ var UpdateScenarioLevel = function() {
     $('#scenario_level').val(Gloomhaven.data.ScenarioLevel);
 }
 
-function AddPlayerList() {
-    for (var key in Gloomhaven.data.PlayerList) {
-        AddPlayerToDom(key, Gloomhaven.data.PlayerList[key].level);
-    }
+function AddPlayer() {
+    var name = $('#player_name').val();
+    if (name.length == 0 || Gloomhaven.data.PlayerList[name])  
+        return;
+    Gloomhaven.AddPlayer(name);
+    UpdateScenarioLevel();
+    AddPlayerToDom(name,1);
+}
+
+function RemovePlayer() {
+    var $li = $(this).closest('li');
+    var name = $li.find('.player_name').text();
+    Gloomhaven.RemovePlayer(name);
+    UpdateScenarioLevel();
+    $li.remove();
 }
 
 $(function() {
 
-    $('#add_player').on('click', function() {
-        var name = $('#player_name').val();
-        if (name.length == 0 || Gloomhaven.data.PlayerList[name])  
-            return;
-        Gloomhaven.AddPlayer(name);
-        UpdateScenarioLevel();
-        AddPlayerToDom(name,1);
-    });
-
-    $('#level_list').on('click', 'button.remove', function() {
-        var $li = $(this).parent('li');
-        var name = $li.find('.player_name').text();
-        Gloomhaven.RemovePlayer(name);
-        UpdateScenarioLevel();
-        $li.remove();
-    });
-
     $('#level_list').on('keyup blur', '.level', function() {
-        var $li = $(this).parent('li');
+        var $li = $(this).closest('li');
         var name = $li.find('.player_name').text();
         var level = parseInt($(this).val());
         if (level > 0) {
@@ -62,4 +56,7 @@ $(function() {
         })
     });    
 
+    for (var key in Gloomhaven.data.PlayerList) {
+        AddPlayerToDom(key, Gloomhaven.data.PlayerList[key].level);
+    }
 });
