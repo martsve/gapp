@@ -308,12 +308,14 @@ var Gloomhaven = {};
         self.data.ModifierDeck.push(ModifierDeck_Curse);
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
         Persistent.Trigger('ModifierDeckLength');
+        self.SaveAll();
     };
 
     self.AddBless = function() {
         self.data.ModifierDeck.push(ModifierDeck_Bless);
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
         Persistent.Trigger('ModifierDeckLength');
+        self.SaveAll();
     };
         
     var MakeNewModifierDeck = function() {
@@ -335,6 +337,7 @@ var Gloomhaven = {};
             else if (disadvantage && result.Card2.Value < result.Card1.Value)
                 result.Selected = 1;
         }
+        self.SaveAll();
         Persistent.Trigger('ModifierDeckLength');
         return result;
     };
@@ -345,6 +348,7 @@ var Gloomhaven = {};
         }
         self.data.ModifierDeckDiscard = [];
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
+        self.SaveAll();
         Persistent.Trigger('ModifierDeckLength');
     };
 
