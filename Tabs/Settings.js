@@ -1,4 +1,5 @@
-$(function() {    
+$(function() {
+ 
     function download(content, filename, contentType)
     {
         if(!contentType) contentType = 'application/octet-stream';
@@ -43,6 +44,13 @@ $(function() {
         if (confirm("Are you sure you want to clear all data?")) {
             localStorage.clear();
             window.location.reload();        
+        }
+    });
+
+    $('#player_name').on('keyup', function(e) {
+        if (e.originalEvent.keyCode == 13) {
+            AddPlayer();
+            $(this).val('').focus();
         }
     });
 });

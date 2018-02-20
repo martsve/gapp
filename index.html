@@ -13,13 +13,13 @@
     <script src="Data/ModifierDeck.js"></script>
 
     <script src="Data/Gloomhaven.js"></script>
-    <script src="Data/SaveState.js"></script>
     <script src="Data/PersistentApp.js"></script>
 
     <script src="tabs.js"></script>
     <script src="Tabs/General.js"></script>
     <script src="Tabs/Scenario.js"></script>
     <script src="Tabs/Location.js"></script>
+    <script src="Tabs/Settings.js"></script>
 </head>
 <body>
 
@@ -28,89 +28,91 @@
         <li><a href='javascript:;' data-tab='general-tab'>General</a></li>
         <li><a href='javascript:;' data-tab='location-tab'>Locations</a></li>
         <li><a href='javascript:;' data-tab='scenario-tab'>Scenario</a></li>
+        <li><a href='javascript:;' data-tab='settings-tab'>Settings</a></li>
     </ul>
 </header>
 
 <div id='tabs'>
      <div id='general-tab' class='tab d-none'>
-            <h1><input id='gameName' value='' class='header' data-bind="Name"></h1>
-
-            <div id='players'>
-                <div>
-                    Name <input id='player_name'> <button id='add_player' onClick='AddPlayer()'>Add player</button>
-                </div>
-                <ul id='level_list'>
-                    <li class='template'>
-                        Player <span class='player_name'>#0</span>, level <input class='level'>
-                        <button class='icon up'>+</button>
-                        <button class='icon down'>-</button>
-
-                        <button class='icon remove'>Remove</button>
-                        <span class='equip'>X</span>
-                        <img src='img/icons/Equip Slots-6 copy.png' width="25" />  
-                    </li>
-                </ul>
+        <div id='players'>
+            <div>
+                Name <input id='player_name'> <button id='add_player' onClick='AddPlayer()'>Add player</button>
             </div>
+            <ul id='level_list'>
+                <li class='template'>
+                    Player <span class='player_name'>#0</span>, level <input class='level'>
+                    <button class='icon up'>+</button>
+                    <button class='icon down'>-</button>
 
-            <ul id='difficulty' data-bind='Difficulty' data-type='int' class='flex'>
-                <li data-val='-1'><button class='select' id='easy'>Easy (-1)</button></li>
-                <li data-val='0'><button class='select' id='normal'>Normal (0)</button></li>
-                <li data-val='1'><button class='select' id='medium'>Hard (+1)</button></li>
-                <li data-val='2'><button class='select' id='hard'>Very hard (+2)</button></li>
+                    <button class='icon remove'>Remove</button>
+                    <span class='equip'>X</span>
+                    <img src='img/icons/Equip Slots-6 copy.png' width="25" />  
+                </li>
             </ul>
+        </div>
 
-            <div id='scenario_content' class='statblock'>
-                <div>Scenario level:</div>
-                <div><input id='scenario_level' class='level' disabled data-bind='ScenarioLevel' data-parent='Difficulty'></div>
-            </div>
+        <ul id='difficulty' data-bind='Difficulty' data-type='int' class='flex'>
+            <li data-val='-1'><button class='select' id='easy'>Easy (-1)</button></li>
+            <li data-val='0'><button class='select' id='normal'>Normal (0)</button></li>
+            <li data-val='1'><button class='select' id='medium'>Hard (+1)</button></li>
+            <li data-val='2'><button class='select' id='hard'>Very hard (+2)</button></li>
+        </ul>
 
-            <div id='donations_content' class='statblock'>
-                <div>Total donations:</div>
-                <div><input id='donations' class='number' data-bind='Donations' data-type='int'></div>
-                <div><button class='icon up' data-val='10' data-change='Donations'>+</button></div>
-                <div><button class='icon down' data-val='-10' data-change='Donations'>-</button></div>
-            </div>
+        <div id='scenario_content' class='statblock'>
+            <div>Scenario level:</div>
+            <div><input id='scenario_level' class='level' disabled data-bind='ScenarioLevel' data-parent='Difficulty'></div>
+        </div>
 
-            <div id='properity_content' class='statblock'>
-                <div>Gloomhaven Prosperity:</div>
-                <div><input id='prosperity_number' class='level' data-bind='Prosperity' data-type='int'></div>
-                <div><button class='icon up' data-val='1' data-change='Prosperity'>+</button></div>
-                <div><button class='icon down' data-val='-1' data-change='Prosperity'>-</button></div>
-            </div>
+        <div id='donations_content' class='statblock'>
+            <div>Total donations:</div>
+            <div><input id='donations' class='number' data-bind='Donations' data-type='int'></div>
+            <div><button class='icon up' data-val='10' data-change='Donations'>+</button></div>
+            <div><button class='icon down' data-val='-10' data-change='Donations'>-</button></div>
+        </div>
 
-            <div id='properity_level_box' class='statblock'>
-                <div>Gloomhaven Prosperity level:</div>
-                <div><input id='prosperity_level' class='level' disabled data-bind='ProsperityLevel' data-parent='Prosperity'></div>
-            </div>    
+        <div id='properity_content' class='statblock'>
+            <div>Gloomhaven Prosperity:</div>
+            <div><input id='prosperity_number' class='level' data-bind='Prosperity' data-type='int'></div>
+            <div><button class='icon up' data-val='1' data-change='Prosperity'>+</button></div>
+            <div><button class='icon down' data-val='-1' data-change='Prosperity'>-</button></div>
+        </div>
 
-            <div id='reputation_content' class='statblock'>
-                <div>Party Reputation:</div>
-                <div><input id='reputation_level' class='level' data-bind='Reputation' data-type='int'></div>
-                <div><button class='icon up' data-val='1' data-change='Reputation'>+</button></div>
-                <div><button class='icon down' data-val='-1' data-change='Reputation'>-</button></div>
-            </div>
+        <div id='properity_level_box' class='statblock'>
+            <div>Gloomhaven Prosperity level:</div>
+            <div><input id='prosperity_level' class='level' disabled data-bind='ProsperityLevel' data-parent='Prosperity'></div>
+        </div>    
 
+        <div id='reputation_content' class='statblock'>
+            <div>Party Reputation:</div>
+            <div><input id='reputation_level' class='level' data-bind='Reputation' data-type='int'></div>
+            <div><button class='icon up' data-val='1' data-change='Reputation'>+</button></div>
+            <div><button class='icon down' data-val='-1' data-change='Reputation'>-</button></div>
+        </div>
+
+        
+        <div id='price_content' class='statblock'>
+                <div>Item price modifier:</div>
+                <div><input id='reputation_price' class='level' disabled data-bind='ReputationPrice' data-parent='Reputation'></div>    
+        </div>
+    </div>
+        
+    <div id='settings-tab' class='tab d-none'>
+        <h1><input id='gameName' value='' class='header' data-bind="Name"></h1>
             
-            <div id='price_content' class='statblock'>
-                    <div>Item price modifier:</div>
-                    <div><input id='reputation_price' class='level' disabled data-bind='ReputationPrice' data-parent='Reputation'></div>    
-                </div>
-
-            <div id='settings' class='flex'>
-                <div class='save'>
-                    <button id='save_file_button'>Save data</button>
-                </div>
-
-                <div class='load'>
-                    <input type='file' id='load_file' class='d-none'>
-                    <button id='load_file_button'>Load file</button>
-                </div>
-
-                <div class='reset'>
-                    <button id='clear'>Clear all settings</button>
-                </div>
+        <div id='settings'>
+            <div class='save'>
+                <button id='save_file_button'>Save data</button>
             </div>
 
+            <div class='load'>
+                <input type='file' id='load_file' class='d-none'>
+                <button id='load_file_button'>Load file</button>
+            </div>
+
+            <div class='reset'>
+                <button id='clear'>Clear all settings</button>
+            </div>
+        </div>
     </div>
 
 
