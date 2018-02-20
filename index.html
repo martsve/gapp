@@ -155,7 +155,7 @@
             <div class='row'>
                 <h2 class='f1'>Availible Locations</h2>
             </div>
-            <ul class='row s2' id='availible_locations'>
+            <ul class='row' id='availible_locations'>
                 <li class='template w2 m2'>
                     <button class='start m2'>
                         <div class='img'></div><span class='title'>Title</span>
@@ -170,7 +170,7 @@
                 <h2 class='f1'>Completed Locations</h2>
             </div>
             
-            <ul class='row s2' id='completed_locations'>
+            <ul class='row' id='completed_locations'>
                 <li class='template w2 m2'>
                     <button class='remove'>
                         <div class='img'></div>
@@ -201,14 +201,7 @@
                     <div class='f1'>
                         <button id='quit_scenario'>Quit scenario</button>
                     </div>
-                </div>
-
-                <div class='row'>
-                    <div class='f1'>Round</div>
-                    <div class='f1'><input id='round_counter' class='number' disabled data-bind='ActiveRound'></div>
-                    <div class='f2'><button id='start_new_round' data-val='1' data-change='ActiveRound'>Start next round</button></div>
-                    <div class='f2'><button id='end_round'>End round</button></div>
-                </div>
+                </div>   
 
                 <div class='row w3'>
                     <div class='f1'>Gold Conversion</div>
@@ -225,13 +218,19 @@
                     <div class='f1'><input class='number' disabled data-bind='BonusExperience' data-parent='ScenarioLevel'></div>
                 </div>
 
+                <div class='box w8'></div>
+
+                <div class='row w2'>
+                    <h2 class='f1'><a href='javascript:;' data-toggle='.modifier_deck, #modifier_deck_draws' data-key='ShowManualModifierDeck'>Modifier deck</a></h2>
+                </div>
+
                 <div class='modifier_deck row'>
-                    <div class='w2 m2'><button id='modifier_draw'>Draw modifier card</button></div>
-                    <div class='w2 m2'><button id='modifier_draw_adv'>Draw modifier card (adv)</button></div>
-                    <div class='w2 m2'><button id='modifier_draw_dis'>Draw modifier card (dis)</button></div>
-                    <div class='w2 m2'><button id='modifier_shuffle'>Shuffle modifier deck</button></div>
-                    <div class='w2 m2'><button id='modifier_bless'>Add Bless card</button></div>
-                    <div class='w2 m2'><button id='modifier_curse'>Add Curse card</button></div>
+                    <div class='w1 m2'><button id='modifier_draw'>Draw</button></div>
+                    <div class='w1 m2'><button id='modifier_draw_adv'>Draw (adv)</button></div>
+                    <div class='w1 m2'><button id='modifier_draw_dis'>Draw (dis)</button></div>
+                    <div class='w1 m2'><button id='modifier_shuffle'>Shuffle</button></div>
+                    <div class='w1 m2'><button id='modifier_bless'>Bless</button></div>
+                    <div class='w1 m2'><button id='modifier_curse'>Curse</button></div>
                 </div>
 
                 <div id='modifier_deck_draws' class='row'>
@@ -242,55 +241,82 @@
                         <div class='card'><img src /></div>
                     </div>
                 </div>
-
-                <div class='row'>
-                    <h2 class='row'><a href='javascript:;' data-toggle='#tile_list' data-key='showTileList'>Tiles</a></h2>
+                
+                <div class='row w2'>
+                    <h2 class='f1'><a href='javascript:;' data-toggle='#tile_list' data-key='showTileList'>Tiles</a></h2>
                 </div>
+        
+                <ul id='tile_list' class='row'>
+                    <li class='template f1 m2'>
+                        <img src  />
+                        <span class='tilename'></span>
+                    </li>
+                </ul>
 
-                <div id='tiles_box' class='row'>                    
-                    <ul id='tile_list' class='row f1'>
-                        <li class='template w2'>
-                            <img src  />
-                            <span class='tilename'></span>
-                        </li>
-                    </ul>
-                </div>            
-
-                <div class='row'>
+                <div class='row w2'>
                     <h2 class='f1'><a href='javascript:;' data-toggle='#monster_list' data-key='showMonsterList'>Monsters</a></h2>
                 </div>
-            
-                <div id='monster_box' class='row'>
-                    <ul id='monster_list' class='row f1'>
-                        <li class='template w2' data-id=''>
-                            <img src  />
+        
+                <ul id='monster_list' class='row m2 monster_list'>
+                    <li class='template row' data-id=''>
+                        <div class='avatar f2'>
                             <span class='name'></span>
-                            <button class='icon add'>Add</button>
-                        </li>
-                    </ul>
-                </div>
+                            <button class='add'>
+                                <img src  />
+                            </button>
+                        </div>
+                        <div class='stats f4'><img src  /></div>
+                        <div class='f2'>
+                            <div class='initiative'><img src  /></div>
+                        </div>
+                    </li>
+                </ul>
 
                 <div class='row'>
-                    <h2 class='f1'>Active Monsters</h2>
-                </div>
+                    <div class='w5 row'>
+                        <div class='f3'>Round <input id='round_counter' class='number' disabled data-bind='ActiveRound'></div>
+                        <div class='f3'><button id='start_new_round' data-val='1' data-change='ActiveRound'>New round</button></div>
+                        <div class='f3'><button id='end_round'>End round</button></div>
+                        <div class='f1'></div>
+                    </div>
+                    <div class='f1 box elements' id='add_elements' data-receiver='ActiveElements'>
+                        <div class='f1 element fire'><img src='img/icons/e-fire.png' /></div>
+                        <div class='f1 element green'><img src='img/icons/e-green.png' /></div>
+                        <div class='f1 element snow'><img src='img/icons/e-snow.png' /></div>
+                        <div class='f1 element sun'><img src='img/icons/e-sun.png' /></div>
+                        <div class='f1 element wind'><img src='img/icons/e-wind.png' /></div>
+                        <div class='f1 element night'><img src='img/icons/e-night.png' /></div>
+                    </div>     
+                </div>     
 
-                <div id='active_monsters' class='row'>
-                    <ul id='active_monster_list' class='row f1'>
-                        <li class='template w1' data-id=''>
-                            <button data-modal='#myModal' data-content=''>
-                                <img src  />
-                                <span class='name'></span>
-                            </button>
-                            <button class='icon remove'>Remove</button>
+                <ul id='active_monster' class='row m2 monster_list'>
+                        <li class='template row' data-id=''>
+                            <div class='f1'>
+                                <div class='m2'><button id=''>Draw</button></div>
+                                <div class='m2'><button id=''>Next</button></div>
+                            </div>
+                            <div class='stats f4'><img src  /></div>
+                            <div class='f2'>
+                                <div class='initiative'><img src  /></div>
+                            </div>
                         </li>
                     </ul>
-                </div>
+
+                <ul id='active_monster_list' class='row'>
+                    <li class='template w1' data-id=''>
+                        <button data-modal='#myModal' data-content=''>
+                            <img src  />
+                            <span class='name'></span>
+                        </button>
+                        <button class='icon remove'>Remove</button>
+                    </li>
+                </ul>
 
             </div>
             
             <div id="myModal" class="modal d-none">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <span class="close">X</span>
                     <p>Some text in the Modal..</p>
                 </div>
                 <script>
@@ -299,63 +325,6 @@
                     });
                 </script>
             </div>
-
-            <div class='scenario_monsters'>
-                <div class='monster template'>
-                    <div class='image'></div>
-
-                    <span class='name'>Monster Name</span>
-                    <span class='number'>0</span>
-
-                    <span class='hp'>10</span>
-                    <span class='move'>2</span>
-                    <span class='attack'>2</span>
-                    <span class='range'>-</span>                    
-
-                    <span class='shield'></span>                    
-                    <span class='retaliate'></span>                    
-                    
-                    <span class='additional'></span>
-                </div>
-            </div>
-
-            <div class='scenario_decks'>
-                <div class='deck template'>                    
-                    <span class='initative'>50</span>
-                    <span class='name'>Monster Name</span>
-
-                    <span class='hp'>10</span>
-                    <span class='move'>2</span>
-                    <span class='attack'>2</span>
-                    <span class='range'>-</span>                    
-
-                    <span class='shield'></span>                    
-                    <span class='retaliate'></span>                    
-                    
-                    <span class='additional'></span>
-                </div>
-            </div>
-
-            <div class='monster_modifiers'>
-                <div class='modifiers template'>                    
-                    <div class='image'></div>
-                </div>
-            </div>
-
-            <div class='mmonster_total'>
-                <div class='total template'>             
-                    <div class='image'></div>       
-
-                    <span class='number'>3</span>
-
-                    <span class='move'>2</span>
-                    <span class='attack'>2</span>
-                    <span class='range'>-</span>                    
-                    
-                    <span class='additional'></span>
-                </div>
-            </div>
-
     </div>
 
 </div>

@@ -23,17 +23,42 @@
     width: 100px;
 }
 #tile_list span {
-    font-size: 300%;
+    font-size: 20mm;
+    line-height: 20mm;
     display: block;
 }
 
-#monster_list li {
+.monster_list li {
     text-align: center;
 }
-#monster_list img {
-    width: 100px;
+.monster_list .avatar, .monster_list .stats { margin-bottom: 2mm; }
+
+.monster_list .avatar img {
+    width: 30mm;
 }
-#monster_list span {
+.monster_list .initiative img {
+    width: 60mm;
+}
+.monster_list .stats {
+    height: 45mm;
+    overflow: hidden;
+    align-items: baseline;
+}
+.monster_list .stats img {
+    width: 120mm;
+}
+
+.stats img.lvl0 {
+    transform: rotate(90deg);
+}
+.stats img.lvl2 {
+    transform: rotate(-90deg);    
+}
+.stats img.lvl3 {
+    transform: rotate(-180deg);    
+}
+
+.monster_list span {
     display: block;
 }
 
@@ -85,7 +110,6 @@
     text-align: center;
 }
 #decksize span {
-    border: 1px solid red;
     display: inline-block;
     margin-top: 25mm;
     margin-left: 40mm;

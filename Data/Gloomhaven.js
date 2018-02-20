@@ -13,6 +13,7 @@ var Gloomhaven = {};
         AvailibleLocations: {'1': true},
         CompletedLocations: {},
         ActiveMonsters: [],
+        ActiveElements: {},
         ActiveRound: 0,
         ModifierDeck: [],
         ModifierDeckDiscard: [],
@@ -84,12 +85,24 @@ var Gloomhaven = {};
         self.data.showMonsterList = true;
         self.data.ActiveMonsters = [];
         self.data.ActiveRound = 0;
+        self.data.ActiveElements = {};
 
         Persistent.Trigger('ActiveRound');
         Persistent.Trigger('showTileList');
         Persistent.Trigger('showMonsterList');
+        Persistent.Trigger('ActiveElements');
 
         MakeNewModifierDeck();
+        self.SaveAll();
+    };
+
+    self.CycleElement = function(type) {
+        var current = self.data.ActiveElements[type] || 0;
+        current = current - 1;
+        if (current == -1)
+            current = 2;
+        self.data.ActiveElements[type] = current;
+        Persistent.Trigger('ActiveElements');
         self.SaveAll();
     };
 
@@ -101,6 +114,17 @@ var Gloomhaven = {};
         if (self.data.ShuffleAtEndOfRund) {
             self.ShuffleModifierDeck();
         }
+
+        for (var type in self.data.ActiveElements) {
+            var current = self.data.ActiveElements[type] || 0;
+            current = current - 1;
+            if (current == -1)
+                current = 0;
+            self.data.ActiveElements[type] = current;
+        }
+
+        self.SaveAll();
+        Persistent.Trigger('ActiveElements');
     };
 
     self.QuitScenario = function() {

@@ -76,15 +76,22 @@ button.icon.remove { background: url(../img/icons/no.png) no-repeat 12px 12px; b
     margin-bottom: 5mm;
 }
 
-.row.s2 > * { padding: 0mm 2mm; }
-.row.s2 > *:first-child { padding-left: 0mm; }
-.row.s2 > *:last-child { padding-right: 0mm; }
 
 .right { text-align: right; }
+.center { text-align: center; }
 
-input, button, select { width: 100%; padding: 2mm; }
+input, button, select { width: 95%; padding: 2mm; }
 
 input.number {
     width: 20mm;
     padding: 2mm;
 }
+
+
+.elements div { margin-right: 1mm; padding-bottom: 1mm; text-align: center; }  
+.elements img { width: 48px; } 
+.elements .waning img { filter: grayscale(100%); }
+.elements .disabled img { filter: grayscale(100%) opacity(10%); }
+.elements .active { padding-bottom: 1mm; border-bottom: 1mm solid green; }
+.elements .waning { padding-bottom: 1mm; border-bottom: 1mm solid orange; }
+.elements .disabled { padding-bottom: 1mm; border-bottom: 1mm solid #eee; }

@@ -1,13 +1,12 @@
 /* Persistent App Binding */
 var Persistent = {};
 (function(self) { 
-
     self.Trigger = function(key) {
         $('[data-key="'+key+'"]').trigger('update'); 
         $('[data-parent="'+key+'"]').trigger('update'); 
         $('[data-bind="'+key+'"]').trigger('update'); 
+        $('[data-receiver="'+key+'"]').trigger('update'); 
     };
-
 })(Persistent);
 
 $(function() {
