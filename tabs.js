@@ -6,7 +6,7 @@ var SetActiveTab = function(active) {
         var id = $(this).data('tab');
         var $target = $('#'+$(this).data('tab'));
         $target.toggleClass('d-none', active != id);
-        $(this).toggleClass('selected', active == id);
+        $(this).closest('li').toggleClass('selected', active == id);
     });
 }
 

@@ -1,11 +1,17 @@
 <html lang="en-US">
 <head>
     <title>Gloomhaven Tracker</title>
+    <meta name="viewport" content="height=device-height, initial-scale=1.0">
 	<meta name="author" content="Martin Svendsen">
 	<meta name="description" content="Gloomhaven monster and level tracker">
 	<meta name="viewport" content="width=device-width">
-	<link rel="shortcut icon" href="favicon.png">
-	<link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png">
+    
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/style.css">
+    
     <script src="jquery-3.3.1.min.js"></script>
 
     <script src="Data/Locations.js"></script>
@@ -24,185 +30,230 @@
 <body>
 
 <header>
-    <ul id='tab-selection' class='flex'>
-        <li><a href='javascript:;' data-tab='general-tab'>General</a></li>
-        <li><a href='javascript:;' data-tab='location-tab'>Locations</a></li>
-        <li><a href='javascript:;' data-tab='scenario-tab'>Scenario</a></li>
-        <li><a href='javascript:;' data-tab='settings-tab'>Settings</a></li>
+    <ul id='tab-selection'>
+        <li><a href='javascript:;' data-tab='general-tab'><span>General</span></a></li>
+        <li><a href='javascript:;' data-tab='location-tab'><span>Locations</span></a></li>
+        <li><a href='javascript:;' data-tab='scenario-tab'><span>Scenario</span></a></li>
+        <li class='settings'><a href='javascript:;' data-tab='settings-tab'><span>Settings</span></a></li>
     </ul>
 </header>
 
-<div id='tabs'>
-     <div id='general-tab' class='tab d-none'>
-        <div id='players'>
-            <div>
-                Name <input id='player_name'> <button id='add_player' onClick='AddPlayer()'>Add player</button>
+<div id='tabs' class='content'> 
+     <div id='general-tab' class='tab d-none row'>
+
+        <div class='row'>
+            <div class='f1'><span>Name</span></div>
+            <div class='f4 box'>
+                <div class='f2'><input id='player_name'></div>
+                <div class='f1'><button id='add_player' onClick='AddPlayer()'>Add player</button></div>
             </div>
-            <ul id='level_list'>
-                <li class='template'>
-                    Player <span class='player_name'>#0</span>, level <input class='level'>
+        </div>
+
+        <ul id='level_list' class='row'>
+            <li class='template w4 box'>
+                <span class='f3 player_name'>Player 0</span> 
+                <span class='f6'>
+                    Level <input type="number" class='number level'>
                     <button class='icon up'>+</button>
                     <button class='icon down'>-</button>
-
-                    <button class='icon remove'>Remove</button>
+                </span>
+                <div class='f1'>
                     <span class='equip'>X</span>
-                    <img src='img/icons/Equip Slots-6 copy.png' width="25" />  
-                </li>
-            </ul>
-        </div>
-
-        <ul id='difficulty' data-bind='Difficulty' data-type='int' class='flex'>
-            <li data-val='-1'><button class='select' id='easy'>Easy (-1)</button></li>
-            <li data-val='0'><button class='select' id='normal'>Normal (0)</button></li>
-            <li data-val='1'><button class='select' id='medium'>Hard (+1)</button></li>
-            <li data-val='2'><button class='select' id='hard'>Very hard (+2)</button></li>
+                        <img src='img/icons/Equip Slots-6 copy.png' class='equip-icon' />  
+                    </span>
+                </div>    
+                <div class='f1 right'>
+                    <button class='icon remove'>Remove</button>
+                </div>
+            </li>
         </ul>
 
-        <div id='scenario_content' class='statblock'>
-            <div>Scenario level:</div>
-            <div><input id='scenario_level' class='level' disabled data-bind='ScenarioLevel' data-parent='Difficulty'></div>
+        <ul id='difficulty' data-bind='Difficulty' data-type='int' class='row'>
+            <li class='f1' data-val='-1'><button class='select' id='easy'>Easy (-1)</button></li>
+            <li class='f1' data-val='0'><button class='select' id='normal'>Normal (0)</button></li>
+            <li class='f1' data-val='1'><button class='select' id='medium'>Hard (+1)</button></li>
+            <li class='f1' data-val='2'><button class='select' id='hard'>Very hard (+2)</button></li>
+        </ul>
+
+        <div id='donations_content' class='row w6'>
+            <div class='f1'>Donations:</div>
+            <div class='f1'>
+                <input type="number" id='donations' class='number' data-bind='Donations' data-type='int'>
+                <button class='icon up' data-val='10' data-change='Donations'>+</button>
+                <button class='icon down' data-val='-10' data-change='Donations'>-</button>
+            </div>
         </div>
 
-        <div id='donations_content' class='statblock'>
-            <div>Total donations:</div>
-            <div><input id='donations' class='number' data-bind='Donations' data-type='int'></div>
-            <div><button class='icon up' data-val='10' data-change='Donations'>+</button></div>
-            <div><button class='icon down' data-val='-10' data-change='Donations'>-</button></div>
+        <div id='properity_content' class='row w6'>
+            <div class='f1'>Prosperity:</div>
+            <div class='f1'>
+                <input type="number" id='prosperity_number' class='number' data-bind='Prosperity' data-type='int'>
+                <button class='icon up' data-val='1' data-change='Prosperity'>+</button>
+                <button class='icon down' data-val='-1' data-change='Prosperity'>-</button>
+            </div>
         </div>
 
-        <div id='properity_content' class='statblock'>
-            <div>Gloomhaven Prosperity:</div>
-            <div><input id='prosperity_number' class='level' data-bind='Prosperity' data-type='int'></div>
-            <div><button class='icon up' data-val='1' data-change='Prosperity'>+</button></div>
-            <div><button class='icon down' data-val='-1' data-change='Prosperity'>-</button></div>
+        <div id='reputation_content' class='row w6'>
+            <div class='f1'>Reputation:</div>
+            <div class='f1'>
+                <input type="number" id='reputation_level' class='number' data-bind='Reputation' data-type='int'>
+                <button class='icon up' data-val='1' data-change='Reputation'>+</button>
+                <button class='icon down' data-val='-1' data-change='Reputation'>-</button>
+            </div>
+        </div>        
+
+        <div id='scenario_content' class='row w3'>
+            <div class='f1'>Scenario level</div>
+            <div class='f1'><input id='scenario_level' class='number' disabled data-bind='ScenarioLevel' data-parent='Difficulty'></div>
         </div>
 
-        <div id='properity_level_box' class='statblock'>
-            <div>Gloomhaven Prosperity level:</div>
-            <div><input id='prosperity_level' class='level' disabled data-bind='ProsperityLevel' data-parent='Prosperity'></div>
+        <div id='properity_level_box' class='row w3'>
+            <div class='f1' >Prosperity level</div>
+            <div class='f1' ><input id='prosperity_level' class='number' disabled data-bind='ProsperityLevel' data-parent='Prosperity'></div>
         </div>    
 
-        <div id='reputation_content' class='statblock'>
-            <div>Party Reputation:</div>
-            <div><input id='reputation_level' class='level' data-bind='Reputation' data-type='int'></div>
-            <div><button class='icon up' data-val='1' data-change='Reputation'>+</button></div>
-            <div><button class='icon down' data-val='-1' data-change='Reputation'>-</button></div>
+        <div id='price_content' class='row w3'>
+            <div class='f1' >Price modifier</div>
+            <div class='f1' ><input id='reputation_price' class='number' disabled data-bind='ReputationPrice' data-parent='Reputation'></div>    
         </div>
 
-        
-        <div id='price_content' class='statblock'>
-                <div>Item price modifier:</div>
-                <div><input id='reputation_price' class='level' disabled data-bind='ReputationPrice' data-parent='Reputation'></div>    
-        </div>
+
     </div>
         
-    <div id='settings-tab' class='tab d-none'>
-        <h1><input id='gameName' value='' class='header' data-bind="Name"></h1>
-            
-        <div id='settings'>
-            <div class='save'>
-                <button id='save_file_button'>Save data</button>
-            </div>
+    <div id='settings-tab' class='tab d-none row'>
+        <div class='row'>
+            <h1 class='f1'><input id='gameName' value='' class='header' data-bind="Name"></h1>
+        </div>
 
-            <div class='load'>
+        <div class='save row'>
+            <div class='f1'><button id='save_file_button'>Save data</button></div>
+        </div>
+
+        <div class='load row'>
+            <div class='f1'>
                 <input type='file' id='load_file' class='d-none'>
                 <button id='load_file_button'>Load file</button>
             </div>
+        </div>
 
-            <div class='reset'>
+        <div class='reset row'>
+            <div class='f1'>
                 <button id='clear'>Clear all settings</button>
             </div>
         </div>
     </div>
 
-
-    <div id='location-tab' class='tab d-none'>
-            <div>
-                <select id='location_key'></select>
-                <button id='add_location'>Add location manually</button>
+    <div id='location-tab' class='tab d-none row'>
+            <div class='row'>
+                <div class='f3'><select id='location_key'></select></div>
+                <div class='f2'><button id='add_location'>Add location manually</button></div>
             </div>
 
-            <h2>Availible Locations</h2>
-            <ul id='availible_locations'>
-                <li class='template'>
+            <div class='row'>
+                <h2 class='f1'>Availible Locations</h2>
+            </div>
+            <ul class='row s2' id='availible_locations'>
+                <li class='template w2 m2'>
                     <button class='start'><div class='img'></div><span class='title'>Title</span></button>
                     <div><button class='complete'>Complete</button></div>
                 </li>
             </ul>
 
-            <h2>Completed Locations</h2>
-            <ul id='completed_locations'>
-                <li class='template'><button class='remove'><div class='img'></div><span class='title'>Title</span></button></li>
+            <div class='row'>
+                <h2 class='f1'>Completed Locations</h2>
+            </div>
+            
+            <ul class='row s2' id='completed_locations'>
+                <li class='template w2 m2'>
+                    <button class='remove'>
+                        <div class='img'></div>
+                        <span class='title'>Title</span>
+                    </button>
+                </li>
             </ul>
     </div>
 
 
-    <div id='scenario-tab' class='tab d-none'>
-            <div id='manual_scenario_start'>
-                <select id='scenario_key'></select>
-                <button id='start_scenario'>Start Scenario</button>
+    <div id='scenario-tab' class='tab d-none row'>
+
+            <div id='manual_scenario_start' class='row'>
+                <div class='f3'><select id='scenario_key'></select></div>
+                <div class='f2'><button id='start_scenario'>Start Scenario</button></div>
             </div>
 
-            <div id='scenario_view' class='d-none'>
-                <h1>Title</h1>
+            <div id='scenario_view' class='d-none row'>
 
-                <div id='control_scenario_buttons'>
-                    <button id='complete_scenario'>Complete scenario</button>
-                    <button id='quit_scenario'>Quit scenario</button>
+                <div class='row'>
+                    <h1 class='f1'>Title</h1>
                 </div>
 
-                <div class='statblock'>
-                    <div>Round</div>
-                    <div><input id='round_counter' class='level' disabled data-bind='ActiveRound'></div>
-                    <div><button id='start_new_round' data-val='1' data-change='ActiveRound'>Start next round</button></div>
-                    <div><button id='end_round'>End round</button></div>
+                <div id='control_scenario_buttons' class='row'>
+                    <div class='f1'>
+                        <button id='complete_scenario'>Complete scenario</button>
+                    </div>
+                    <div class='f1'>
+                        <button id='quit_scenario'>Quit scenario</button>
+                    </div>
                 </div>
 
-                <div class='statblock'>
-                    <div>Gold Conversion</div>
-                    <div><input class='level' disabled data-bind='GoldConversion' data-parent='ScenarioLevel'></div>
+                <div class='row'>
+                    <div class='f1'>Round</div>
+                    <div class='f1'><input id='round_counter' class='number' disabled data-bind='ActiveRound'></div>
+                    <div class='f2'><button id='start_new_round' data-val='1' data-change='ActiveRound'>Start next round</button></div>
+                    <div class='f2'><button id='end_round'>End round</button></div>
                 </div>
 
-                <div class='statblock'>
-                    <div>Trap Damage</div>
-                    <div><input class='level' disabled data-bind='TrapDamage' data-parent='ScenarioLevel'></div>
+                <div class='row w3'>
+                    <div class='f1'>Gold Conversion</div>
+                    <div class='f1'><input class='number' disabled data-bind='GoldConversion' data-parent='ScenarioLevel'></div>
                 </div>
 
-                <div class='statblock'>
-                    <div>Bonus Experience:</div>
-                    <div><input class='level' disabled data-bind='BonusExperience' data-parent='ScenarioLevel'></div>
+                <div class='row w3'>
+                    <div class='f1'>Trap Damage</div>
+                    <div class='f1'><input class='number' disabled data-bind='TrapDamage' data-parent='ScenarioLevel'></div>
                 </div>
 
-                <div class='flex'>
-                    <div><button id='modifier_draw'>Draw modifier card</button></div>
-                    <div><button id='modifier_draw_adv'>Draw modifier card (adv)</button></div>
-                    <div><button id='modifier_draw_dis'>Draw modifier card (dis)</button></div>
-                    <div><button id='modifier_shuffle'>Shuffle modifier deck</button></div>
-                    <div><button id='modifier_bless'>Add Bless card</button></div>
-                    <div><button id='modifier_curse'>Add Curse card</button></div>
-                    <div id='decksize'><span id='modifier_size' data-bind='ModifierDeckLength'></span></div>
+                <div class='row w3'>
+                    <div class='f1'>Bonus Experience:</div>
+                    <div class='f1'><input class='number' disabled data-bind='BonusExperience' data-parent='ScenarioLevel'></div>
                 </div>
 
-                <div id='modifier_deck_draws'>
-                    <div class='template'>
+                <div class='row modifier_deck'>
+                    <div class='f1'><button id='modifier_draw'>Draw modifier card</button></div>
+                    <div class='f1'><button id='modifier_draw_adv'>Draw modifier card (adv)</button></div>
+                    <div class='f1'><button id='modifier_draw_dis'>Draw modifier card (dis)</button></div>
+                    <div class='f1'><button id='modifier_shuffle'>Shuffle modifier deck</button></div>
+                    <div class='f1'><button id='modifier_bless'>Add Bless card</button></div>
+                    <div class='f1'><button id='modifier_curse'>Add Curse card</button></div>
+                    <div class='f1' id='decksize'><span id='modifier_size' data-bind='ModifierDeckLength'></span></div>
+                </div>
+
+                <div id='modifier_deck_draws' class='row'>
+                    <div class='template w2'>
                         <div class='card'><img src /></div>
                     </div>
                 </div>
 
-                <div id='tiles_box'>
-                    <h2><a href='javascript:;' data-toggle='#tile_list' data-key='showTileList'>Tiles</a></h2>
-                    <ul id='tile_list' class='flex'>
-                        <li class='template'>
+                <div class='row'>
+                    <h2 class='row'><a href='javascript:;' data-toggle='#tile_list' data-key='showTileList'>Tiles</a></h2>
+                </div>
+
+                <div id='tiles_box' class='row'>                    
+                    <ul id='tile_list' class='row f1'>
+                        <li class='template w2'>
                             <img src  />
                             <span class='tilename'></span>
                         </li>
                     </ul>
+                </div>            
+
+                <div class='row'>
+                    <h2 class='f1'><a href='javascript:;' data-toggle='#monster_list' data-key='showMonsterList'>Monsters</a></h2>
                 </div>
-                
-                <div id='monster_box'>
-                    <h2><a href='javascript:;' data-toggle='#monster_list' data-key='showMonsterList'>Monsters</a></h2>
-                    <ul id='monster_list' class='flex'>
-                        <li class='template' data-id=''>
+            
+                <div id='monster_box' class='row'>
+                    <ul id='monster_list' class='row f1'>
+                        <li class='template w2' data-id=''>
                             <img src  />
                             <span class='name'></span>
                             <button class='icon add'>Add</button>
@@ -210,10 +261,13 @@
                     </ul>
                 </div>
 
-                <div id='active_monsters'>
-                    <h2>Active Monsters</h2>
-                    <ul id='active_monster_list' class='flex'>
-                        <li class='template' data-id=''>
+                <div class='row'>
+                    <h2 class='f1'>Active Monsters</h2>
+                </div>
+
+                <div id='active_monsters' class='row'>
+                    <ul id='active_monster_list' class='row f1'>
+                        <li class='template w1' data-id=''>
                             <img src  />
                             <span class='name'></span>
                             <button class='icon remove'>Remove</button>
@@ -229,7 +283,7 @@
                     <div class='image'></div>
 
                     <span class='name'>Monster Name</span>
-                    <span class='level'>0</span>
+                    <span class='number'>0</span>
 
                     <span class='hp'>10</span>
                     <span class='move'>2</span>

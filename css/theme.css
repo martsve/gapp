@@ -1,0 +1,90 @@
+* {
+    /*color: #eee;*/
+}
+
+body, input, button, select {
+    /*background: #222222;*/
+}
+
+* { font-family: gloomhaven; }
+
+@font-face {
+    font-family: gloomhaven;
+    src: url(res/PirataOne-Regular.ttf);
+}
+
+button.icon {
+    width: 48px;
+    height: 48px;
+    border: 0px;
+    text-indent: 1000px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+button.icon.up { background: url(img/icons/pluss.png) no-repeat 12px 12px; background-size: 24px; }
+button.icon.down { background: url(img/icons/minus.png) no-repeat 12px 12px; background-size: 24px; }
+button.icon.add { background: url(img/icons/pluss.png) no-repeat 12px 12px; background-size: 24px; }
+button.icon.remove { background: url(img/icons/no.png) no-repeat 12px 12px; background-size: 24px; }
+
+#difficulty li.selected button
+{
+    /*background: #115511;*/
+    background: lightgreen;
+}
+
+.content { padding: 0mm 5mm; }
+
+.w1 { display: inline-block; flex: 0 1 31mm; }
+.w2 { display: inline-block; flex: 0 1 63mm; }
+.w3 { display: inline-block; flex: 0 1 86mm; }
+.w4 { display: inline-block; flex: 0 1 129mm; }
+.w5 { display: inline-block; flex: 0 1 161.5mm; }
+.w6 { display: inline-block; flex: 0 1 194mm; }
+
+.f0 { display: inline-flex; }
+.f1 { display: inline-block; flex: 1; }
+.f2 { display: inline-block; flex: 2; }
+.f3 { display: inline-block; flex: 3; }
+.f4 { display: inline-block; flex: 4; }
+.f5 { display: inline-block; flex: 5; }
+.f6 { display: inline-block; flex: 6; }
+
+/*
+.w1, .w2, .w3, .w4, .w5, .w6 { border: 1px solid red; }
+.f1, .f2, .f3, .f4, .f5, .f6 { border: 1px solid blue; }
+*/
+
+.row {
+    width: 100%;
+    flex: 0 0 6;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 5mm; 
+}
+
+.box {
+    width: 100%;
+    flex: 0 0 6;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.m2 {
+    margin-bottom: 5mm;
+}
+
+.row.s2 > * { padding: 0mm 2mm; }
+.row.s2 > *:first-child { padding-left: 0mm; }
+.row.s2 > *:last-child { padding-right: 0mm; }
+
+.right { text-align: right; }
+
+input, button, select { width: 100%; padding: 2mm; }
+
+input.number {
+    width: 20mm;
+    padding: 2mm;
+}

@@ -1,0 +1,41 @@
+#tab-selection {
+    margin-bottom: 3mm;
+    border-bottom: 0.5mm solid gray;
+    display: flex;
+}
+
+#tab-selection > li {
+    background: linear-gradient(#999, #999, #777);
+    flex: 1;
+}
+
+#tab-selection  > li > a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    height: 14mm;
+}
+
+#tab-selection > li > a > span {
+    display: block;
+    height: 100%;
+    padding: 2mm;
+    border-right: 0.5mm solid gray;
+}
+
+#tab-selection > li.selected  {
+    background: linear-gradient(#999, #559955);
+}
+
+#tab-selection > li.settings {
+    flex: 0 0 18mm;
+}
+
+#tab-selection > li.settings a {
+    background: url(img/settings.png) no-repeat 4mm 2mm;
+    background-size: 10mm;
+}
+
+#tab-selection > li.settings a span {
+    display: none;
+}
