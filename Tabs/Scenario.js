@@ -49,6 +49,7 @@ var PopulateActiveMonsterList = function() {
         clone.find('img')[0].src = 'img/Monsters/'+key+'.png';
         clone.find('span').text(name);
         clone.data('id', item);
+        clone.find('button').data('content', name);
         clone.appendTo($list);
     }
 }

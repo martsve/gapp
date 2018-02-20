@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
     
     <script src="res/jquery-3.3.1.min.js"></script>
+    <script src="modal.js"></script>
 
     <script src="Data/Locations.js"></script>
     <script src="Data/Monsters.js"></script>
@@ -141,6 +143,7 @@
                 <button id='clear'>Clear all settings</button>
             </div>
         </div>
+
     </div>
 
     <div id='location-tab' class='tab d-none row'>
@@ -274,15 +277,28 @@
                 <div id='active_monsters' class='row'>
                     <ul id='active_monster_list' class='row f1'>
                         <li class='template w1' data-id=''>
-                            <img src  />
-                            <span class='name'></span>
+                            <button data-modal='#myModal' data-content=''>
+                                <img src  />
+                                <span class='name'></span>
+                            </button>
                             <button class='icon remove'>Remove</button>
                         </li>
                     </ul>
                 </div>
 
             </div>
-
+            
+            <div id="myModal" class="modal d-none">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                </div>
+                <script>
+                    $('#myModal').on('openModal', function() {
+                        console.log($(this).data('content'));
+                    });
+                </script>
+            </div>
 
             <div class='scenario_monsters'>
                 <div class='monster template'>
