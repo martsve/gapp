@@ -55,8 +55,8 @@
     display: block;
 }
 
-#modifier_deck_draws > div {
-    background: url(img/modifier_blank.jpg) no-repeat 10px 10px;
+#modifier_deck_draws > .modifier_card {
+    background: url(../img/modifier_blank.jpg) no-repeat 10px 10px;
     display: inline-block;
     width: 240px;
     height: 170px;
@@ -64,7 +64,7 @@
     text-align: center;
 }
 
-#modifier_deck_draws div.card {
+#modifier_deck_draws .card {
     text-align: center;
 }
 #modifier_deck_draws img {
@@ -76,14 +76,21 @@
     background-color: green;
 }
 
-#decksize span {
-    background: url(img/modifier_back.jpg) no-repeat;
+#decksize {
+    background: url(../img/modifier_back.jpg) no-repeat 10px 10px;
     display: inline-block;
-    width: 70px;
-    height: 40px;
-    background-size: 70px;
-    text-align: center;   
+    width: 240px;
+    height: 170px;
+    background-size: 220px;
+    text-align: center;
+}
+#decksize span {
+    border: 1px solid red;
+    display: inline-block;
+    margin-top: 25mm;
+    margin-left: 40mm;
+    text-align: right;   
     color: white;
     text-shadow: 2px 2px 5px black;    
-    font-size: 30px;
+    font-size: 60px;
 }

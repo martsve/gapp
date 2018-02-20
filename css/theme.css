@@ -10,7 +10,7 @@ body, input, button, select {
 
 @font-face {
     font-family: gloomhaven;
-    src: url(res/PirataOne-Regular.ttf);
+    src: url(../res/PirataOne-Regular.ttf);
 }
 
 button.icon {
@@ -22,10 +22,10 @@ button.icon {
     overflow: hidden;
 }
 
-button.icon.up { background: url(img/icons/pluss.png) no-repeat 12px 12px; background-size: 24px; }
-button.icon.down { background: url(img/icons/minus.png) no-repeat 12px 12px; background-size: 24px; }
-button.icon.add { background: url(img/icons/pluss.png) no-repeat 12px 12px; background-size: 24px; }
-button.icon.remove { background: url(img/icons/no.png) no-repeat 12px 12px; background-size: 24px; }
+button.icon.up { background: url(../img/icons/pluss.png) no-repeat 12px 12px; background-size: 24px; }
+button.icon.down { background: url(../img/icons/minus.png) no-repeat 12px 12px; background-size: 24px; }
+button.icon.add { background: url(../img/icons/pluss.png) no-repeat 12px 12px; background-size: 24px; }
+button.icon.remove { background: url(../img/icons/no.png) no-repeat 12px 12px; background-size: 24px; }
 
 #difficulty li.selected button
 {

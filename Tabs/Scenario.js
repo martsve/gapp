@@ -121,7 +121,7 @@ $(function() {
 
     var showDraws = function(result) {
         var $box = $('#modifier_deck_draws');
-        $box.children('div:not(.template)').remove();
+        $box.children('div:not(.template,.static)').remove();
 
         var clone = $box.find('.template').clone();
         clone.toggleClass('template', false);

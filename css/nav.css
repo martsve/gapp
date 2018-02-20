@@ -32,7 +32,7 @@
 }
 
 #tab-selection > li.settings a {
-    background: url(img/settings.png) no-repeat 4mm 2mm;
+    background: url(../img/settings.png) no-repeat 4mm 2mm;
     background-size: 10mm;
 }
 

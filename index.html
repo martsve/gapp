@@ -154,8 +154,12 @@
             </div>
             <ul class='row s2' id='availible_locations'>
                 <li class='template w2 m2'>
-                    <button class='start'><div class='img'></div><span class='title'>Title</span></button>
-                    <div><button class='complete'>Complete</button></div>
+                    <button class='start m2'>
+                        <div class='img'></div><span class='title'>Title</span>
+                    </button>
+                    <div>
+                        <button class='complete'>Complete</button>
+                    </div>
                 </li>
             </ul>
 
@@ -218,18 +222,20 @@
                     <div class='f1'><input class='number' disabled data-bind='BonusExperience' data-parent='ScenarioLevel'></div>
                 </div>
 
-                <div class='row modifier_deck'>
-                    <div class='f1'><button id='modifier_draw'>Draw modifier card</button></div>
-                    <div class='f1'><button id='modifier_draw_adv'>Draw modifier card (adv)</button></div>
-                    <div class='f1'><button id='modifier_draw_dis'>Draw modifier card (dis)</button></div>
-                    <div class='f1'><button id='modifier_shuffle'>Shuffle modifier deck</button></div>
-                    <div class='f1'><button id='modifier_bless'>Add Bless card</button></div>
-                    <div class='f1'><button id='modifier_curse'>Add Curse card</button></div>
-                    <div class='f1' id='decksize'><span id='modifier_size' data-bind='ModifierDeckLength'></span></div>
+                <div class='modifier_deck row'>
+                    <div class='w2 m2'><button id='modifier_draw'>Draw modifier card</button></div>
+                    <div class='w2 m2'><button id='modifier_draw_adv'>Draw modifier card (adv)</button></div>
+                    <div class='w2 m2'><button id='modifier_draw_dis'>Draw modifier card (dis)</button></div>
+                    <div class='w2 m2'><button id='modifier_shuffle'>Shuffle modifier deck</button></div>
+                    <div class='w2 m2'><button id='modifier_bless'>Add Bless card</button></div>
+                    <div class='w2 m2'><button id='modifier_curse'>Add Curse card</button></div>
                 </div>
 
                 <div id='modifier_deck_draws' class='row'>
-                    <div class='template w2'>
+                    <div id='decksize' class='static'>
+                        <span id='modifier_size' data-bind='ModifierDeckLength'></span>
+                    </div>
+                    <div class='template w2 modifier_card'>
                         <div class='card'><img src /></div>
                     </div>
                 </div>
