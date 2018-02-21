@@ -47,25 +47,27 @@ var UpdateScenarioView = function() {
         var $list = $('#active_monster');
         $list.children('li:not(.template)').remove();
         var key = Object.keys(Gloomhaven.data.ActiveMonsters)[0];
-        var name = loc.Monsters[key].toLowerCase().replace(' ', '');
-        var monster = Monsters[name];
-        var clone = $list.find('.template').clone();
-        var level = Gloomhaven.data.ScenarioLevel;
-        var level_version = 'LowLevel';
-        
-        if (level > 3) {
-            level_version = 'HighLevel';
-            level = level - 4;
+        if (key) {
+            var name = loc.Monsters[key].toLowerCase().replace(' ', '');
+            var monster = Monsters[name];
+            var clone = $list.find('.template').clone();
+            var level = Gloomhaven.data.ScenarioLevel;
+            var level_version = 'LowLevel';
+            
+            if (level > 3) {
+                level_version = 'HighLevel';
+                level = level - 4;
+            }
+
+            var level_rotate = 'lvl' + level;
+
+            clone.toggleClass('template', false);
+            clone.find('.initiative img')[0].src = 'img/initiative_back.jpg';
+            clone.find('.stats img')[0].src = monster[level_version];
+            clone.find('.stats img').toggleClass(level_rotate);
+            clone.data('id', name);
+            clone.appendTo($list);
         }
-
-        var level_rotate = 'lvl' + level;
-
-        clone.toggleClass('template', false);
-        clone.find('.initiative img')[0].src = 'img/initiative_back.jpg';
-        clone.find('.stats img')[0].src = monster[level_version];
-        clone.find('.stats img').toggleClass(level_rotate);
-        clone.data('id', name);
-        clone.appendTo($list);
 
         PopulateActiveMonsterList();
     }   
@@ -202,50 +204,51 @@ $(function() {
 
     $('#add_elements .element').on('click', function() {
         var $this = $(this);
-        if ($this.is('.fire'))
-            Gloomhaven.CycleElement('Fire');
-        if ($this.is('.green'))
-            Gloomhaven.CycleElement('Green');
-        if ($this.is('.snow'))
-            Gloomhaven.CycleElement('Snow');
-        if ($this.is('.sun'))
-            Gloomhaven.CycleElement('Sun');
-        if ($this.is('.wind'))
-            Gloomhaven.CycleElement('Wind');
-        if ($this.is('.night'))
-            Gloomhaven.CycleElement('Night');
+        var element = $this.data('element');
+        Gloomhaven.CycleElement(element);
     });
 
     $('#add_elements').on('update', function() {
         var data = Gloomhaven.data.ActiveElements;
         var $this = $(this);
-        $this.find('.element.fire').toggleClass('active', data['Fire'] == 2)
-                                   .toggleClass('waning', data['Fire'] == 1)
-                                   .toggleClass('disabled', !data['Fire']);
+            
+        for (var key in data)
+        {
+            $this.find('.element[data-element="'+key+'"]').toggleClass('active', data[key] == 2)
+                .toggleClass('waning', data[key] == 1)
+                .toggleClass('disabled', !data[key]);
+        }
+    });
 
-        $this.find('.element.green').toggleClass('active', data['Green'] == 2)
-                                   .toggleClass('waning', data['Green'] == 1)
-                                   .toggleClass('disabled', !data['Green']);
+    $('#add_status .status').on('click', function() {
+        var $this = $(this);
+        var key = $(this).closest('.modal').data('content');
+        var status = $this.data('status');
+        var currentStatus = Gloomhaven.data.ActiveStatuses[key] || {};
+        if (currentStatus[status]) {
+            Gloomhaven.RemoveMonsterStatus(key, status);
+        }
+        else {
+            Gloomhaven.SetMonsterStatus(key, status);
+        }
+    });    
 
-        $this.find('.element.snow').toggleClass('active', data['Snow'] == 2)
-                                   .toggleClass('waning', data['Snow'] == 1)
-                                   .toggleClass('disabled', !data['Snow']);
+    $('#status_modal').on('openModal', function() {
+        Persistent.Trigger('ActiveStatuses');
+    });
 
-        $this.find('.element.sun').toggleClass('active', data['Sun'] == 2)
-                                   .toggleClass('waning', data['Sun'] == 1)
-                                   .toggleClass('disabled', !data['Sun']);
-
-        $this.find('.element.wind').toggleClass('active', data['Wind'] == 2)
-                                   .toggleClass('waning', data['Wind'] == 1)
-                                   .toggleClass('disabled', !data['Wind']);
-
-        $this.find('.element.night').toggleClass('active', data['Night'] == 2)
-                                   .toggleClass('waning', data['Night'] == 1)
-                                   .toggleClass('disabled', !data['Night']);
+    $('#status_modal').on('update', function() {
+        var key = $(this).data('content');
+        var status = Gloomhaven.data.ActiveStatuses[key] || {};
+        $(this).find('.status').toggleClass('inactive', true);
+        for (var type in status)  {
+            $(this).find('.status[data-status="'+type+'"]').toggleClass('inactive', false);
+        }
     });
 
     // Initialize
     UpdateScenarioView(Gloomhaven.data.ActiveTab);
     Persistent.Trigger('ActiveElements');
+    Persistent.Trigger('ActiveStatuses');
 
 });

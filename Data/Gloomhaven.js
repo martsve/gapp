@@ -13,6 +13,7 @@ var Gloomhaven = {};
         AvailibleLocations: {'1': true},
         CompletedLocations: {},
         ActiveMonsters: [],
+        ActiveStatuses: {},
         ActiveElements: {},
         ActiveRound: 0,
         ModifierDeck: [],
@@ -84,16 +85,25 @@ var Gloomhaven = {};
         self.data.showTileList = true;
         self.data.showMonsterList = true;
         self.data.ActiveMonsters = [];
+        self.data.ActiveStatuses = {};
         self.data.ActiveRound = 0;
-        self.data.ActiveElements = {};
+        self.data.ActiveElements = {
+            'Fire': 0,
+            'Green': 0,
+            'Snow': 0,
+            'Sun': 0,
+            'Wind': 0,
+            'Night': 0
+        };
 
+        MakeNewModifierDeck();
+        self.SaveAll();
+        
         Persistent.Trigger('ActiveRound');
         Persistent.Trigger('showTileList');
         Persistent.Trigger('showMonsterList');
         Persistent.Trigger('ActiveElements');
-
-        MakeNewModifierDeck();
-        self.SaveAll();
+        Persistent.Trigger('ActiveStatuses');
     };
 
     self.CycleElement = function(type) {
@@ -102,8 +112,43 @@ var Gloomhaven = {};
         if (current == -1)
             current = 2;
         self.data.ActiveElements[type] = current;
-        Persistent.Trigger('ActiveElements');
         self.SaveAll();
+        Persistent.Trigger('ActiveElements');
+    };
+
+    self.SetMonsterStatus = function(key, status) {
+        if (!self.data.ActiveStatuses[key]) {
+            self.data.ActiveStatuses[key] = {};
+        }
+        self.data.ActiveStatuses[key][status] = 2;
+        self.SaveAll();
+        Persistent.Trigger('ActiveStatuses');
+    };
+
+    self.RemoveMonsterStatus = function(key, status) {
+        delete self.data.ActiveStatuses[key][status];
+        self.SaveAll();
+        Persistent.Trigger('ActiveStatuses');
+    };
+
+    self.StartMonsterTurn = function(key) {
+        if (self.data.ActiveStatuses[key]) {
+            for (var status in self.data.ActiveStatuses[key])
+                self.data.ActiveStatuses[key][status] = 1;
+
+            self.SaveAll();
+        }
+    };
+
+    self.EndMonsterTurn = function(key) {
+        if (self.data.ActiveStatuses[key]) {
+            for (var status in self.data.ActiveStatuses[key])
+                if (self.data.ActiveStatuses[key][status] == 1)
+                    delete self.data.ActiveStatuses[key][status];
+
+            self.SaveAll();
+            Persistent.Trigger('ActiveStatuses');
+        }
     };
 
     self.StartRound = function() {
@@ -331,15 +376,15 @@ var Gloomhaven = {};
     self.AddCurse = function() {
         self.data.ModifierDeck.push(ModifierDeck_Curse);
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
-        Persistent.Trigger('ModifierDeckLength');
         self.SaveAll();
+        Persistent.Trigger('ModifierDeckLength');
     };
 
     self.AddBless = function() {
         self.data.ModifierDeck.push(ModifierDeck_Bless);
         self.data.ModifierDeck = shuffle(self.data.ModifierDeck);
-        Persistent.Trigger('ModifierDeckLength');
         self.SaveAll();
+        Persistent.Trigger('ModifierDeckLength');
     };
         
     var MakeNewModifierDeck = function() {

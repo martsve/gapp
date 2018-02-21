@@ -280,12 +280,12 @@
                         <div class='f1'></div>
                     </div>
                     <div class='f1 box elements' id='add_elements' data-receiver='ActiveElements'>
-                        <div class='f1 element fire'><img src='img/icons/e-fire.png' /></div>
-                        <div class='f1 element green'><img src='img/icons/e-green.png' /></div>
-                        <div class='f1 element snow'><img src='img/icons/e-snow.png' /></div>
-                        <div class='f1 element sun'><img src='img/icons/e-sun.png' /></div>
-                        <div class='f1 element wind'><img src='img/icons/e-wind.png' /></div>
-                        <div class='f1 element night'><img src='img/icons/e-night.png' /></div>
+                        <div class='f1 element' data-element='Fire'><img src='img/icons/e-fire.png' /></div>
+                        <div class='f1 element' data-element='Green'><img src='img/icons/e-green.png' /></div>
+                        <div class='f1 element' data-element='Snow'><img src='img/icons/e-snow.png' /></div>
+                        <div class='f1 element' data-element='Sun'><img src='img/icons/e-sun.png' /></div>
+                        <div class='f1 element' data-element='Wind'><img src='img/icons/e-wind.png' /></div>
+                        <div class='f1 element' data-element='Night'><img src='img/icons/e-night.png' /></div>
                     </div>     
                 </div>     
 
@@ -304,7 +304,7 @@
 
                 <ul id='active_monster_list' class='row'>
                     <li class='template w1' data-id=''>
-                        <button data-modal='#myModal' data-content=''>
+                        <button data-modal='#status_modal' data-content=''>
                             <img src  />
                             <span class='name'></span>
                         </button>
@@ -314,16 +314,17 @@
 
             </div>
             
-            <div id="myModal" class="modal d-none">
+            <div id="status_modal" class="modal d-none" data-receiver='ActiveStatuses'>
                 <div class="modal-content">
                     <span class="close">X</span>
-                    <p>Some text in the Modal..</p>
+                        <ul class='f1 row statuses' id='add_status'>
+                            <li class='f1 status inactive' data-status='Disarmed'><img src='img/statuses/disarmed.png' /></li>
+                            <li class='f1 status inactive' data-status='Stunned'><img src='img/statuses/stunned.png' /></li>
+                            <li class='f1 status inactive' data-status='Muddled'><img src='img/statuses/muddled.png' /></li>
+                            <li class='f1 status inactive' data-status='Immobilized'><img src='img/statuses/immobilized.png' /></li>
+                        </ul>
+                    </div>
                 </div>
-                <script>
-                    $('#myModal').on('openModal', function() {
-                        console.log($(this).data('content'));
-                    });
-                </script>
             </div>
     </div>
 

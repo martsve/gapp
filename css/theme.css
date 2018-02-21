@@ -95,3 +95,6 @@ input.number {
 .elements .active { padding-bottom: 1mm; border-bottom: 1mm solid green; }
 .elements .waning { padding-bottom: 1mm; border-bottom: 1mm solid orange; }
 .elements .disabled { padding-bottom: 1mm; border-bottom: 1mm solid #eee; }
+
+.statuses .status img { width: 48px; margin: 5mm; } 
+.statuses .status.inactive img { filter: grayscale(100%) opacity(10%); }

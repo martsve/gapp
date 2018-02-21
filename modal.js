@@ -12,11 +12,9 @@ $(function() {
         $(this).closest('.modal').trigger('closeModal');
     });
 
-    $(document).on('click', function(event) {
-        var activeModal = $('.modal:not(.d-none)')[0];
-        if (event.target == activeModal) {
-            $('.modal').toggleClass('d-none', true);
-            $('.modal').trigger('closeModal');
-        }
+    $('.modal .modal-content').on('click', function(e) { e.stopPropagation(); });
+    $('.modal').on('click', function(event) {
+        $(this).toggleClass('d-none', true);
+        $(this).trigger('closeModal');
     });
 });
