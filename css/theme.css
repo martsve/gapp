@@ -100,8 +100,11 @@ input.number {
 .statuses .status img { width: 30mm; margin: 5mm; } 
 .statuses .status.inactive img { filter: grayscale(100%) opacity(10%); }
 
-.monsterAvatar.active { background-color: lightgreen; }
+.monsterAvatar.active button { background-color: lightgreen; }
 .monsterAvatar.elite { border: 2mm solid yellow; }
 .monsterAvatar.summon.summon { border-bottom: 2mm solid purple; }
 
 #active_monster_list .name { display: none; }
+
+img.statIcon { width: 6mm !important; padding: 0px; }
+.statText { font: 6mm Verdana; }

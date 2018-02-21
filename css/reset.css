@@ -4,6 +4,7 @@ html {
 }
 
 *, *:before, *:after {
+    -webkit-appearance: none;
     font-size: 8mm;
     line-height: 10mm;
     margin: 0px;

@@ -194,6 +194,7 @@ var Gloomhaven = {};
         }
 
         self.SaveAll();
+        Persistent.Trigger('ActiveMonster');
         Persistent.Trigger('ActiveElements');
         Persistent.Trigger('EndRound');
     };
@@ -312,6 +313,7 @@ var Gloomhaven = {};
             else if (disadvantage && result.Card2.Value < result.Card1.Value)
                 result.Selected = 1;
         }
+        result.Result = result.Selected == 0 ? result.Card1.Value : result.Card2.Value;
         self.SaveAll();
         Persistent.Trigger('ModifierDeckLength');
         return result;
@@ -428,7 +430,7 @@ var Gloomhaven = {};
         for (var key in self.data.ActiveMonsters) {
             var id = self.data.ActiveMonsters[key].Id;
             var hasRevealed = self.data.Monsters[id].ActiveCard != null;
-            if (!hasRevealed && self.data.ActiveMonsters[key].Active && self.data.ActiveMonsters[key].Initiative == 0) {
+            if (!hasRevealed && self.data.ActiveMonsters[key].Active) {
                 DrawInitiativeCard(id);
             }
         }

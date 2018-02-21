@@ -22,7 +22,7 @@
     <script src="res/jquery-3.3.1.min.js"></script>
 
 </head>
-<body ontouchmove="BlockMove(event);" >
+<body>
 
 <header>
     <ul id='tab-selection'>
@@ -227,11 +227,17 @@
                 </div>
 
                 <div id='modifier_deck_draws' class='row'>
-                    <div id='decksize' class='static'>
+                    <div class='w2 modifier_card static' id='decksize'>
                         <span id='modifier_size' data-bind='ModifierDeckLength'></span>
                     </div>
-                    <div class='template w2 modifier_card'>
-                        <div class='card'><img src /></div>
+                    <div class='w6 row modifier_cards template'>
+                        <div class='w2 modifier_card card1'>
+                            <div class='card'><img src /></div>
+                        </div>
+                        <div class='w2 modifier_card card2'>
+                            <div class='card'><img src /></div>
+                        </div>
+                        <div class='w2 result'></div>
                     </div>
                 </div>
                 
@@ -289,20 +295,21 @@
                 <div class='row'>
                     <div class='row'>
                         <div class='f1'><button id='GotoNextMonsterTurn'>Next</button></div>
-                        <div class='f1'><button id='DrawModifierCards'>Draw modifier cards</button></div>
+                        <div class='f2'></div>
                     </div>  
                 </div>     
-
+                
                 <ul id='active_monster' class='row m2 monster_list'>
                         <li class='template row' data-id=''>
                             <ul class='f1 avatar'>
                             </ul>
-                            <div class='stats f4'><img src  /></div>
+                            <div class='stats f4'><span class='statText statCardText'></span><img src class='statCard' /></div>
                             <div class='f2'>
-                                <div class='initiative'><img src  /></div>
+                                <div class='initiative'><span class='statText initiativeCardText'></span><img src class='initCard'  /></div>
                             </div>
                             <div class='f1'>
-                                <div class='m2'><button id=''>Modifiers</button></div>
+                                <button class='drawModifiers' data-id=''>Draw</button>
+                                <span class='statText totalStatsText'></span>
                             </div>
                         </li>
                     </ul>
@@ -325,10 +332,11 @@
                     <span class="close">X</span>
 
                         <ul class='f1 row statuses' id='add_status'>
-                            <li class='f1 status inactive' data-status='Disarmed'><img src='img/statuses/disarmed.png' /></li>
-                            <li class='f1 status inactive' data-status='Stunned'><img src='img/statuses/stunned.png' /></li>
-                            <li class='f1 status inactive' data-status='Muddled'><img src='img/statuses/muddled.png' /></li>
-                            <li class='f1 status inactive' data-status='Immobilized'><img src='img/statuses/immobilized.png' /></li>
+                            <li class='f1 status inactive' data-status='Strengthen'><img src='img/icons/strengthen.png' /></li>
+                            <li class='f1 status inactive' data-status='Disarmed'><img src='img/icons/disarmed.png' /></li>
+                            <li class='f1 status inactive' data-status='Stunned'><img src='img/icons/stunned.png' /></li>
+                            <li class='f1 status inactive' data-status='Muddled'><img src='img/icons/muddled.png' /></li>
+                            <li class='f1 status inactive' data-status='Immobilized'><img src='img/icons/immobilized.png' /></li>
                         </ul>
 
                         <hr class='m2'>

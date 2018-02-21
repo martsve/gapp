@@ -13,10 +13,10 @@ var MonsterCards = {
     "cultist": {
         1: { Image: "res/Cultist/1.jpg", Initiative: 27, Move: 0, Attack: 0 },
         2: { Image: "res/Cultist/2.jpg", Initiative: 63, Text: "Summon normal Living Bones.", DamageSelf: 2, Shuffle: true },
-        3: { Image: "res/Cultist/3.jpg", Initiative: 31, Move: -1, HealRange: 3, Range: 3 },
+        3: { Image: "res/Cultist/3.jpg", Initiative: 31, Move: -1, Heal: [3, 3] },
         4: { Image: "res/Cultist/4.jpg", Initiative: 63, Text: "Summon normal Living Bones.", DamageSelf: 2, Shuffle: true },
-        5: { Image: "res/Cultist/5.jpg", Initiative: 10, Move: -1, Attack: -1, DeathAttack: 2 },
-        6: { Image: "res/Cultist/6.jpg", Initiative: 10, Move: -1, Attack: -1, DeathAttack: 2 },
+        5: { Image: "res/Cultist/5.jpg", Initiative: 10, Move: -1, Attack: -1, ConditionalAttack: [2, "On death"] },
+        6: { Image: "res/Cultist/6.jpg", Initiative: 10, Move: -1, Attack: -1, ConditionalAttack: [2, "On death"] },
         7: { Image: "res/Cultist/7.jpg", Initiative: 39, Move: -1, Attack: 0, HealSelf: 1 },
         8: { Image: "res/Cultist/8.jpg", Initiative: 27, Move: 0, Attack: 0 },
     },
@@ -44,7 +44,7 @@ var MonsterCards = {
         7: { Image: "res/FlameDemon/7.jpg", Initiative: 24, Move: 0, Attack: 0, Fire: true },
         8: { Image: "res/FlameDemon/8.jpg", Initiative: 67, Move: -1, Attack: 1, Range: -1, Fire: true },
     },
-
+    
     "frostdemon": {
         1: { Image: "res/FrostDemon/1.jpg", Initiative: 58, Move: -1, Attack: 0, Range: 2, Consume: {
             Type: "Frost",
@@ -58,9 +58,9 @@ var MonsterCards = {
             HealSelf: 3
         } },
         5: { Image: "res/FrostDemon/5.jpg", Initiative: 38, Move: 1, Attack: -1},
-        6: { Image: "res/FrostDemon/6.jpg", Initiative: 18, Immobilizie: "Target all enemies within Range 2", Consume: {
-            Type: "Frost",
-            HealSelf: 3
+        6: { Image: "res/FrostDemon/6.jpg", Initiative: 18, Shield: 2, Move: 1, Consume: {
+            Type: "Fire",
+            DamageSelf: 3
         } },
         7: { Image: "res/FrostDemon/7.jpg", Initiative: 58, Move: -1, Attack: -1, Pierce: 3, Consume: {
             Type: "Any",
@@ -79,7 +79,7 @@ var MonsterCards = {
         7: { Image: "res/LivingBones/7.jpg", Initiative: 64, Move: -1, Attack: 1 },
         8: { Image: "res/LivingBones/8.jpg", Initiative: 20, Move: -2, Attack: 0, HealSelf: 2, Shuffle: true }
     },
-
+    
     "nightdemon": {
         1: { Image: "res/NightDemon/1.jpg", Initiative: 41, Shuffle: true, Move: -1, Attack: 1, Night: true },
         2: { Image: "res/NightDemon/2.jpg", Initiative: 35, Attack: -1, Attack: [-1, "Pierce 2"], Consume: {
@@ -237,3 +237,214 @@ var Monsters = {
         },
     },
 };
+
+function GetMonsterStats(monster, elite, lvl) {
+    var stats = elite ? monster.Elite : monster.Normal;
+    var flat = { Elite: elite, Level: lvl };
+    for (var key in stats) {
+        if (Array.isArray(stats[key])) {
+            flat[key] = stats[key][lvl];
+        }
+        else {
+            flat[key] = stats[key];
+        }
+    }
+    return flat;
+}
+
+function StatsToTextWithImages(stats, pluss) {
+    var text = StatsToText(stats, pluss);
+    text = text.replace(/\{Attack\}/g,'<img src="img/icons/attack.png" class="statIcon">');
+    text = text.replace('{Move}','<img src="img/icons/move.png" class="statIcon">');
+    text = text.replace(/\{Range\}/g,'<img src="img/icons/range.png" class="statIcon">');
+    text = text.replace('{Shield}','<img src="img/icons/shield.png" class="statIcon">');
+    text = text.replace('{Retaliate}','<img src="img/icons/retaliate.png" class="statIcon">');
+
+    text = text.replace('{Disarm}','<img src="img/icons/disarmed.png" class="statIcon">');
+    text = text.replace('{Curse}','<img src="img/icons/curse.png" class="statIcon">');
+    text = text.replace('{Stunned}','<img src="img/icons/stunned.png" class="statIcon">');
+    text = text.replace('{Strengthen}','<img src="img/icons/strengthen.png" class="statIcon">');
+    text = text.replace('{Poison}','<img src="img/icons/poisoned.png" class="statIcon">');
+    text = text.replace('{Muddle}','<img src="img/icons/muddled.png" class="statIcon">');
+    text = text.replace('{Wound}','<img src="img/icons/wound.png" class="statIcon">');
+    text = text.replace('{Invisible}','<img src="img/icons/invisible.png" class="statIcon">');
+    text = text.replace('{Immobilized}','<img src="img/icons/immobilized.png" class="statIcon">');
+
+    text = text.replace('{Fire}','<img src="img/icons/e-fire.png" class="statIcon">');
+    text = text.replace('{Green}','<img src="img/icons/e-green.png" class="statIcon">');
+    text = text.replace('{Night}','<img src="img/icons/e-night.png" class="statIcon">');
+    text = text.replace('{Sun}','<img src="img/icons/e-sun.png" class="statIcon">');
+    text = text.replace('{Wind}','<img src="img/icons/e-wind.png" class="statIcon">');
+    text = text.replace('{Frost}','<img src="img/icons/e-snow.png" class="statIcon">');
+
+    text = text.replace('{Any}','<img src="img/icons/any.png" class="statIcon">');
+    text = text.replace('{Target}','<img src="img/icons/target.png" class="statIcon">');
+    text = text.replace('{Heal}','<img src="img/icons/heal.png" class="statIcon">');
+    text = text.replace('{Shuffle}','<img src="img/icons/shuffle.png" class="statIcon">');
+    return text;
+}
+
+function GetCombinedStats(initiative, monster, elite, lvl, modifier) {
+    var stats = GetMonsterStats(monster, elite, lvl);
+    return CombineStats(initiative, stats, modifier);
+}
+
+function CombineStats(initiative, stats, modifier) {
+    var result = { };
+    for (var key in stats) {
+        if (key == 'Attack' && initiative.Attack == undefined)
+            continue;
+        if (key == 'Move' && initiative.Move == undefined)
+            continue;
+        if (key == 'HP')
+            continue;
+        result[key] = stats[key];
+    }
+
+    for (var key in initiative) {
+        if (key == "Image") continue;
+        else if (key == "ConditionalAttack") {
+            result[key] = Object.assign([], initiative[key]); 
+            result[key][0] += stats.Attack;
+        }
+        else if (result[key] != undefined) {
+            if (Array.isArray(result[key]) || Array.isArray(initiative[key]) )
+                console.log('array add', key, result[key],initiative[key]);
+            else {
+                result[key] += initiative[key];
+            }
+        }
+        else {
+            result[key] = initiative[key];
+        }
+    }
+
+    if (modifier && result.Attack != undefined) {
+        if (modifier == -3) result.Attack = 0;
+        else if (modifier == 3) result.Attack = result.Attack * 2;
+        else result.Attack = result.Attack + modifier;
+    }
+    
+    if (modifier && result.ConditionalAttack != undefined) {
+        if (modifier == -3) result.ConditionalAttack[0] = 0;
+        else if (modifier == 3) result.ConditionalAttack[0] = result.ConditionalAttack[0] * 2;
+        else result.ConditionalAttack[0] = result.ConditionalAttack[0] + modifier;
+    }
+
+    return result;
+}
+
+function StatOrderFromKey(key) {
+    var index = ["Initiative", "HP", "Move", "Attack", "Range"].indexOf(key);
+    if (index >= 0)
+        return index;
+    
+    if (key == "Text")
+        return 150;
+
+    if (key == "Shuffle")
+        return 200;
+
+    return 100;
+}
+
+function StatHeaderFromKey(key) {
+    if (key == "DamageSelf") return "Gives itself ";    
+    if (key == "HealSelf") return "Heal {Heal} ";    
+
+    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilizie", "Heal"].indexOf(key) >= 0) { 
+        return key + " {"+key+"}";    
+    }
+
+    if (["Text", "ConditionalAttack", "Shuffle","Strengthen", "Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
+        return "";
+    }
+
+    return key;
+}
+
+function StatIgnoreStat(key, data) {   
+    if (["Elite", "Level", "Image", "Type"].indexOf(key) >= 0) { 
+        return true;
+    }
+
+    if (["Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Shuffle", "Any"].indexOf(key) >= 0) { 
+        return (!data || (Array.isArray(data) && data[0] == 0));
+    }
+
+    return false;   
+}
+
+function StatDataFromStat(key, data, pluss) {
+    if (["HP", "Attack", "Move", "Range", "Shield", "Target", "Pierce"].indexOf(key) >= 0) { 
+        if (Array.isArray(data))
+            return (data[0] >= 0 && pluss ? '+' : '') + data[0] + " [" + data[1] + "]";
+     
+        return (data >= 0 && pluss ? '+' : '') + data;        
+    }
+
+    if (["Retaliate", "Immobilizie", "Heal"].indexOf(key) >= 0) {
+        if (Array.isArray(data))
+            return data[0] + " ["+GetStatText('Range', data[1]) + "]";
+        if (typeof data === 'string')
+            return data[0] + " [ " + data[1] + "]";
+
+        return data;        
+    }
+
+    if (key == "HealSelf") { 
+        return data + " Self";
+    }
+
+    if (key == "DamageSelf") { 
+        return data + " damage";
+    }
+
+    if (["Strengthen", "Curse", "Muddle", "Poison", "Wound"].indexOf(key) >= 0) { 
+        return key.toUpperCase() + " {"+key+"}";
+    }
+
+    if (["Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
+        return "{"+key+"}";
+    }
+
+    if (key == "Initiative")
+        return data;
+
+    if (key == "Text")
+        return data;
+
+    if (key == "Shuffle")
+        return "{Shuffle}";
+
+    if (key == "ConditionalAttack") 
+        return data[1] + ": Attack {Attack} " + data[0];
+
+    if (key == "Consume") 
+        return "{"+data.Type+"}: ["+ StatsToText(data, ', ') +"]";
+                    
+    alert('missing key: '+ key);
+    console.log('missing key', key, data);
+}
+
+function GetStatText(key, data, pluss) {
+    return StatHeaderFromKey(key) + " " + StatDataFromStat(key, data, pluss);
+}
+
+function StatsToText(stats, del, pluss) {
+    var keyValues = [];
+    for (var key in stats) 
+        keyValues.push([ key, StatOrderFromKey(key) ])
+    keyValues.sort(function compare(kv1, kv2) { return kv1[1] - kv2[1] });
+
+    var text = [];
+    for (var i = 0; i < keyValues.length; i++)  {
+        var key = keyValues[i][0];
+        var data = stats[key];
+        if (!StatIgnoreStat(key, data)) {
+           text.push(GetStatText(key,data, pluss));
+        }
+    }
+
+    return text.join(del || '<br />');
+}
