@@ -43,90 +43,242 @@ var UpdateScenarioView = function() {
             clone.appendTo($list);
         }    
 
-        // Populate active monster
-        var $list = $('#active_monster');
-        $list.children('li:not(.template)').remove();
-        var key = Object.keys(Gloomhaven.data.ActiveMonsters)[0];
-        if (key) {
-            var name = loc.Monsters[key].toLowerCase().replace(' ', '');
-            var monster = Monsters[name];
-            var clone = $list.find('.template').clone();
-            var level = Gloomhaven.data.ScenarioLevel;
-            var level_version = 'LowLevel';
-            
-            if (level > 3) {
-                level_version = 'HighLevel';
-                level = level - 4;
-            }
-
-            var level_rotate = 'lvl' + level;
-
-            clone.toggleClass('template', false);
-            clone.find('.initiative img')[0].src = 'img/initiative_back.jpg';
-            clone.find('.stats img')[0].src = monster[level_version];
-            clone.find('.stats img').toggleClass(level_rotate);
-            clone.data('id', name);
-            clone.appendTo($list);
-        }
-
-        PopulateActiveMonsterList();
     }   
 
     SetActiveTab(Gloomhaven.data.ActiveTab);
 };
 
-var PopulateActiveMonsterList = function() {
+$('#active_monster_list').on('update', function() {
     var $list = $('#active_monster_list');
     $list.find('li:not(.template)').remove();
-    for (var item in Gloomhaven.data.ActiveMonsters)
+    for (var i in Gloomhaven.data.ActiveMonsterOrder)
     {
-        if (Gloomhaven.data.ActiveMonsters[item] == null) continue;
-
+        var item = Gloomhaven.data.ActiveMonsterOrder[i];
         var name = Gloomhaven.data.ActiveMonsters[item].Name;
+        var number = Gloomhaven.data.ActiveMonsters[item].Number;
         var key = Gloomhaven.data.ActiveMonsters[item].Id;
         var clone = $list.find('.template').clone();
         clone.toggleClass('template', false);
+        clone.toggleClass('elite', Gloomhaven.data.ActiveMonsters[item].Elite);
+        clone.toggleClass('summon', Gloomhaven.data.ActiveMonsters[item].Summon);
         clone.find('img')[0].src = 'img/Monsters/'+key+'.png';
-        clone.find('span').text(name);
+        clone.find('.name').text(name);
+        clone.find('.number').text(number);
         clone.data('id', item);
-        clone.find('button').data('content', name);
+        clone.find('button').data('content', item);
         clone.appendTo($list);
     }
-}
+    Persistent.Trigger('ActiveMonster');
+});
 
-$(function() {
 
-    $('#complete_scenario').on('click', function(){
-        var key = Gloomhaven.data.ScenarioKey;
-        var name = Locations[key].Name;
-        if (confirm('Are you sure you have completed #'+ key +' "'+ name+'"?'))
-        {
-            Gloomhaven.CompleteLocation(key);
-            PopulateLocations();
-            UpdateScenarioView();
-        }
-    });
-    
-    $('#quit_scenario').on('click', function(){
-        var key = Gloomhaven.data.ScenarioKey;
-        var name = Locations[key].Name;
-        if (confirm('Are you sure you want to quit scenario #'+ key +' "'+ name+'"?'))
-        {
-            Gloomhaven.QuitScenario();
-            PopulateLocations();
-            UpdateScenarioView();
-        }
-    });
-    
-    $('#start_scenario').on('click', function() {
-        var key = $('#scenario_key').val();
-        var name = Locations[key].Name;
-        if (confirm('You will now start scenario #'+ key +' "'+ name+'"')) {            
-            Gloomhaven.StartScenario(key);
-            UpdateScenarioView();
-        }
-    });
+$('#complete_scenario').on('click', function(){
+    var key = Gloomhaven.data.ScenarioKey;
+    var name = Locations[key].Name;
+    if (confirm('Are you sure you have completed #'+ key +' "'+ name+'"?'))
+    {
+        Gloomhaven.CompleteLocation(key);
+        PopulateLocations();
+        UpdateScenarioView();
+    }
+});
 
+$('#quit_scenario').on('click', function(){
+    var key = Gloomhaven.data.ScenarioKey;
+    var name = Locations[key].Name;
+    if (confirm('Are you sure you want to quit scenario #'+ key +' "'+ name+'"?'))
+    {
+        Gloomhaven.QuitScenario();
+        PopulateLocations();
+        UpdateScenarioView();
+    }
+});
+
+$('#start_scenario').on('click', function() {
+    var key = $('#scenario_key').val();
+    var name = Locations[key].Name;
+    if (confirm('You will now start scenario #'+ key +' "'+ name+'"')) {            
+        Gloomhaven.StartScenario(key);
+        UpdateScenarioView();
+    }
+});
+
+$('#monster_list').on('click', 'li .addNormal', function() {
+    var type = $(this).closest('li').data('id');
+    Gloomhaven.AddActiveMonster(type, false, false);
+});    
+
+$('#monster_list').on('click', 'li .addElite', function() {
+    var type = $(this).closest('li').data('id');
+    Gloomhaven.AddActiveMonster(type, true, false);
+});    
+
+$('#monster_list').on('click', 'li .addSummon', function() {
+    var type = $(this).closest('li').data('id');
+    Gloomhaven.AddActiveMonster(type, false, true);
+});    
+$('#monster_list').on('click', 'li .addEliteSummon', function() {
+    var type = $(this).closest('li').data('id');
+    Gloomhaven.AddActiveMonster(type, true, true);
+});    
+
+$('#active_monster_list').on('click', 'li .remove', function() {
+    var key = $(this).closest('li').data('id');
+    Gloomhaven.RemoveActiveMonster(key);
+});    
+
+$('#start_new_round').on('click', function() {
+    Gloomhaven.StartRound();
+});
+
+$('#end_round').on('click', function() {
+    Gloomhaven.EndRound();
+});
+
+$('#modifier_shuffle').on('click', function() {
+    Gloomhaven.ShuffleModifierDeck();
+});
+
+
+var showDraws = function(result) {
+    var $box = $('#modifier_deck_draws');
+    $box.children('div:not(.template,.static)').remove();
+
+    var clone = $box.find('.template').clone();
+    clone.toggleClass('template', false);
+    clone.toggleClass('selected', result.Selected == 0);
+    clone.find('img')[0].src = result.Card1.Image;
+    clone.appendTo($box);
+
+    if (result.Card2) {
+        var clone = $box.find('.template').clone();
+        clone.toggleClass('template', false);
+        clone.toggleClass('selected', result.Selected == 1);
+        clone.find('img')[0].src = result.Card2.Image;
+        clone.appendTo($box);    
+    }   
+};
+
+$('#modifier_draw').on('click', function() {
+    var result = Gloomhaven.DrawFromModifierDeck();
+    showDraws(result);
+});
+
+$('#modifier_draw_adv').on('click', function() {
+    var result = Gloomhaven.DrawFromModifierDeck(true, false);
+    showDraws(result);
+});
+
+$('#modifier_draw_dis').on('click', function() {
+    var result = Gloomhaven.DrawFromModifierDeck(false, true);
+    showDraws(result);
+});
+
+$('#modifier_bless').on('click', function() {
+    Gloomhaven.AddBless();
+});
+
+$('#modifier_curse').on('click', function() {
+    Gloomhaven.AddCurse();
+});
+
+$('#add_elements .element').on('click', function() {
+    var $this = $(this);
+    var element = $this.data('element');
+    Gloomhaven.CycleElement(element);
+});
+
+$('#add_elements').on('update', function() {
+    var data = Gloomhaven.data.ActiveElements;
+    var $this = $(this);
+        
+    for (var key in data)
+    {
+        $this.find('.element[data-element="'+key+'"]').toggleClass('active', data[key] == 2)
+            .toggleClass('waning', data[key] == 1)
+            .toggleClass('disabled', !data[key]);
+    }
+});
+
+$('#add_status .status').on('click', function() {
+    var $this = $(this);
+    var key = $(this).closest('.modal').data('content');
+    var status = $this.data('status');
+    var currentStatus = Gloomhaven.data.ActiveStatuses[key] || {};
+    if (currentStatus[status]) {
+        Gloomhaven.RemoveMonsterStatus(key, status);
+    }
+    else {
+        Gloomhaven.SetMonsterStatus(key, status);
+    }
+});    
+
+$('#status_modal').on('openModal', function() {
+    Persistent.Trigger('ActiveStatuses');
+});
+
+$('#status_modal').on('update', function() {
+    var key = $(this).data('content');
+    var status = Gloomhaven.data.ActiveStatuses[key] || {};
+    $('#add_status .status').toggleClass('inactive', true);
+    for (var type in status)  {
+        $(this).find('.status[data-status="'+type+'"]').toggleClass('inactive', false);
+    }
+});
+
+$('#ActiveMonsterOrder').on('update', function() {
+    var $list = $('#active_monster_list');
+    $list.children('li').toggleClass('active', false);
+    var active = Gloomhaven.data.ActiveMonster;
+    if (active) {
+        var current = $list.find('li').each(function() {
+            if ($(this).data('id') == active) {
+                $(this).toggleClass('active', true);
+            }
+        });
+    }
+    PopulateActiveMonster();
+});
+
+var PopulateActiveMonster = function() {
+    var $list = $('#active_monster');
+    $list.children('li:not(.template)').remove();
+    var activeMonsterId = Gloomhaven.data.ActiveMonster;
+    if (activeMonsterId) {
+        var name = Gloomhaven.data.ActiveMonsters[activeMonsterId].Id;
+        var monster = Monsters[name];
+        var clone = $list.find('.template').clone();
+        var level = Gloomhaven.data.ScenarioLevel;
+        var level_version = 'LowLevel';
+        
+        if (level > 3) {
+            level_version = 'HighLevel';
+            level = level - 4;
+        }
+
+        var level_rotate = 'lvl' + level;
+
+        clone.toggleClass('template', false);
+        if (Gloomhaven.data.Monsters[name].ActiveCard) 
+            clone.find('.initiative img')[0].src = Gloomhaven.data.Monsters[name].ActiveCard.Image;
+        else 
+            clone.find('.initiative img')[0].src = 'img/initiative_back.jpg';
+        clone.find('.stats img')[0].src = monster[level_version];
+        clone.find('.stats img').toggleClass(level_rotate);
+
+        $('#active_monster_list .active').clone().appendTo(clone.find('.avatar'));
+
+        clone.data('id', activeMonsterId);
+        clone.find('.avatar li').data('id', activeMonsterId);
+        clone.appendTo($list);
+    }
+};
+
+$('#GotoNextMonsterTurn').on('click', function() {
+    Gloomhaven.GotoNextMonsterTurn();
+});
+
+$(function() {    
     var $loc = $('#scenario_key');
     for (var key in Locations) {
         $loc.append($('<option>', {
@@ -135,120 +287,10 @@ $(function() {
         }));
     }
 
-    $('#monster_list').on('click', 'li .add', function() {
-        var type = $(this).closest('li').data('id');
-        Gloomhaven.AddActiveMonster(type);
-        PopulateActiveMonsterList();
-    });    
-
-    $('#active_monster_list').on('click', 'li .remove', function() {
-        var key = $(this).closest('li').data('id');
-        Gloomhaven.RemoveActiveMonster(key);
-        PopulateActiveMonsterList();
-    });    
-
-    $('#start_new_round').on('click', function() {
-        Gloomhaven.StartRound();
-    });
-
-    $('#end_round').on('click', function() {
-        Gloomhaven.EndRound();
-    });
-
-    $('#modifier_shuffle').on('click', function() {
-        Gloomhaven.ShuffleModifierDeck();
-    });
-
-
-    var showDraws = function(result) {
-        var $box = $('#modifier_deck_draws');
-        $box.children('div:not(.template,.static)').remove();
-
-        var clone = $box.find('.template').clone();
-        clone.toggleClass('template', false);
-        clone.toggleClass('selected', result.Selected == 0);
-        clone.find('img')[0].src = result.Card1.Image;
-        clone.appendTo($box);
-
-        if (result.Card2) {
-            var clone = $box.find('.template').clone();
-            clone.toggleClass('template', false);
-            clone.toggleClass('selected', result.Selected == 1);
-            clone.find('img')[0].src = result.Card2.Image;
-            clone.appendTo($box);    
-        }   
-    };
-
-    $('#modifier_draw').on('click', function() {
-        var result = Gloomhaven.DrawFromModifierDeck();
-        showDraws(result);
-    });
-
-    $('#modifier_draw_adv').on('click', function() {
-        var result = Gloomhaven.DrawFromModifierDeck(true, false);
-        showDraws(result);
-    });
-
-    $('#modifier_draw_dis').on('click', function() {
-        var result = Gloomhaven.DrawFromModifierDeck(false, true);
-        showDraws(result);
-    });
-
-    $('#modifier_bless').on('click', function() {
-        Gloomhaven.AddBless();
-    });
-
-    $('#modifier_curse').on('click', function() {
-        Gloomhaven.AddCurse();
-    });
-
-    $('#add_elements .element').on('click', function() {
-        var $this = $(this);
-        var element = $this.data('element');
-        Gloomhaven.CycleElement(element);
-    });
-
-    $('#add_elements').on('update', function() {
-        var data = Gloomhaven.data.ActiveElements;
-        var $this = $(this);
-            
-        for (var key in data)
-        {
-            $this.find('.element[data-element="'+key+'"]').toggleClass('active', data[key] == 2)
-                .toggleClass('waning', data[key] == 1)
-                .toggleClass('disabled', !data[key]);
-        }
-    });
-
-    $('#add_status .status').on('click', function() {
-        var $this = $(this);
-        var key = $(this).closest('.modal').data('content');
-        var status = $this.data('status');
-        var currentStatus = Gloomhaven.data.ActiveStatuses[key] || {};
-        if (currentStatus[status]) {
-            Gloomhaven.RemoveMonsterStatus(key, status);
-        }
-        else {
-            Gloomhaven.SetMonsterStatus(key, status);
-        }
-    });    
-
-    $('#status_modal').on('openModal', function() {
-        Persistent.Trigger('ActiveStatuses');
-    });
-
-    $('#status_modal').on('update', function() {
-        var key = $(this).data('content');
-        var status = Gloomhaven.data.ActiveStatuses[key] || {};
-        $(this).find('.status').toggleClass('inactive', true);
-        for (var type in status)  {
-            $(this).find('.status[data-status="'+type+'"]').toggleClass('inactive', false);
-        }
-    });
-
     // Initialize
     UpdateScenarioView(Gloomhaven.data.ActiveTab);
+
+    Persistent.Trigger('ActiveMonsterOrder');
     Persistent.Trigger('ActiveElements');
     Persistent.Trigger('ActiveStatuses');
-
 });

@@ -3,7 +3,6 @@ function AddPlayer() {
     if (name.length == 0 || Gloomhaven.data.PlayerList[name])  
         return;
     Gloomhaven.AddPlayer(name);
-    $('#scenario_level').trigger('update');
     AddPlayerToDom(name, 1);
 }
 
@@ -29,7 +28,6 @@ $(function() {
         var $li = $(this).closest('li');
         var name = $li.find('.player_name').text();
         Gloomhaven.RemovePlayer(name);
-        $('#scenario_level').trigger('update');
         $li.remove();
     });
 
@@ -42,7 +40,6 @@ $(function() {
         Gloomhaven.UpdateLevel(name, level);
         $li.find('.equip').text(Math.ceil(level/2));
         $li.find('.level').val(level);
-        $('#scenario_level').trigger('update');
     });
 
     $('#level_list').on('click', '.down', function() {
@@ -54,7 +51,6 @@ $(function() {
         Gloomhaven.UpdateLevel(name, level);
         $li.find('.equip').text(Math.ceil(level/2));
         $li.find('.level').val(level);
-        $('#scenario_level').trigger('update');
     });
 
     $('#level_list').on('keyup blur', '.level', function() {
@@ -64,7 +60,6 @@ $(function() {
         if (level > 0) {
             $li.find('.equip').text(Math.ceil(level/2));
             Gloomhaven.UpdateLevel(name, level);
-            $('#scenario_level').trigger('update');
         }
     });
 

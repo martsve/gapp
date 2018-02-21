@@ -20,21 +20,7 @@
     <link rel="stylesheet" href="css/modal.css">
     
     <script src="res/jquery-3.3.1.min.js"></script>
-    <script src="js/ipad.js"></script>
-    <script src="js/modal.js"></script>
 
-    <script src="Data/Locations.js"></script>
-    <script src="Data/Monsters.js"></script>
-    <script src="Data/ModifierDeck.js"></script>
-
-    <script src="Data/Gloomhaven.js"></script>
-    <script src="Data/PersistentApp.js"></script>
-
-    <script src="Tabs/tabs.js"></script>
-    <script src="Tabs/General.js"></script>
-    <script src="Tabs/Scenario.js"></script>
-    <script src="Tabs/Location.js"></script>
-    <script src="Tabs/Settings.js"></script>
 </head>
 <body ontouchmove="BlockMove(event);" >
 
@@ -268,9 +254,13 @@
                     <li class='template row' data-id=''>
                         <div class='avatar f2'>
                             <span class='name'></span>
-                            <button class='add'>
-                                <img src  />
-                            </button>
+                            <img src  />
+                            <div class='row'>
+                                <button class='f1 add addNormal'>N</button>
+                                <button class='f1 add addElite'>E</button>
+                                <button class='f1 add addSummon'>S</button>
+                                <button class='f1 add addEliteSummon'>SE</button>
+                            </div>
                         </div>
                         <div class='stats f4'><img src  /></div>
                         <div class='f2'>
@@ -295,27 +285,36 @@
                         <div class='f1 element' data-element='Night'><img src='img/icons/e-night.png' /></div>
                     </div>     
                 </div>     
+                
+                <div class='row'>
+                    <div class='row'>
+                        <div class='f1'><button id='GotoNextMonsterTurn'>Next</button></div>
+                        <div class='f1'><button id='DrawModifierCards'>Draw modifier cards</button></div>
+                    </div>  
+                </div>     
 
                 <ul id='active_monster' class='row m2 monster_list'>
                         <li class='template row' data-id=''>
-                            <div class='f1'>
-                                <div class='m2'><button id=''>Draw</button></div>
-                                <div class='m2'><button id=''>Next</button></div>
-                            </div>
+                            <ul class='f1 avatar'>
+                            </ul>
                             <div class='stats f4'><img src  /></div>
                             <div class='f2'>
                                 <div class='initiative'><img src  /></div>
                             </div>
+                            <div class='f1'>
+                                <div class='m2'><button id=''>Modifiers</button></div>
+                            </div>
                         </li>
                     </ul>
 
-                <ul id='active_monster_list' class='row'>
-                    <li class='template w1' data-id=''>
+                <input id="ActiveMonsterOrder" type='hidden' data-receiver='ActiveMonster' data-parent='ActiveMonsterOrder'>
+                <ul id='active_monster_list' class='row' data-receiver='ActiveMonsterOrder'>
+                    <li class='template monsterAvatar w1' data-id=''>
                         <button data-modal='#status_modal' data-content=''>
                             <img src  />
                             <span class='name'></span>
+                            <span class='number'></span>
                         </button>
-                        <button class='icon remove'>Remove</button>
                     </li>
                 </ul>
 
@@ -324,18 +323,42 @@
             <div id="status_modal" class="modal d-none" data-receiver='ActiveStatuses'>
                 <div class="modal-content">
                     <span class="close">X</span>
+
                         <ul class='f1 row statuses' id='add_status'>
                             <li class='f1 status inactive' data-status='Disarmed'><img src='img/statuses/disarmed.png' /></li>
                             <li class='f1 status inactive' data-status='Stunned'><img src='img/statuses/stunned.png' /></li>
                             <li class='f1 status inactive' data-status='Muddled'><img src='img/statuses/muddled.png' /></li>
                             <li class='f1 status inactive' data-status='Immobilized'><img src='img/statuses/immobilized.png' /></li>
                         </ul>
+
+                        <hr class='m2'>
+
+                        <ul class='f1 row statuses' id='edit_monster'>
+                                <li class='f1 status'><img src='img/icons/no.png' /></li>
+                        </ul> 
+
                     </div>
                 </div>
             </div>
     </div>
 
 </div>
+
+<script src="js/ipad.js"></script>
+<script src="js/modal.js"></script>
+
+<script src="Data/Locations.js"></script>
+<script src="Data/Monsters.js"></script>
+<script src="Data/ModifierDeck.js"></script>
+
+<script src="Data/PersistentApp.js"></script>
+<script src="Data/Gloomhaven.js"></script>
+
+<script src="Tabs/tabs.js"></script>
+<script src="Tabs/General.js"></script>
+<script src="Tabs/Scenario.js"></script>
+<script src="Tabs/Location.js"></script>
+<script src="Tabs/Settings.js"></script>
 
 </body>
 </html>
