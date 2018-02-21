@@ -107,4 +107,4 @@ input.number {
 #active_monster_list .name { display: none; }
 
 img.statIcon { width: 6mm !important; padding: 0px; }
-.statText { font: 6mm Verdana; }
+.statText, .statText * { font: 6mm Verdana; }

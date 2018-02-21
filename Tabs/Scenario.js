@@ -220,7 +220,6 @@ $('#status_modal').on('openModal', function() {
 
 $('#status_modal').on('update', function() {
     var key = $(this).data('content');
-    console.log(key);
     var status = Gloomhaven.data.ActiveStatuses[key] || {};
     $('#add_status .status').toggleClass('inactive', true);
     for (var type in status)  {
@@ -267,10 +266,6 @@ var PopulateActiveMonster = function() {
         else 
             clone.find('.initiative img.initCard')[0].src = 'img/initiative_back.jpg';
             
-        var statCard = GetMonsterStats(monster, Gloomhaven.data.ActiveMonsters[activeMonsterId].Elite, Gloomhaven.data.ScenarioLevel);
-        clone.find('.statCardText').html(StatsToTextWithImages(statCard));
-        clone.find('.initiativeCardText').html(StatsToTextWithImages(Gloomhaven.data.Monsters[name].ActiveCard), true);             
-        
         clone.find('.stats img.statCard')[0].src = monster[level_version];
         clone.find('.stats img.statCard').toggleClass(level_rotate);
 
@@ -292,9 +287,21 @@ var ShowTotalStatsText = function(modifier) {
         var name = Gloomhaven.data.ActiveMonsters[activeMonsterId].Id;
         var monster = Monsters[name];
         var initiative = Gloomhaven.data.Monsters[name].ActiveCard;
-        var stats = GetCombinedStats(initiative, monster, Gloomhaven.data.ActiveMonsters[activeMonsterId].Elite, Gloomhaven.data.ScenarioLevel, modifier);
+        var table = GetStatTable(initiative, monster, Gloomhaven.data.ActiveMonsters[activeMonsterId].Elite, Gloomhaven.data.ScenarioLevel, modifier);
 
-        $(".totalStatsText").html(StatsToTextWithImages(stats));
+        var keyValues = [];
+        for (var key in table) 
+            keyValues.push([ key, StatOrderFromKey(key) ])
+        keyValues.sort(function compare(kv1, kv2) { return kv1[1] - kv2[1] });
+    
+        var html = "<div class='row w8'><div class='w1'></div><div class='w1'>Stats</div><div class='w2'>Initiative</div><div class='w2'>Total</div><div class='w2'>Modifier</div></div>";
+        for (var i = 0; i < keyValues.length; i++) {
+            var key = keyValues[i][0];
+            html += "<div class='row w8'><div class='w1'>"+table[key].Header+"</div><div class='w1'>"+table[key].Stats+"</div><div class='w2'>"+table[key].Init+"</div><div class='w2'>"+table[key].Total+"</div><div class='w2'>"+table[key].Modified+"</div></div>";
+        }
+        html = StatsTextToImages(html);
+
+        $(".totalStatsText").html(html);
     }
     else {
         $(".totalStatsText").html('');
