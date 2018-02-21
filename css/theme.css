@@ -88,13 +88,14 @@ input.number {
 }
 
 
-.elements div { margin-right: 1mm; padding-bottom: 1mm; text-align: center; }  
-.elements img { width: 48px; } 
+.elements div { margin-right: 2mm; padding-bottom: 1mm; text-align: center; }  
+.elements img { width: 14mm; } 
 .elements .waning img { filter: grayscale(100%); }
 .elements .disabled img { filter: grayscale(100%) opacity(10%); }
 .elements .active { padding-bottom: 1mm; border-bottom: 1mm solid green; }
 .elements .waning { padding-bottom: 1mm; border-bottom: 1mm solid orange; }
 .elements .disabled { padding-bottom: 1mm; border-bottom: 1mm solid #eee; }
 
-.statuses .status img { width: 48px; margin: 5mm; } 
+.statuses .status { text-align: center; }
+.statuses .status img { width: 30mm; margin: 5mm; } 
 .statuses .status.inactive img { filter: grayscale(100%) opacity(10%); }
