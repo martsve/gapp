@@ -446,6 +446,46 @@ function GetSimpleStatTable(monster, initiative, lvl) {
     return list;
 }
 
+
+function GetStatsOutcome(monster, initiative, elite, lvl, modifier) {
+    var stats = GetMonsterStats(monster, elite, lvl);
+    var total = CombineStats(initiative, stats);
+    var modified = CombineStats(initiative, stats, modifier);
+
+    var allKeys = {};
+    for (var key in total) 
+        if (!StatIgnoreStat(key, total[key])) {
+            allKeys[key] = true;
+        }
+
+    var table = {};
+    for (var key in allKeys) {
+        var headerData = total[key];
+        table[key] = {
+            "Key": key,
+            "Order": StatOrderFromKey(key),
+            "Header": StatsTextToImages(StatHeaderFromKey(key, headerData)),
+            "Stats": stats[key] != undefined ? StatsTextToImages(StatDataFromStat(key, stats[key])) : "",
+            "Initiative": initiative[key] != undefined ? StatsTextToImages(StatDataFromStat(key, initiative[key], true)) : "",
+            "Total": total[key] != undefined ? StatsTextToImages(StatDataFromStat(key, total[key])) : "",
+            "Modified": modified[key] != undefined ? StatsTextToImages(StatDataFromStat(key, modified[key])) : "",
+        };
+    }
+
+    var keyValues = [];
+    for (var key in table) 
+        keyValues.push([ key, table[key].Order ])
+    keyValues.sort(function compare(kv1, kv2) { return kv1[1] - kv2[1] });
+
+    var list = [];
+    for (var i = 0; i < keyValues.length; i++)  {
+        var key = keyValues[i][0];
+        list.push(table[key]);
+    }
+
+    return list;
+}
+
 function GetStatTable(initiative, monster, elite, lvl, modifier) {
     var stats = GetMonsterStats(monster, elite, lvl);
     var total = CombineStats(initiative, stats);

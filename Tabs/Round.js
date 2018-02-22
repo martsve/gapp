@@ -33,6 +33,26 @@ $(function() {
         Gloomhaven.RemoveActiveMonster(key);
     });
 
+    $('#status_modal #drawModifier').on('click', function() {
+        var $modal = $(this).closest('.modal');
+        var key = $modal.data('content');
+
+        var statuses = Gloomhaven.data.ActiveStatuses[key] || {};
+        var adv = !!statuses.Strengthen;
+        var dis = !!statuses.Muddled;
+        var result = Gloomhaven.DrawFromModifierDeck(adv, dis);
+
+        var activeMonster = Gloomhaven.data.ActiveMonsters[key];
+        var id = activeMonster.Id;
+        var initiative = Gloomhaven.data.Monsters[id] ? Gloomhaven.data.Monsters[id].ActiveCard : null;
+
+        var table = GetStatsOutcome(Monsters[id], initiative, activeMonster.Elite, Gloomhaven.data.ScenarioLevel, result.Result);
+
+        console.log(result, table);
+    });
+
+    
+
         
     $('#add_elements .element').on('click', function() {
         var $this = $(this);
