@@ -8,8 +8,7 @@
     background-size: cover;    
 }
 
-#completed_locations .title, #availible_locations .title { font-size: 7mm; }
-
+#completed_locations .title, #availible_locations .title { font-size: 5mm; }
 
 .modifier_deck div button { font-size: 5mm; }
 

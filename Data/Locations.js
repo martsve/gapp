@@ -17,7 +17,7 @@ var Locations = {
     '16':{Name: 'Mountain Pass',Next: [24,25],Maps: ['B4b','A2b','K2a','I2a'],Monsters: ['Earth Demon','Wind Demon','Inox Guard','Inox Archer']},
     '17':{Name: 'Lost Island',Next: [],Maps: ['L1b','L3a','B3a','B4a','C1b'],Monsters: ['Vermling Scout','Vermling Shaman','Cave Bear']},
     '18':{Name: 'Abandoned Sewers',Next: [14,23,26,43],Maps: ['H1b','H3b','M1a'],Monsters: ['Giant Viper','Ooze','Vermling Scout']},
-    '19':{Name: 'Forgotten Crypt',Next: [27],Maps: [''],Monsters: ['']},
+    '19':{Name: 'Forgotten Crypt',Next: [27],Maps: ['D2a','D1a','C2b', "C1a", "I1b"], Monsters: ['Cultist','Living Bones', 'Living Spirit', 'Living Corpse']},
     '20':{Name: 'Necromancers Sanctum',Next: [16,18,28],Maps: [''],Monsters: ['']},
     '21':{Name: 'Infernal Throne',Next: [],Maps: [''],Monsters: ['']},
     '22':{Name: 'Templte of the Elements',Next: [31,35,36],Maps: [''],Monsters: ['']},

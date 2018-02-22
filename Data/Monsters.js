@@ -1,4 +1,12 @@
 var MonsterCards = {
+    "earthdemon": {},
+    "sundemon": {},
+    "hound": {},
+    "livingspirit": {},
+    "livingcorpse": {},
+    "archer": {},
+    "shaman": {},
+
     "guard": {
         1: { Image: "res/Guard/1.jpg", Initiative: 35, Move: -1, Attack: 0, Range: 2 },
         2: { Image: "res/Guard/2.jpg", Initiative: 55, Move: -1, Attack: 0, Strengthen: true },
@@ -108,7 +116,99 @@ var MonsterCards = {
 
 };
 
+/*
+Earth Demon
+Sun Demon
+Hound
+Living Spirit
+Living Corpse
+Inox Guard
+Inox Archer
+Inox Shaman
+*/
+
 var Monsters = {
+    "earthdemon": {
+        Name: "Earth Demon",
+        LowLevel: "res/EarthDemon/a.jpg",
+        HighLevel: "res/EarthDemon/b.jpg",
+        Cards: "earthdemon",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+    "sundemon": {
+        Name: "Sun Demon",
+        LowLevel: "res/SunDemon/a.jpg",
+        HighLevel: "res/SunDemon/b.jpg",
+        Cards: "sundemon",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+    "hound": {
+        Name: "Hound",
+        LowLevel: "res/Hound/a.jpg",
+        HighLevel: "res/Hound/b.jpg",
+        Cards: "hound",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+    "livingspirit": {
+        Name: "Living Spirit",
+        LowLevel: "res/LivingSpirit/a.jpg",
+        HighLevel: "res/LivingSpirit/b.jpg",
+        Cards: "livingspirit",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+    "livingcorpse": {
+        Name: "Living Corpse",
+        LowLevel: "res/LivingCorpse/a.jpg",
+        HighLevel: "res/LivingCorpse/b.jpg",
+        Cards: "livingcorpse",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+    "inoxguard": {
+        Name: "Inox Guard",
+        LowLevel: "res/Guard/inox_a.jpg",
+        HighLevel: "res/Guard/inox_b.jpg",
+        Cards: "guard",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+    "inoxarcher": {
+        Name: "Inox Archer",
+        LowLevel: "res/Archer/inox-a.jpg",
+        HighLevel: "res/Archer/inox-b.jpg",
+        Cards: "archer",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+    "inoxshaman": {
+        Name: "Inox Shaman",
+        LowLevel: "res/Shaman/inox-a.jpg",
+        HighLevel: "res/Shaman/inox-b.jpg",
+        Cards: "shaman",
+        Normal: {
+        },
+        Elite: {
+        },
+    },
+
     "banditguard": {
         Name: "Bandit Guard",
         LowLevel: "res/Guard/bandit_a.jpg",

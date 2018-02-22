@@ -4,7 +4,7 @@ var AddAvilibleLocation = function(listId, key) {
     clone.toggleClass('template');
     clone.data('id', key);
     clone.find('.img').css('background-image', 'url(img/map/'+key+'.jpg)');
-    clone.find('.title').text(loc.Name);
+    clone.find('.title').text("#" + key + " " + loc.Name);
     clone.appendTo($(listId));
 }
 
