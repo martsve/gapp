@@ -100,15 +100,23 @@ input.number {
 .statuses .status img { width: 30mm; margin: 5mm; } 
 .statuses .status.inactive img { filter: grayscale(100%) opacity(10%); }
 
-.monsterAvatar.active button { background-color: lightgreen; }
-.monsterAvatar.elite { border: 2mm solid yellow; }
-.monsterAvatar.summon.summon { border-bottom: 2mm solid purple; }
+.monsterStats .active button { background-color: lightgreen; }
+.monsterStats .elite { border: 2mm solid yellow; }
+.monsterStats .summon.summon { border-bottom: 2mm solid purple; }
 
-#active_monster_list .name { display: none; }
-
-img.statIcon { width: 3mm !important; padding: 0px; }
 .statText, .statText * { font: 6mm Verdana; }
 
-#monsterStatsList * { font: 5mm Calibri; line-height: 6mm; padding: 0px; margin: 0px; }
-#monsterStatsList .c-normal { background-color: white; text-align: center; }
+img.statIcon { height: 4mm !important; padding: 0px; }
+#monsterStatsList li { line-height: 7mm; margin: 0px; }
+#monsterStatsList li div { height: 7mm; font: 5mm Calibri; padding: 0px; margin: 0px; }
+#monsterStatsList .c-header { background-color: white; text-align: center; }
+#monsterStatsList .c-normal { background-color: lightgray; text-align: center; }
 #monsterStatsList .c-elite { background-color: yellow; text-align: center; }
+#monsterStatsList .c-same { background-color: white; text-align: center; }
+
+#monsterStatsList .initiative { bordeR:1px solid red;  }
+#monsterStatsList .c-initiative { text-align: center; }
+.initiative .init-number .c-initiative { text-align: left !important; font-size: 7mm !important; font-weight: bold !important; }
+.initiative .shuffle .c-initiative { text-align: right !important; }
+.monsterStats .c-img { text-align: center !important; }
+.monsterStats .c-img img { width: 15mm; }

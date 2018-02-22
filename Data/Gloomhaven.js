@@ -24,6 +24,7 @@ var Gloomhaven = {};
         ModifierDeck: [],
         ModifierDeckDiscard: [],
         ShuffleAtEndOfRund: false,
+        ActiveRoundState: false,
 
         ScenarioIsActive: false,
         ScenarioKey: '',        
@@ -118,6 +119,11 @@ var Gloomhaven = {};
     */
     
     self.StartRound = function() {
+        if (self.data.ActiveRoundState) {
+            self.EndRound();
+        }
+        self.data.ActiveRoundState = true;
+        self.data.ActiveRound = self.data.ActiveRound + 1;
         self.data.ShuffleAtEndOfRund = false;
         self.data.ActiveMonster = null;
 
@@ -129,6 +135,7 @@ var Gloomhaven = {};
             self.data.Monsters[i].ActiveCard = null;
 
         UpdateMonsterOrder();
+        Persistent.Trigger('ActiveRound');
         self.SaveAll();
     };
 
@@ -140,6 +147,11 @@ var Gloomhaven = {};
     };
 
     self.GotoNextMonsterTurn = function() {
+        if (!self.data.ActiveRoundState) 
+        {
+            return self.StartRound();
+        }
+
         if (!self.data.ActiveMonster)
             StartRoundInitiative();
 
@@ -179,6 +191,7 @@ var Gloomhaven = {};
     };
 
     self.EndRound = function() {
+        self.data.ActiveRoundState = false;
         self.data.ActiveMonster = null;
 
         if (self.data.ShuffleAtEndOfRund) {
@@ -191,6 +204,10 @@ var Gloomhaven = {};
             if (current == -1)
                 current = 0;
             self.data.ActiveElements[type] = current;
+        }
+        
+        for (var type in self.data.Monsters) {
+            var current = self.data.Monsters[type].ActiveCard = null;
         }
 
         self.SaveAll();

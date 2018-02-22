@@ -12,6 +12,10 @@ $(function() {
         $(this).closest('.modal').trigger('closeModal');
     });
 
+    $('.modal').on('closeModal', function() {
+        $(this).toggleClass('d-none', true);
+    });
+
     $('.modal .modal-content').on('click', function(e) { e.stopPropagation(); });
     $('.modal').on('click', function(event) {
         $(this).toggleClass('d-none', true);

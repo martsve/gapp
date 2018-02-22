@@ -258,117 +258,101 @@
                 </div>
         
                 <ul id='monster_list' class='row m2 monster_list'>
-                    <li class='template row' data-id=''>
+                    <li class='template row w3' data-id=''>
                         <div class='avatar f2'>
                             <span class='name'></span>
                             <img src  />
                             <div class='row'>
-                                <button class='f1 add addNormal'>N</button>
-                                <button class='f1 add addElite'>E</button>
-                                <button class='f1 add addSummon'>S</button>
-                                <button class='f1 add addEliteSummon'>SE</button>
+                                <button class='add addNormal'>Normal</button>
+                                <button class='add addElite'>Elite</button>
+                                <button class='add addSummon'>Summon</button>
+                                <button class='add addEliteSummon'>Summon Elite</button>
                             </div>
-                        </div>
-                        <div class='stats f4'><img src  /></div>
-                        <div class='f2'>
-                            <div class='initiative'><img src  /></div>
                         </div>
                     </li>
                 </ul>
 
-                <div class='row'>
-                    <div class='w5 row'>
-                        <div class='f3'>Round <input id='round_counter' class='number' disabled data-bind='ActiveRound'></div>
-                        <div class='f3'><button id='start_new_round' data-val='1' data-change='ActiveRound'>New round</button></div>
-                        <div class='f3'><button id='end_round'>End round</button></div>
-                        <div class='f1'></div>
-                    </div>
-                    <div class='f1 box elements' id='add_elements' data-receiver='ActiveElements'>
-                        <div class='f1 element' data-element='Fire'><img src='img/icons/e-fire.png' /></div>
-                        <div class='f1 element' data-element='Green'><img src='img/icons/e-green.png' /></div>
-                        <div class='f1 element' data-element='Snow'><img src='img/icons/e-snow.png' /></div>
-                        <div class='f1 element' data-element='Sun'><img src='img/icons/e-sun.png' /></div>
-                        <div class='f1 element' data-element='Wind'><img src='img/icons/e-wind.png' /></div>
-                        <div class='f1 element' data-element='Night'><img src='img/icons/e-night.png' /></div>
-                    </div>     
-                </div>     
-                
-                <div class='row'>
-                    <div class='row'>
-                        <div class='f1'><button id='GotoNextMonsterTurn'>Next</button></div>
-                        <div class='f2'></div>
-                    </div>  
-                </div>     
-                
-                <ul id='active_monster' class='row m2 monster_list'>
-                        <li class='template row' data-id=''>
-                            <ul class='f1 avatar'>
-                            </ul>
-                            <div class='stats f4'><img src class='statCard' /></div>
-                            <div class='f2'>
-                                <div class='initiative'><img src class='initCard'  /></div>
-                            </div>
-                            <div class='f1'>
-                                <button class='drawModifiers' data-id=''>Draw</button>
-                            </div>
-                        </li>
-                    </ul>
-
-                <div class='row totalStatsText statText'></div>
-
-                <input id="ActiveMonsterOrder" type='hidden' data-receiver='ActiveMonster' data-parent='ActiveMonsterOrder'>
-                <ul id='active_monster_list' class='row' data-receiver='ActiveMonsterOrder'>
-                    <li class='template monsterAvatar w1' data-id=''>
-                        <button data-modal='#status_modal' data-content=''>
-                            <img src  />
-                            <span class='name'></span>
-                            <span class='number'></span>
-                        </button>
-                    </li>
-                </ul>
-
             </div>
-            
-            <div id="status_modal" class="modal d-none" data-receiver='ActiveStatuses'>
-                <div class="modal-content">
-                    <span class="close">X</span>
 
-                        <ul class='f1 row statuses' id='add_status'>
-                            <li class='f1 status inactive' data-status='Strengthen'><img src='img/icons/strengthen.png' /></li>
-                            <li class='f1 status inactive' data-status='Disarmed'><img src='img/icons/disarmed.png' /></li>
-                            <li class='f1 status inactive' data-status='Stunned'><img src='img/icons/stunned.png' /></li>
-                            <li class='f1 status inactive' data-status='Muddled'><img src='img/icons/muddled.png' /></li>
-                            <li class='f1 status inactive' data-status='Immobilized'><img src='img/icons/immobilized.png' /></li>
-                        </ul>
-
-                        <hr class='m2'>
-
-                        <ul class='f1 row statuses' id='edit_monster'>
-                                <li class='f1 status'><img src='img/icons/no.png' /></li>
-                        </ul> 
-
-                    </div>
-                </div>
-            </div>
     </div>
 
     <div id='round-tab' class='tab d-none row'>
 
-        <ul class='row' id='monsterStatsList'>
-            <li class='row monsterStats template'>
-                <div class='row c-name'></div>
-                <div class='row c-img'></div>
-                <div class='row c-row template'>
-                    <div class='f1 c-header'></div>
-                    <div class='f1 c-normal'></div>
-                    <div class='f1 c-elite'></div>
-                    <div class='f1 c-initiative'></div>
+        <div class='row'>
+            <div class='w4 row'>
+                <div class='f1'>Round <input id='round_counter' class='number' disabled data-bind='ActiveRound'></div>
+                <div class='f1'><button id='GotoNextMonsterTurn'>Next</button></div>
+            </div>
+            <div class='f1 box elements' id='add_elements' data-receiver='ActiveElements'>
+                <div class='f1 element' data-element='Fire'><img src='img/icons/e-fire.png' /></div>
+                <div class='f1 element' data-element='Green'><img src='img/icons/e-green.png' /></div>
+                <div class='f1 element' data-element='Snow'><img src='img/icons/e-snow.png' /></div>
+                <div class='f1 element' data-element='Sun'><img src='img/icons/e-sun.png' /></div>
+                <div class='f1 element' data-element='Wind'><img src='img/icons/e-wind.png' /></div>
+                <div class='f1 element' data-element='Night'><img src='img/icons/e-night.png' /></div>
+            </div>     
+        </div>     
+
+        <ul class='row' id='monsterStatsList' data-receiver='ActiveMonsterOrder'>
+            <li class='row  w8 monsterStats template' data-key='' data-receiver='ActiveMonster'>
+                <div class='w1 c-img'>
+                    <div class='c-name'></div>
+                    <div><img src='' /></div>
                 </div>
+                <ul class='row w3 c-row'>
+                    <li class='template row'>
+                        <div class='f1 c-normal'></div>
+                        <div class='f1 c-header'></div>
+                        <div class='f1 c-elite'></div>
+                        <div class='f3 c-same d-none'></div>
+                    </li>
+                </ul>
+                <ul class='row w2 initiative'>
+                    <li class='template row'>
+                        <div class='f1 c-initiative'></div>
+                    </li>
+                </ul>
+                <ul class='row w1 activeMonsters'>
+                    <li class='template' style='width: 15mm !important;'>
+                        <button data-modal='#status_modal' data-content=''>
+                            <span class='number'></span>
+                        </button>
+                    </li>
+                </ul>
             </li>
         </ul>
 
+        <div class='row'>
+            <div class='f1'><button id='end_round'>Start next round</button></div>
+        </div>    
+
     </div>
 
+</div>
+
+            
+<div id="status_modal" class="modal d-none" data-receiver='ActiveStatuses'>
+    <div class="modal-content">
+        <span class="close">X</span>
+
+            <ul class='f1 row statuses' id='add_status'>
+                <li class='f1 status inactive' data-status='Strengthen'><img src='img/icons/strengthen.png' /></li>
+                <li class='f1 status inactive' data-status='Disarmed'><img src='img/icons/disarmed.png' /></li>
+                <li class='f1 status inactive' data-status='Stunned'><img src='img/icons/stunned.png' /></li>
+                <li class='f1 status inactive' data-status='Muddled'><img src='img/icons/muddled.png' /></li>
+                <li class='f1 status inactive' data-status='Immobilized'><img src='img/icons/immobilized.png' /></li>
+            </ul>
+
+            <hr class='m2'>
+
+            <div class='row'>
+                <div class='w1'>
+                    <button id='remove_monster'> Remove </button>
+                </div>
+            </ul> 
+
+        </div>
+    </div>
 </div>
 
 <script src="js/ipad.js"></script>

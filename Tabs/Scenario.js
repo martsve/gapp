@@ -35,8 +35,6 @@ var UpdateScenarioView = function() {
 
             clone.toggleClass('template', false);
             clone.find('.avatar img')[0].src = 'img/Monsters/'+name+'.png';
-            clone.find('.initiative img')[0].src = 'img/initiative_back.jpg';
-            clone.find('.stats img')[0].src = monster[level_version];
             clone.find('.stats img').toggleClass(level_rotate);
             clone.find('span').text(loc.Monsters[key]);
             clone.data('id', name);
@@ -47,29 +45,6 @@ var UpdateScenarioView = function() {
 
     SetActiveTab(Gloomhaven.data.ActiveTab);
 };
-
-$('#active_monster_list').on('update', function() {
-    var $list = $('#active_monster_list');
-    $list.find('li:not(.template)').remove();
-    for (var i in Gloomhaven.data.ActiveMonsterOrder)
-    {
-        var item = Gloomhaven.data.ActiveMonsterOrder[i];
-        var name = Gloomhaven.data.ActiveMonsters[item].Name;
-        var number = Gloomhaven.data.ActiveMonsters[item].Number;
-        var key = Gloomhaven.data.ActiveMonsters[item].Id;
-        var clone = $list.find('.template').clone();
-        clone.toggleClass('template', false);
-        clone.toggleClass('elite', Gloomhaven.data.ActiveMonsters[item].Elite);
-        clone.toggleClass('summon', Gloomhaven.data.ActiveMonsters[item].Summon);
-        clone.find('img')[0].src = 'img/Monsters/'+key+'.png';
-        clone.find('.name').text(name);
-        clone.find('.number').text(number);
-        clone.data('id', item);
-        clone.find('button').data('content', item);
-        clone.appendTo($list);
-    }
-    Persistent.Trigger('ActiveMonster');
-});
 
 
 $('#complete_scenario').on('click', function(){
@@ -127,14 +102,6 @@ $('#active_monster_list').on('click', 'li .remove', function() {
     Gloomhaven.RemoveActiveMonster(key);
 });    
 
-$('#start_new_round').on('click', function() {
-    Gloomhaven.StartRound();
-});
-
-$('#end_round').on('click', function() {
-    Gloomhaven.EndRound();
-});
-
 $('#modifier_shuffle').on('click', function() {
     Gloomhaven.ShuffleModifierDeck();
 });                
@@ -182,51 +149,6 @@ $('#modifier_curse').on('click', function() {
     Gloomhaven.AddCurse();
 });
 
-$('#add_elements .element').on('click', function() {
-    var $this = $(this);
-    var element = $this.data('element');
-    Gloomhaven.CycleElement(element);
-});
-
-$('#add_elements').on('update', function() {
-    var data = Gloomhaven.data.ActiveElements;
-    var $this = $(this);
-        
-    for (var key in data)
-    {
-        $this.find('.element[data-element="'+key+'"]').toggleClass('active', data[key] == 2)
-            .toggleClass('waning', data[key] == 1)
-            .toggleClass('disabled', !data[key]);
-    }
-});
-
-$('#add_status .status').on('click', function() {
-    var $this = $(this);
-    var key = $(this).closest('.modal').data('content');
-    console.log(key);
-    var status = $this.data('status');
-    var currentStatus = Gloomhaven.data.ActiveStatuses[key] || {};
-    if (currentStatus[status]) {
-        Gloomhaven.RemoveMonsterStatus(key, status);
-    }
-    else {
-        Gloomhaven.SetMonsterStatus(key, status);
-    }
-});    
-
-$('#status_modal').on('openModal', function() {
-    Persistent.Trigger('ActiveStatuses');
-});
-
-$('#status_modal').on('update', function() {
-    var key = $(this).data('content');
-    var status = Gloomhaven.data.ActiveStatuses[key] || {};
-    $('#add_status .status').toggleClass('inactive', true);
-    for (var type in status)  {
-        $(this).find('.status[data-status="'+type+'"]').toggleClass('inactive', false);
-    }
-});
-
 $('#ActiveMonsterOrder').on('update', function() {
     var $list = $('#active_monster_list');
     $list.children('li').toggleClass('active', false);
@@ -260,15 +182,7 @@ var PopulateActiveMonster = function() {
         var level_rotate = 'lvl' + level;
 
         clone.toggleClass('template', false);
-
-        if (Gloomhaven.data.Monsters[name].ActiveCard) 
-            clone.find('.initiative img.initCard')[0].src = Gloomhaven.data.Monsters[name].ActiveCard.Image;
-        else 
-            clone.find('.initiative img.initCard')[0].src = 'img/initiative_back.jpg';
             
-        clone.find('.stats img.statCard')[0].src = monster[level_version];
-        clone.find('.stats img.statCard').toggleClass(level_rotate);
-
         $('#active_monster_list .active').clone().appendTo(clone.find('.avatar'));
 
         clone.find('.drawModifiers').data('id', activeMonsterId);
@@ -276,8 +190,6 @@ var PopulateActiveMonster = function() {
         clone.find('.avatar li button').data('content', activeMonsterId);
 
         clone.appendTo($list);
-
-        ShowTotalStatsText();
     }
 };
 
@@ -316,10 +228,6 @@ $('#active_monster').on('click', '.drawModifiers', function() {
     var result = Gloomhaven.DrawFromModifierDeck(adv, dis);
     ShowTotalStatsText(result.Result);
     showDraws(result, $('#active_monster'));
-});
-
-$('#GotoNextMonsterTurn').on('click', function() {
-    Gloomhaven.GotoNextMonsterTurn();
 });
 
 $(function() {    

@@ -61,7 +61,7 @@ var MonsterCards = {
         } },
         2: { Image: "res/FrostDemon/2.jpg", Initiative: 78, Move: -1, Attack: 0, Frost: true, Shuffle: true },
         3: { Image: "res/FrostDemon/3.jpg", Initiative: 78, Move: -1, Attack: 0, Frost: true, Shuffle: true },
-        4: { Image: "res/FrostDemon/4.jpg", Initiative: 18, Immobilizie: "Target all enemies within Range 2", Consume: {
+        4: { Image: "res/FrostDemon/4.jpg", Initiative: 18, Immobilize: "Target all enemies within Range 2", Consume: {
             Type: "Frost",
             HealSelf: 3
         } },
@@ -92,7 +92,7 @@ var MonsterCards = {
         1: { Image: "res/NightDemon/1.jpg", Initiative: 41, Shuffle: true, Move: -1, Attack: 1, Night: true },
         2: { Image: "res/NightDemon/2.jpg", Initiative: 35, Attack: -1, Attack: [-1, "Pierce 2"], Consume: {
             Type: "Sun",
-            CurseSelf: true,
+            Curse: true,
         } },
         3: { Image: "res/NightDemon/3.jpg", Initiative: 15, Move: 0, Attack: [-1, "All adjacent enemies and allies suffer 1 damage"], Consume: { 
             Type: "Any",
@@ -109,7 +109,7 @@ var MonsterCards = {
         } },
         7: { Image: "res/NightDemon/7.jpg", Initiative: 7, Move: 1, Attack: -1, Consume: {
             Type: "Night",
-            InvisibleSelf: true
+            Invisible: -1
         } },
         8: { Image: "res/NightDemon/8.jpg", Initiative: 22, Move: 0, Attack: 0, Night: true }
     },
@@ -374,7 +374,7 @@ function StatsTextToImages(text) {
     text = text.replace('{Muddle}','<img src="img/icons/muddled.png" class="statIcon">');
     text = text.replace('{Wound}','<img src="img/icons/wound.png" class="statIcon">');
     text = text.replace('{Invisible}','<img src="img/icons/invisible.png" class="statIcon">');
-    text = text.replace('{Immobilized}','<img src="img/icons/immobilized.png" class="statIcon">');
+    text = text.replace('{Immobilize}','<img src="img/icons/immobilized.png" class="statIcon">');
 
     text = text.replace('{Fire}','<img src="img/icons/e-fire.png" class="statIcon">');
     text = text.replace('{Green}','<img src="img/icons/e-green.png" class="statIcon">');
@@ -397,29 +397,37 @@ function GetSimpleStatTable(monster, initiative, lvl) {
     if (!initiative) 
         initiative = {};
 
+    var normalKeys = {}, eliteKeys = {}, initKeys = {};
+
     var allKeys = {};
     for (var key in normal) 
-        if (!StatIgnoreStat(key, normal[key]))
+        if (!StatIgnoreStat(key, normal[key])) {
             allKeys[key] = true;
+            normalKeys[key] = true;
+        }
 
     var allKeys = {};
     for (var key in elite) 
-        if (!StatIgnoreStat(key, elite[key]))
+        if (!StatIgnoreStat(key, elite[key])) {
             allKeys[key] = true;    
+            eliteKeys[key] = true;
+        }
 
     for (var key in initiative) 
-        if (!StatIgnoreStat(key, initiative[key]))
+        if (!StatIgnoreStat(key, initiative[key])) {
             allKeys[key] = true;
-
+            initKeys[key] = true;
+        }
 
     var table = {};
     for (var key in allKeys) {
         var headerData = initiative[key] != undefined ? initiative[key] : elite[key];
         table[key] = {
-            "Header":  StatsTextToImages(StatHeaderFromKey(key, headerData)),
-            "Normal": normal[key] != undefined ? StatsTextToImages(StatDataFromStat(key, normal[key])) : "",
-            "Elite": elite[key] != undefined ? StatsTextToImages(StatDataFromStat(key, elite[key])) : "",
-            "Initiative": initiative[key] != undefined ? StatsTextToImages(StatDataFromStat(key, initiative[key], true)) : "",
+            "Key": key,
+            "Header": StatsTextToImages(StatHeaderFromKey(key, headerData)),
+            "Normal": normalKeys[key] != undefined ? StatsTextToImages(StatDataFromStat(key, normal[key])) : "",
+            "Elite": eliteKeys[key] != undefined ? StatsTextToImages(StatDataFromStat(key, elite[key])) : "",
+            "Initiative": initKeys[key] != undefined ? StatsTextToImages(StatDataFromStat(key, initiative[key], true)) : "",
             "Order": StatOrderFromKey(key),
         };
     }
@@ -528,7 +536,7 @@ function StatOrderFromKey(key) {
 }
 
 function StatHeaderFromKey(key, data) {
-    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilizie", "Heal"].indexOf(key) >= 0) { 
+    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilize", "Heal"].indexOf(key) >= 0) { 
         return key + " {"+key+"}";    
     }
 
@@ -536,10 +544,10 @@ function StatHeaderFromKey(key, data) {
         return "";
     }
 
-    if (key == "DamageSelf") return "Gives itself ";    
-    if (key == "HealSelf") return "Heal {Heal} ";    
+    if (key == "DamageSelf") return "Gives itself";
+    if (key == "HealSelf") return "Heal {Heal}";
     if (key == "Conditional") return data.Type;    
-    if (key == "Consume") return "{"+data.Type+"}";
+    if (key == "Consume") return "Consume {"+data.Type+"}:";
 
     if (key == "HP") return "Health {Heal}";    
     
@@ -551,7 +559,7 @@ function StatIgnoreStat(key, data) {
         return true;
     }
 
-    if (["Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Shuffle", "Any"].indexOf(key) >= 0) { 
+    if (["Retaliate", "Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Shuffle", "Any"].indexOf(key) >= 0) { 
         return (!data || (Array.isArray(data) && data[0] == 0));
     }
 
@@ -566,7 +574,7 @@ function StatDataFromStat(key, data, pluss) {
         return (data >= 0 && pluss ? '+' : '') + data;        
     }
 
-    if (["Retaliate", "Immobilizie", "Heal"].indexOf(key) >= 0) {
+    if (["Retaliate", "Immobilize", "Heal"].indexOf(key) >= 0) {
         if (Array.isArray(data))
             return data[0] + " ["+GetStatText('Range', data[1]) + "]";
         if (typeof data === 'string')
@@ -583,8 +591,8 @@ function StatDataFromStat(key, data, pluss) {
         return data + " damage";
     }
 
-    if (["Strengthen", "Curse", "Muddle", "Poison", "Wound"].indexOf(key) >= 0) { 
-        return key.toUpperCase() + " {"+key+"}";
+    if (["Strengthen", "Curse", "Muddle", "Poison", "Wound", "Invisible"].indexOf(key) >= 0) { 
+        return key.toUpperCase() + " {"+key+"}" + (data < 0 ? " self" :"");
     }
 
     if (["Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
