@@ -29,6 +29,7 @@
         <li><a href='javascript:;' data-tab='general-tab'><span>General</span></a></li>
         <li><a href='javascript:;' data-tab='location-tab'><span>Locations</span></a></li>
         <li><a href='javascript:;' data-tab='scenario-tab'><span>Scenario</span></a></li>
+        <li><a href='javascript:;' data-tab='round-tab'><span>Round</span></a></li>
         <li class='settings'><a href='javascript:;' data-tab='settings-tab'><span>Settings</span></a></li>
     </ul>
 </header>
@@ -351,6 +352,23 @@
             </div>
     </div>
 
+    <div id='round-tab' class='tab d-none row'>
+
+        <ul class='row' id='monsterStatsList'>
+            <li class='row monsterStats template'>
+                <div class='row c-name'></div>
+                <div class='row c-img'></div>
+                <div class='row c-row template'>
+                    <div class='f1 c-header'></div>
+                    <div class='f1 c-normal'></div>
+                    <div class='f1 c-elite'></div>
+                    <div class='f1 c-initiative'></div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
 </div>
 
 <script src="js/ipad.js"></script>
@@ -368,6 +386,7 @@
 <script src="Tabs/Scenario.js"></script>
 <script src="Tabs/Location.js"></script>
 <script src="Tabs/Settings.js"></script>
+<script src="Tabs/Round.js"></script>
 
 </body>
 </html>

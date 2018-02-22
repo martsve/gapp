@@ -3,7 +3,7 @@
 }
 
 body, input, button, select {
-    /*background: #222222;*/
+    background: #eee;
 }
 
 * { font-family: gloomhaven; }
@@ -106,5 +106,9 @@ input.number {
 
 #active_monster_list .name { display: none; }
 
-img.statIcon { width: 6mm !important; padding: 0px; }
+img.statIcon { width: 3mm !important; padding: 0px; }
 .statText, .statText * { font: 6mm Verdana; }
+
+#monsterStatsList * { font: 5mm Calibri; line-height: 6mm; padding: 0px; margin: 0px; }
+#monsterStatsList .c-normal { background-color: white; text-align: center; }
+#monsterStatsList .c-elite { background-color: yellow; text-align: center; }

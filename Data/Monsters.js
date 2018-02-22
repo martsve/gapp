@@ -358,6 +358,8 @@ function StatsToTextWithImages(stats, pluss) {
 }
 
 function StatsTextToImages(text) {
+    if (Number.isInteger(text))
+        text = "" + text;
     text = text.replace(/\{Attack\}/g,'<img src="img/icons/attack.png" class="statIcon">');
     text = text.replace('{Move}','<img src="img/icons/move.png" class="statIcon">');
     text = text.replace(/\{Range\}/g,'<img src="img/icons/range.png" class="statIcon">');
@@ -388,6 +390,54 @@ function StatsTextToImages(text) {
     return text;
 }
 
+function GetSimpleStatTable(monster, initiative, lvl) {
+    var normal = GetMonsterStats(monster, false, lvl);
+    var elite = GetMonsterStats(monster, true, lvl);
+
+    if (!initiative) 
+        initiative = {};
+
+    var allKeys = {};
+    for (var key in normal) 
+        if (!StatIgnoreStat(key, normal[key]))
+            allKeys[key] = true;
+
+    var allKeys = {};
+    for (var key in elite) 
+        if (!StatIgnoreStat(key, elite[key]))
+            allKeys[key] = true;    
+
+    for (var key in initiative) 
+        if (!StatIgnoreStat(key, initiative[key]))
+            allKeys[key] = true;
+
+
+    var table = {};
+    for (var key in allKeys) {
+        var headerData = initiative[key] != undefined ? initiative[key] : elite[key];
+        table[key] = {
+            "Header":  StatsTextToImages(StatHeaderFromKey(key, headerData)),
+            "Normal": normal[key] != undefined ? StatsTextToImages(StatDataFromStat(key, normal[key])) : "",
+            "Elite": elite[key] != undefined ? StatsTextToImages(StatDataFromStat(key, elite[key])) : "",
+            "Initiative": initiative[key] != undefined ? StatsTextToImages(StatDataFromStat(key, initiative[key], true)) : "",
+            "Order": StatOrderFromKey(key),
+        };
+    }
+
+    var keyValues = [];
+    for (var key in table) 
+        keyValues.push([ key, table[key].Order ])
+    keyValues.sort(function compare(kv1, kv2) { return kv1[1] - kv2[1] });
+
+    var list = [];
+    for (var i = 0; i < keyValues.length; i++)  {
+        var key = keyValues[i][0];
+        list.push(table[key]);
+    }
+
+    return list;
+}
+
 function GetStatTable(initiative, monster, elite, lvl, modifier) {
     var stats = GetMonsterStats(monster, elite, lvl);
     var total = CombineStats(initiative, stats);
@@ -397,6 +447,7 @@ function GetStatTable(initiative, monster, elite, lvl, modifier) {
     for (var key in stats) 
         if (!StatIgnoreStat(key, stats[key]))
             allKeys[key] = true;
+
     for (var key in initiative) 
         if (!StatIgnoreStat(key, initiative[key]))
             allKeys[key] = true;
