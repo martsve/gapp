@@ -82,13 +82,13 @@ var MonsterCards = {
     },
     "boss":{
         1: { Image: "res/boss/1.jpg", Initiative: 52, Move: -1, Attack: -1, Range: 3, Target: 2 },
-        2: { Image: "res/boss/2.jpg", Initiative: 17, Text: "Special 2", Shuffle: true, Special: 2 },
-        3: { Image: "res/boss/3.jpg", Initiative: 85, Text: "Special 1", Shuffle: true, Special: 1 },
-        4: { Image: "res/boss/4.jpg", Initiative: 79, Text: "Special 1", Shuffle: true, Special: 1 },
-        5: { Image: "res/boss/5.jpg", Initiative: 73, Text: "Special 1", Shuffle: true, Special: 1 },
+        2: { Image: "res/boss/2.jpg", Initiative: 17, Shuffle: true, Special: 2 },
+        3: { Image: "res/boss/3.jpg", Initiative: 85, Shuffle: true, Special: 1 },
+        4: { Image: "res/boss/4.jpg", Initiative: 79, Shuffle: true, Special: 1 },
+        5: { Image: "res/boss/5.jpg", Initiative: 73, Shuffle: true, Special: 1 },
         6: { Image: "res/boss/6.jpg", Initiative: 36, Move: 0, Attack: 0 },
-        7: { Image: "res/boss/7.jpg", Initiative: 14, Text: "Special 2", Shuffle: true, Special: 2 },
-        8: { Image: "res/boss/8.jpg", Initiative: 11, Text: "Special 2", Shuffle: true, Special: 2 },
+        7: { Image: "res/boss/7.jpg", Initiative: 14, Shuffle: true, Special: 2 },
+        8: { Image: "res/boss/8.jpg", Initiative: 11, Shuffle: true, Special: 2 },
     },
     "CaveBear":{
         1: { Image: "res/CaveBear/1.jpg", Initiative: 0, },
@@ -1242,7 +1242,14 @@ function StatOrderFromKey(key) {
 }
 
 function StatHeaderFromKey(key, data) {
-    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilize", "Heal", "Push", "Pull"].indexOf(key) >= 0) { 
+    
+    if (key == "HP") return "{Heal}";
+    
+    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilize", "Push", "Pull"].indexOf(key) >= 0) { 
+        return "{"+key+"}";    
+    }
+
+    if (["Heal"].indexOf(key) >= 0) { 
         return key + " {"+key+"}";    
     }
 
@@ -1255,8 +1262,6 @@ function StatHeaderFromKey(key, data) {
     if (key == "Conditional") return data.Type;    
     if (key == "Consume") return "{"+data.Type+"}{Consume}:";
 
-    if (key == "HP") return "Health {Heal}";    
-    
     return key;
 }
 

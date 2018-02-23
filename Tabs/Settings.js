@@ -110,7 +110,7 @@ $(function() {
             }
         }
         for (var key in nextMonsters) {
-            if (Monsters[key].Normal.Move == undefined)
+            if (Monsters[key].Boss == undefined && Monsters[key].Normal.Attack == undefined)
                 console.log('Missing stats for monster ', key);
             var cards = MonsterCards[Monsters[key].Cards];
             for (var acard in cards) 
