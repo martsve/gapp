@@ -804,6 +804,7 @@ var Monsters = {
         LowLevel: "res/FlameDemon/a.jpg",
         HighLevel: "res/FlameDemon/b.jpg",
         Cards: "flamedemon",
+        Flying: true,
         Normal: {
             HP: [2,2,3,3],
             Move: [3,3,3,3],
@@ -931,9 +932,13 @@ function StatsTextToImages(text) {
     text = text.replace('{Fire}','<img src="img/icons/e-fire.png" class="statIcon">');
     text = text.replace('{Green}','<img src="img/icons/e-green.png" class="statIcon">');
     text = text.replace('{Night}','<img src="img/icons/e-night.png" class="statIcon">');
+    text = text.replace('{Pierce}','<img src="img/icons/pierce.png" class="statIcon">');
     text = text.replace('{Sun}','<img src="img/icons/e-sun.png" class="statIcon">');
     text = text.replace('{Wind}','<img src="img/icons/e-wind.png" class="statIcon">');
     text = text.replace('{Frost}','<img src="img/icons/e-snow.png" class="statIcon">');
+
+    text = text.replace('{Consume}','<img src="img/icons/consume.png" class="consume statIcon">');
+    
 
     text = text.replace('{Any}','<img src="img/icons/any.png" class="statIcon">');
     text = text.replace('{Target}','<img src="img/icons/target.png" class="statIcon">');
@@ -1139,7 +1144,7 @@ function StatHeaderFromKey(key, data) {
     if (key == "DamageSelf") return "Gives itself";
     if (key == "HealSelf") return "Heal {Heal}";
     if (key == "Conditional") return data.Type;    
-    if (key == "Consume") return "Consume {"+data.Type+"}:";
+    if (key == "Consume") return "{"+data.Type+"}{Consume}:";
 
     if (key == "HP") return "Health {Heal}";    
     

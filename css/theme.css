@@ -108,7 +108,8 @@ input.number {
 .statText, .statText * { font: 6mm Verdana; }
 
 #monsterStatsList .c-name { font: 5mm Calibri; font-weight: bold; }
-img.statIcon { height: 6mm !important; padding: 0px; }
+img.statIcon { height: 6mm !important; padding: 0px; z-index: 0; }
+img.statIcon.consume { margin-left: -6mm; z-index: 5; }
 .smallTable li { line-height: 7mm; margin: 0px; }
 .smallTable li div { min-height: 7mm; font: 5mm Calibri; padding: 0px; margin: 0px; }
 #monsterStatsList .c-header { background-color: white; text-align: center; }
