@@ -20,7 +20,7 @@ var UpdateScenarioView = function() {
         $list.children('li:not(.template)').remove();
         for (var key in loc.Monsters)
         {
-            var name = loc.Monsters[key].toLowerCase().replace(' ', '');
+            var name = loc.Monsters[key].toLowerCase().replace(/ /g, '');
             var monster = Monsters[name];
             var clone = $list.find('.template').clone();
             var level = Gloomhaven.data.ScenarioLevel;
@@ -34,9 +34,9 @@ var UpdateScenarioView = function() {
             var level_rotate = 'lvl' + level;
 
             clone.toggleClass('template', false);
-            clone.find('.avatar img')[0].src = 'img/Monsters/'+name+'.png';
+            clone.find('.avatar img')[0].src = 'img/Monsters/'+name+'.jpg';
             clone.find('.stats img').toggleClass(level_rotate);
-            clone.find('span').text(loc.Monsters[key]);
+            clone.find('.name').text(loc.Monsters[key]);
             clone.data('id', name);
             clone.appendTo($list);
         }    
@@ -78,21 +78,33 @@ $('#start_scenario').on('click', function() {
     }
 });
 
+function ShowPluss($div) {
+    var obj = $('<img class="addSuccess" src="img/icons/pluss.png">');
+    obj.appendTo($div);
+    setTimeout(function() {
+        obj.remove();
+    }, 500);
+};
+
 $('#monster_list').on('click', 'li .addNormal', function() {
+    ShowPluss($(this).parent());
     var type = $(this).closest('li').data('id');
     Gloomhaven.AddActiveMonster(type, false, false);
 });    
 
 $('#monster_list').on('click', 'li .addElite', function() {
+    ShowPluss($(this).parent());
     var type = $(this).closest('li').data('id');
     Gloomhaven.AddActiveMonster(type, true, false);
 });    
 
 $('#monster_list').on('click', 'li .addSummon', function() {
+    ShowPluss($(this).parent());
     var type = $(this).closest('li').data('id');
     Gloomhaven.AddActiveMonster(type, false, true);
 });    
 $('#monster_list').on('click', 'li .addEliteSummon', function() {
+    ShowPluss($(this).parent());
     var type = $(this).closest('li').data('id');
     Gloomhaven.AddActiveMonster(type, true, true);
 });    

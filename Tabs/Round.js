@@ -106,7 +106,7 @@ $(function() {
                 clone.find('.number').text(item.Number);
                 clone.data('id', name);
                 clone.find('button').data('content', name);
-                clone.appendTo(obj);
+                clone.appendTo($list);
             }
         }
     }
@@ -159,7 +159,7 @@ $(function() {
 
         CreateActiveMonsterList(monster, obj);
 
-        var image = 'img/Monsters/'+monster.Key+'.png';
+        var image = 'img/Monsters/'+monster.Key+'.jpg';
         
         obj.find('.c-name').text(monster.Name);
         obj.find('.c-img img').attr('src', image);
@@ -184,10 +184,9 @@ $(function() {
                 activeMonsterTypes[key] = true;
             }
             
-
             var keyValues = [];
             for (var i in location.Monsters)  {
-                var key = location.Monsters[i].toLowerCase().replace(' ', '');
+                var key = location.Monsters[i].toLowerCase().replace(/ /g, '');
                 if (activeMonsterTypes[key]) {
                     var initiative = Gloomhaven.data.Monsters[key] ? Gloomhaven.data.Monsters[key].ActiveCard : null;
                     keyValues.push([ key, initiative ? initiative.Initiative : 0 ])
@@ -199,7 +198,6 @@ $(function() {
                 var key = keyValues[i][0];               
                 var initiative = Gloomhaven.data.Monsters[key] ? Gloomhaven.data.Monsters[key].ActiveCard : null;
                 Monsters[key].Key = key;
-
                 var $existing = $list.children("li."+key);
                 if ($existing.length) {
                     UpdateMonsterStatsObject(Monsters[key], Gloomhaven.data.ScenarioLevel, initiative, $existing);

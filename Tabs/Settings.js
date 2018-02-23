@@ -36,6 +36,10 @@ $(function() {
         download(Gloomhaven.data, Gloomhaven.data.Name + '.txt');
     });
 
+    $('#refresh').on('click', function() {
+        location.reload();
+    });
+
     upload($('#load_file'), function(data) {
         Gloomhaven.LoadData(JSON.parse(data));
     });
@@ -52,5 +56,57 @@ $(function() {
             AddPlayer();
             $(this).val('').focus();
         }
+    });
+
+
+    $('#checkData').on('click', function() {
+        var images = {};
+        var tiles = {};
+        for (var key in Locations) {
+            for (var i = 0; i < Locations[key].Maps.length; i++) 
+            {
+                if (!tiles[Locations[key].Maps[i]]) tiles[Locations[key].Maps[i]] = 0;
+                tiles[Locations[key].Maps[i]]++;
+                images[Locations[key].Maps[i]] = 'img/Tiles/'+Locations[key].Maps[i]+'.png';
+            }
+
+            for (var i = 0; i <Locations[key].Monsters.length; i++) 
+            {
+                var name = Locations[key].Monsters[i].toLowerCase().replace(/ /g, '');
+                var monster = Monsters[name];
+                if (monster == undefined) {
+                    console.log('cant find monster ', Locations[key].Monsters[i], name, key);
+                    continue;
+                }
+
+                images[name] = 'img/Monsters/'+name+'.jpg';
+
+                var cards = MonsterCards[monster.Cards];
+                if (monster == undefined) {
+                    console.log('cant find monster card ', monster.Cards, name, key);
+                    continue;
+                }
+
+                for (var acard in cards) 
+                    images[monster.Cards + acard] = cards[acard].Image;
+        
+
+               // images[monster.Cards + 'low'] = cards[acard].LowLevel;
+               // images[monster.Cards + 'high'] = cards[acard].HighLevel;                
+            }
+        }
+
+        var imagesToLoad = [];
+        for (var k in images)
+            if (k.length)
+                imagesToLoad.push(images[k]);
+
+          var tmpImg = new Image() ;
+          tmpImg.src = imagesToLoad.pop();
+          tmpImg.onload = function() {
+              var src = imagesToLoad.pop();
+              if (src == undefined) return;
+              tmpImg.src = src;
+          };
     });
 });

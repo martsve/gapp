@@ -138,6 +138,18 @@
             </div>
         </div>
 
+        <div class='row'>
+            <div class='f1'>
+                <button id='checkData'>Check data consistency</button>
+            </div>
+        </div>
+
+        <div class='refresh row'>
+            <div class='f1'>
+                <button id='refresh'>Refresh user interface</button>
+            </div>
+        </div>
+
     </div>
 
     <div id='location-tab' class='tab d-none row'>
@@ -213,60 +225,24 @@
                 </div>
 
                 <div class='box w8'></div>
-
-                <div class='row w2'>
-                    <h2 class='f1'><a href='javascript:;' data-toggle='.modifier_deck, #modifier_deck_draws' data-key='ShowManualModifierDeck'>Modifier deck</a></h2>
-                </div>
-
-                <div class='modifier_deck row'>
-                    <div class='w1 m2'><button id='modifier_draw'>Draw</button></div>
-                    <div class='w1 m2'><button id='modifier_draw_adv'>Draw (adv)</button></div>
-                    <div class='w1 m2'><button id='modifier_draw_dis'>Draw (dis)</button></div>
-                    <div class='w1 m2'><button id='modifier_shuffle'>Shuffle</button></div>
-                    <div class='w1 m2'><button id='modifier_bless'>Bless</button></div>
-                    <div class='w1 m2'><button id='modifier_curse'>Curse</button></div>
-                </div>
-
-                <div id='modifier_deck_draws' class='row'>
-                    <div class='w2 modifier_card static' id='decksize'>
-                        <span id='modifier_size' data-bind='ModifierDeckLength'></span>
-                    </div>
-                    <div class='w6 row modifier_cards template'>
-                        <div class='w2 modifier_card card1'>
-                            <div class='card'><img src /></div>
-                        </div>
-                        <div class='w2 modifier_card card2'>
-                            <div class='card'><img src /></div>
-                        </div>
-                        <div class='w2 result'></div>
-                    </div>
-                </div>
                 
-                <div class='row w2'>
-                    <h2 class='f1'><a href='javascript:;' data-toggle='#tile_list' data-key='showTileList'>Tiles</a></h2>
-                </div>
-        
                 <ul id='tile_list' class='row'>
                     <li class='template f1 m2'>
                         <img src  />
                         <span class='tilename'></span>
                     </li>
                 </ul>
-
-                <div class='row w2'>
-                    <h2 class='f1'><a href='javascript:;' data-toggle='#monster_list' data-key='showMonsterList'>Monsters</a></h2>
-                </div>
         
                 <ul id='monster_list' class='row m2 monster_list'>
-                    <li class='template row w3' data-id=''>
-                        <div class='avatar f2'>
-                            <span class='name'></span>
-                            <img src  />
-                            <div class='row'>
-                                <button class='add addNormal'>Normal</button>
-                                <button class='add addElite'>Elite</button>
-                                <button class='add addSummon'>Summon</button>
-                                <button class='add addEliteSummon'>Summon Elite</button>
+                    <li class='template row w2' data-id=''>
+                        <div class='avatar f1'>
+                            <div class='name'></div>
+                            <div class='addButtons'>
+                                <img src  />
+                                <button class='add addNormal'>N</button>
+                                <button class='add addElite'>E</button>
+                                <button class='add addSummon'>N</button>
+                                <button class='add addEliteSummon'>E</button>
                             </div>
                         </div>
                     </li>
@@ -280,8 +256,10 @@
 
         <div class='row'>
             <div class='w4 row'>
-                <div class='f1'>Round <input id='round_counter' class='number' disabled data-bind='ActiveRound'></div>
-                <div class='f1'><button id='GotoNextMonsterTurn'>Next</button></div>
+                <div class='f3'>Round <input id='round_counter' class='number' disabled data-bind='ActiveRound'></div>
+                <div class='f2'><button id='GotoNextMonsterTurn'>Next</button></div>
+                <div class='f2'><button id='modifier_bless'>Bless</button></div>
+                <div class='f2'><button id='modifier_curse'>Curse</button></div>
             </div>
             <div class='f1 box elements' id='add_elements' data-receiver='ActiveElements'>
                 <div class='f1 element' data-element='Fire'><img src='img/icons/e-fire.png' /></div>
@@ -299,7 +277,7 @@
                     <div class='c-name'></div>
                     <div><img src='' /></div>
                 </div>
-                <ul class='row w3 c-row'>
+                <ul class='row w3 c-row smallTable'>
                     <li class='template row'>
                         <div class='f1 c-normal'></div>
                         <div class='f1 c-header'></div>
@@ -307,12 +285,12 @@
                         <div class='f3 c-same d-none'></div>
                     </li>
                 </ul>
-                <ul class='row w2 initiative'>
+                <ul class='row w2 initiative smallTable'>
                     <li class='template row'>
                         <div class='f1 c-initiative'></div>
                     </li>
                 </ul>
-                <ul class='row w1 activeMonsters'>
+                <ul class='row w2 activeMonsters'>
                     <li class='template' style='width: 15mm !important;'>
                         <button data-modal='#status_modal' data-content=''>
                             <span class='number'></span>
@@ -331,6 +309,8 @@
 </div>
 
             
+
+     
 <div id="status_modal" class="modal d-none" data-receiver='ActiveStatuses'>
     <div class="modal-content">
         <span class="close">X</span>
@@ -354,11 +334,10 @@
             <hr class='m2'>
             
             <div class='row'>
-                    <div class='w1'>
-                        <button id='drawModifier'> Draw modifier </button>
-                    </div>
-                </ul> 
-    
+                <div class='w1'>
+                    <button id='drawModifier'> Draw modifier </button>
+                </div>
+            </div>     
 
         </div>
     </div>

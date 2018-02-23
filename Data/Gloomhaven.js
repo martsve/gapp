@@ -223,12 +223,17 @@ var Gloomhaven = {};
 
     var GetNextMonsterNumber = function(key) {
         var keys = [1,2,3,4,5,6,7,8,9];        
+        var max = -1;
         for (var item in self.data.ActiveMonsters) {
             if (self.data.ActiveMonsters[item].Id == key) {
-                var index = keys.indexOf(self.data.ActiveMonsters[item].Number);                
+                var num = self.data.ActiveMonsters[item].Number;
+                var index = keys.indexOf(num);                
+                if (num > max) max = num;;
                 keys.splice(index, 1);
             }
         }
+
+        if (!keys.length) return max + 1;
         var randomKey = keys[Math.floor(Math.random()*keys.length)];        
         return randomKey;
     };

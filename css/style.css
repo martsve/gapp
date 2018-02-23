@@ -6,6 +6,7 @@
     width: 100%;
     height: 30mm !important;
     background-size: cover;    
+    background-position: center;
 }
 
 #completed_locations .title, #availible_locations .title { font-size: 5mm; }
@@ -27,25 +28,6 @@
     display: block;
 }
 
-.monster_list li {
-    text-align: center;
-}
-.monster_list .avatar, .monster_list .stats { margin-bottom: 2mm; }
-
-.monster_list .avatar img {
-    width: 30mm;
-}
-.monster_list .initiative img {
-    width: 60mm;
-}
-.monster_list .stats {
-    height: 45mm;
-    overflow: hidden;
-    align-items: baseline;
-}
-.monster_list .stats img {
-    width: 120mm;
-}
 
 .stats img.lvl0 {
     transform: rotate(90deg);
@@ -57,9 +39,6 @@
     transform: rotate(-180deg);    
 }
 
-.monster_list span {
-    display: block;
-}
 
 
 
@@ -117,3 +96,20 @@
     text-shadow: 2px 2px 5px black;    
     font-size: 60px;
 }
+
+
+
+.monster_list .name { font-weight: bold; }
+.monster_list .avatar img {
+    height: 55mm;
+}
+
+.monster_list .avatar { text-align: center; }
+.monster_list .addButtons { display: inline-block; position: relative; }
+.monster_list button.add { width: 15mm; height: 15mm; opacity: 0.5; position: absolute; }
+.monster_list button.addNormal { top: 0px; left: 0px;  }
+.monster_list button.addElite { top: 0px; right: 0px;  }
+.monster_list button.addSummon { bottom: 0px; left: 0px; background-color: purple; }
+.monster_list button.addEliteSummon { bottom: 0px; right: 0px;  background-color: purple; }
+
+.monster_list .addSuccess { width: 15mm !important; height: 15mm !important; position: absolute; top: 19mm; left: 12mm; }

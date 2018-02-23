@@ -101,14 +101,16 @@ input.number {
 .statuses .status.inactive img { filter: grayscale(100%) opacity(10%); }
 
 .monsterStats .active button { background-color: lightgreen; }
+.monsterStats .activeMonsters li  { border: 2mm solid lightgray; }
 .monsterStats .elite { border: 2mm solid yellow; }
 .monsterStats .summon.summon { border-bottom: 2mm solid purple; }
 
 .statText, .statText * { font: 6mm Verdana; }
 
-img.statIcon { height: 4mm !important; padding: 0px; }
-#monsterStatsList li { line-height: 7mm; margin: 0px; }
-#monsterStatsList li div { height: 7mm; font: 5mm Calibri; padding: 0px; margin: 0px; }
+#monsterStatsList .c-name { font: 5mm Calibri; font-weight: bold; }
+img.statIcon { height: 6mm !important; padding: 0px; }
+.smallTable li { line-height: 7mm; margin: 0px; }
+.smallTable li div { min-height: 7mm; font: 5mm Calibri; padding: 0px; margin: 0px; }
 #monsterStatsList .c-header { background-color: white; text-align: center; }
 #monsterStatsList .c-normal { background-color: lightgray; text-align: center; }
 #monsterStatsList .c-elite { background-color: yellow; text-align: center; }
@@ -120,3 +122,4 @@ img.statIcon { height: 4mm !important; padding: 0px; }
 .initiative .shuffle .c-initiative { text-align: right !important; }
 .monsterStats .c-img { text-align: center !important; }
 .monsterStats .c-img img { width: 15mm; }
+
