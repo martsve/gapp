@@ -102,8 +102,8 @@ input.number {
 
 .monsterStats .active button { background-color: lightgreen; }
 .monsterStats .activeMonsters li  { border: 2mm solid lightgray; }
-.monsterStats .elite { border: 2mm solid yellow; }
-.monsterStats .summon.summon { border-bottom: 2mm solid purple; }
+.monsterStats .activeMonsters li.elite { border: 2mm solid yellow; }
+.monsterStats .activeMonsters li.summon.summon { border-bottom: 2mm solid purple; }
 
 .statText, .statText * { font: 6mm Verdana; }
 
