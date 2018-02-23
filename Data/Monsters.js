@@ -716,13 +716,13 @@ var Monsters = {
         LowLevel: "res/SunDemon/a.jpg",
         HighLevel: "res/SunDemon/b.jpg",
         Cards: "sundemon",
-        Flying: true,
         Normal: {
             HP: [5,7,9,10],
             Move: [2,2,2,2],
             Attack: [2,2,2,3],
             Shield: [1,1,1,1],
             Advantage: true,
+            Flying: true,
         },
         Elite: {
             HP: [9,12,13,15],
@@ -730,6 +730,7 @@ var Monsters = {
             Attack: [3,3,4,4],
             Shield: [1,1,1,1],
             Advantage: true,
+            Flying: true,
         },
     },
     "hound": {
@@ -948,7 +949,6 @@ var Monsters = {
         LowLevel: "res/FlameDemon/a.jpg",
         HighLevel: "res/FlameDemon/b.jpg",
         Cards: "flamedemon",
-        Flying: true,
         Normal: {
             HP: [2,2,3,3],
             Move: [3,3,3,3],
@@ -956,7 +956,8 @@ var Monsters = {
             Range: [3,3,3,4],
 
             Shield: [2,3,3,3],
-            Retaliate: [0, 0, 0, [2,2]]
+            Retaliate: [0, 0, 0, [2,2]],
+            Flying: true
         },
         Elite: {
             HP: [3,3,4,5],
@@ -965,7 +966,8 @@ var Monsters = {
             Range: [3,4,4,5],
 
             Shield: [3,4,4,4],
-            Retaliate: [0, [2,2], [3,2], [3,3]]
+            Retaliate: [0, [2,2], [3,2], [3,3]],
+            Flying: true
         },
     },
 
@@ -1079,6 +1081,7 @@ function StatsTextToImages(text) {
     text = text.replace('{Wind}','<img src="img/icons/e-wind.png" class="statIcon">');
     text = text.replace('{Frost}','<img src="img/icons/e-snow.png" class="statIcon">');
 
+    text = text.replace('{Flying}','<img src="img/icons/flying.png" class="statIcon">');
     text = text.replace('{Consume}','<img src="img/icons/consume.png" class="consume statIcon">');      
 
     text = text.replace('{Any}','<img src="img/icons/any.png" class="statIcon">');
@@ -1245,15 +1248,15 @@ function StatHeaderFromKey(key, data) {
     
     if (key == "HP") return "{Heal}";
     
-    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilize", "Push", "Pull"].indexOf(key) >= 0) { 
+    if (["Attack", "Range", "Move", "Shield", "Retaliate"].indexOf(key) >= 0) { 
         return "{"+key+"}";    
     }
 
-    if (["Heal"].indexOf(key) >= 0) { 
+    if (["Heal", "Pierce", "Push", "Pull", "Target", "Immobilize"].indexOf(key) >= 0) { 
         return key + " {"+key+"}";    
     }
 
-    if (["Pattern", "Invisible","Special", "Advantage","Text", "Shuffle","Strengthen", "Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
+    if (["Flying", "Pattern", "Invisible","Special", "Advantage","Text", "Shuffle","Strengthen", "Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
         return "";
     }
 
@@ -1308,7 +1311,7 @@ function StatDataFromStat(key, data, pluss) {
         return key.toUpperCase() + " {"+key+"}" + (data < 0 ? " self" :"");
     }
 
-    if (["Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
+    if (["Flying", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
         return "{"+key+"}";
     }
 
