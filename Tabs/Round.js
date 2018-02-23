@@ -119,7 +119,7 @@ $(function() {
             if (item.Normal == item.Elite && item.Normal.length == 0) continue;
             var row = obj.find('.c-row .template').clone();
             row.toggleClass('template', false);
-            row.find('.c-header').html(item.Header);
+            row.find('.c-header').html(item.Header).toggleClass('d-none', item.Header.length == 0);
 
             if (monster.Boss) {
                 row.find('.c-elite').toggleClass('d-none', true);

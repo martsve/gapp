@@ -10,7 +10,7 @@ var MonsterCards = {
         8: { Image: "res/EarthDemon/8.jpg", Initiative: 93, Move: -1, Attack: [-1, "Target all adjacent enemies"], Consume: { Type: "Green", Push: 1 } },
     },
     "sundemon": {
-        1: { Image: "res/SunDemon/1.jpg", Initiative: 50, Move: 0, Attack: 0, Range: 3, Consum: { Type: "Any", Sun: true } },
+        1: { Image: "res/SunDemon/1.jpg", Initiative: 50, Move: 0, Attack: 0, Range: 3, Consume: { Type: "Any", Sun: true } },
         2: { Image: "res/SunDemon/2.jpg", Initiative: 88, Move: -1, Attack: [-1, "Target all adjacent enemies"], Consume: { Type: "Any", Muddle: -1 }  },
         3: { Image: "res/SunDemon/3.jpg", Initiative: 36, Move: 0, Attack: [0, "Target all adjacent enemies"], Sun: true  },
         4: { Image: "res/SunDemon/4.jpg", Initiative: 68, Move: 0, Attack: 1, Sun: true },
@@ -1053,7 +1053,7 @@ function GetMonsterStats(monster, elite, lvl) {
             val = stats[key];
         }
 
-        if (typeof val === "string" && ["HP", "Attack"].indexOf(key) >= 0) {
+        if (["HP", "Attack"].indexOf(key) >= 0 && typeof val === "string") {
             var C = Object.keys(Gloomhaven.data.PlayerList).length;
             var val = eval(val.replace('C', C));
         }
