@@ -117,10 +117,12 @@ img.statIcon.consume { margin-left: -6mm; z-index: 5; }
 #monsterStatsList .c-elite { background-color: yellow; text-align: center; }
 #monsterStatsList .c-same { background-color: white; text-align: center; }
 
-#monsterStatsList .initiative { bordeR:1px solid red;  }
+#monsterStatsList .initiative { bordeR:1px solid red; position:relative; }
 #monsterStatsList .c-initiative { text-align: center; }
 .initiative .init-number .c-initiative { text-align: left !important; font-size: 7mm !important; font-weight: bold !important; }
 .initiative .shuffle .c-initiative { text-align: right !important; }
+.initiative .pattern .c-initiative { text-align: right !important; height: 0px; margin-top: -10.5mm; vertical-align: bottom; }
+.initiative .pattern img, .initiative img.pattern { width: 15mm; }
 .monsterStats .c-img { text-align: center !important; }
 .monsterStats .c-img img { width: 15mm; }
 

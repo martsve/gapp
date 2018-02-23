@@ -1,73 +1,73 @@
 var MonsterCards = {
     "earthdemon": {
-        1: { Image: "res/EarthDemon/1.jpg", Initiative: 0, },
-        2: { Image: "res/EarthDemon/2.jpg", Initiative: 0, },
-        3: { Image: "res/EarthDemon/3.jpg", Initiative: 0, },
-        4: { Image: "res/EarthDemon/4.jpg", Initiative: 0, },
-        5: { Image: "res/EarthDemon/5.jpg", Initiative: 0, },
-        6: { Image: "res/EarthDemon/6.jpg", Initiative: 0, },
-        7: { Image: "res/EarthDemon/7.jpg", Initiative: 0, },
-        8: { Image: "res/EarthDemon/8.jpg", Initiative: 0, },
+        1: { Image: "res/EarthDemon/1.jpg", Initiative: 83, Move: -1, Attack: 1, Green: true },
+        2: { Image: "res/EarthDemon/2.jpg", Initiative: 87, Move: 0, Attack: -1, Consume: { Type: "Any", Green: true }, Pattern: 'img/ref/earthdemon-1.png' },
+        3: { Image: "res/EarthDemon/3.jpg", Initiative: 79, Move: 1, Attack: 0, Consume: {Type: "Wind", Attack: -2 } },
+        4: { Image: "res/EarthDemon/4.jpg", Initiative: 62, Move: 0, Attack: 0, Green: true },
+        5: { Image: "res/EarthDemon/5.jpg", Initiative: 71, Attack: 0, Range: 4, Consume: { Type: "Green", Target: 2 } },
+        6: { Image: "res/EarthDemon/6.jpg", Initiative: 40, HealSelf: 3, Consume: { Type: "Green", Immobilize: "Target all enemies within Range {Range} 3" }, Shuffle: true },
+        7: { Image: "res/EarthDemon/7.jpg", Initiative: 42, Move: 1, Attack: -1, Shuffle: true },
+        8: { Image: "res/EarthDemon/8.jpg", Initiative: 93, Move: -1, Attack: [-1, "Target all adjacent enemies"], Consume: { Type: "Green", Push: 1 } },
     },
     "sundemon": {
-        1: { Image: "res/SunDemon/1.jpg", Initiative: 0, },
-        2: { Image: "res/SunDemon/2.jpg", Initiative: 0, },
-        3: { Image: "res/SunDemon/3.jpg", Initiative: 0, },
-        4: { Image: "res/SunDemon/4.jpg", Initiative: 0, },
-        5: { Image: "res/SunDemon/5.jpg", Initiative: 0, },
-        6: { Image: "res/SunDemon/6.jpg", Initiative: 0, },
-        7: { Image: "res/SunDemon/7.jpg", Initiative: 0, },
-        8: { Image: "res/SunDemon/8.jpg", Initiative: 0, },
+        1: { Image: "res/SunDemon/1.jpg", Initiative: 50, Move: 0, Attack: 0, Range: 3, Consum: { Type: "Any", Sun: true } },
+        2: { Image: "res/SunDemon/2.jpg", Initiative: 88, Move: -1, Attack: [-1, "Target all adjacent enemies"], Consume: { Type: "Any", Muddle: -1 }  },
+        3: { Image: "res/SunDemon/3.jpg", Initiative: 36, Move: 0, Attack: [0, "Target all adjacent enemies"], Sun: true  },
+        4: { Image: "res/SunDemon/4.jpg", Initiative: 68, Move: 0, Attack: 1, Sun: true },
+        5: { Image: "res/SunDemon/5.jpg", Initiative: 36, Move: 0, Attack: [1, "Target all adjacent enemies"], Sun: true  },
+        6: { Image: "res/SunDemon/6.jpg", Initiative: 17, Heal: [3,3], Consume: { Type: "Sun", Text: "Target all allies within range" }, Shuffle: true },
+        7: { Image: "res/SunDemon/7.jpg", Initiative: 95, Move: -1, Attack: 0, Range: 4, Consume: { Type: "Sun", Text: "Target all allies within range" } },
+        8: { Image: "res/SunDemon/8.jpg", Initiative: 73, Move: 0, Attack: 1, Consume: { Type: "Sun", HealSelf: 3 }, Shuffle: true },
     },
     "hound": {
-        1: { Image: "res/Hound/1.jpg", Initiative: 0, },
-        2: { Image: "res/Hound/2.jpg", Initiative: 0, },
-        3: { Image: "res/Hound/3.jpg", Initiative: 0, },
-        4: { Image: "res/Hound/4.jpg", Initiative: 0, },
-        5: { Image: "res/Hound/5.jpg", Initiative: 0, },
-        6: { Image: "res/Hound/6.jpg", Initiative: 0, },
-        7: { Image: "res/Hound/7.jpg", Initiative: 0, },
-        8: { Image: "res/Hound/8.jpg", Initiative: 0, },
+        1: { Image: "res/Hound/1.jpg", Initiative: 6, Move: -1, Attack: 0, Immobilize: true },
+        2: { Image: "res/Hound/2.jpg", Initiative: 7, Move: 0, Muddle: "Target all adjacent enemies" },
+        3: { Image: "res/Hound/3.jpg", Initiative: 72, Attack: -1, Pierce: 2, Move: -2, AttackAgain: { Attack: -1, Pierce: 2 } },
+        4: { Image: "res/Hound/4.jpg", Initiative: 19, Move: 0, Attack: 0, Text: "Add +2 Attack {Attack} if the target is adjacent to any of the Hound's allies.", Shuffle: true },
+        5: { Image: "res/Hound/5.jpg", Initiative: 19, Move: 0, Attack: 0, Text: "Add +2 Attack {Attack} if the target is adjacent to any of the Hound's allies.", Shuffle: true },
+        6: { Image: "res/Hound/6.jpg", Initiative: 26, Move: 0, Attack: 0 },
+        7: { Image: "res/Hound/7.jpg", Initiative: 26, Move: 0, Attack: 0 },
+        8: { Image: "res/Hound/8.jpg", Initiative: 83, Move: -2, Attakc: 1, },
     },
     "livingspirit": {
-        1: { Image: "res/LivingSpirit/1.jpg", Initiative: 0, },
-        2: { Image: "res/LivingSpirit/2.jpg", Initiative: 0, },
-        3: { Image: "res/LivingSpirit/3.jpg", Initiative: 0, },
-        4: { Image: "res/LivingSpirit/4.jpg", Initiative: 0, },
-        5: { Image: "res/LivingSpirit/5.jpg", Initiative: 0, },
-        6: { Image: "res/LivingSpirit/6.jpg", Initiative: 0, },
-        7: { Image: "res/LivingSpirit/7.jpg", Initiative: 0, },
-        8: { Image: "res/LivingSpirit/8.jpg", Initiative: 0, },
+        1: { Image: "res/LivingSpirit/1.jpg", Initiative: 55, Move: 0, Curse: "Target all enemies within range", Frost: true },
+        2: { Image: "res/LivingSpirit/2.jpg", Initiative: 33, Move: 0, Attack: [-1, "Target all enemies within range"], Shuffle: true },
+        3: { Image: "res/LivingSpirit/3.jpg", Initiative: 61, Attack: 0, Range: -1, Target: 2 },
+        4: { Image: "res/LivingSpirit/4.jpg", Initiative: 75, Move: -1, Attack: 1, Range: -1, HealSelf: 1 },
+        5: { Image: "res/LivingSpirit/5.jpg", Initiative: 67, Move: -1, Attack: 1, Consume: {Type:"Frost", Stun: true} },
+        6: { Image: "res/LivingSpirit/6.jpg", Initiative: 48, Move: 0, Attack: 0 },
+        7: { Image: "res/LivingSpirit/7.jpg", Initiative: 22, Move: -1, Attack: -1, Muddle: true, Shuffle: true },
+        8: { Image: "res/LivingSpirit/8.jpg", Initiative: 48, Move: 0, Attack: 0 },
     },
     "livingcorpse": {
-        1: { Image: "res/LivingCorpse/1.jpg", Initiative: 0, },
-        2: { Image: "res/LivingCorpse/2.jpg", Initiative: 0, },
-        3: { Image: "res/LivingCorpse/3.jpg", Initiative: 0, },
-        4: { Image: "res/LivingCorpse/4.jpg", Initiative: 0, },
-        5: { Image: "res/LivingCorpse/5.jpg", Initiative: 0, },
-        6: { Image: "res/LivingCorpse/6.jpg", Initiative: 0, },
-        7: { Image: "res/LivingCorpse/7.jpg", Initiative: 0, },
-        8: { Image: "res/LivingCorpse/8.jpg", Initiative: 0, },
+        1: { Image: "res/LivingCorpse/1.jpg", Initiative: 71, Move: 0, Attack: 1, Poison: "Target all adjacent enemies" },
+        2: { Image: "res/LivingCorpse/2.jpg", Initiative: 91, Move: 1, DamageSelf: 1 },
+        3: { Image: "res/LivingCorpse/3.jpg", Initiative: 32, Attack: 2, Push: 1, DamageSelf: 1 },
+        4: { Image: "res/LivingCorpse/4.jpg", Initiative: 47, Move: 1, Attack: -1 },
+        5: { Image: "res/LivingCorpse/5.jpg", Initiative: 66, Move: 0, Attack: 0, Shuffle: true },
+        6: { Image: "res/LivingCorpse/6.jpg", Initiative: 66, Move: 0, Attack: 0, Shuffle: true },
+        7: { Image: "res/LivingCorpse/7.jpg", Initiative: 82, Move: -1, Attack: 1 },
+        8: { Image: "res/LivingCorpse/8.jpg", Initiative: 21, Move: 1, Text: "MUDDLE {Muddle} and IMMOBILIZE {Immobilize} one adjacent enemy"},
     },
     "archer": {
-        1: { Image: "res/Archer/14.jpg", Initiative: 0, },
-        2: { Image: "res/Archer/16.jpg", Initiative: 0, },
-        3: { Image: "res/Archer/29.jpg", Initiative: 0, },
-        4: { Image: "res/Archer/31.jpg", Initiative: 0, },
-        5: { Image: "res/Archer/32.jpg", Initiative: 0, },
-        6: { Image: "res/Archer/44.jpg", Initiative: 0, },
-        7: { Image: "res/Archer/56.jpg", Initiative: 0, },
-        8: { Image: "res/Archer/68.jpg", Initiative: 0, },
+        1: { Image: "res/Archer/14.jpg", Initiative: 14, Move: -1, Attack: -1, Text: "Create a 3 damage trap in an adjacent empty hex closest to an enemy" },
+        2: { Image: "res/Archer/16.jpg", Initiative: 16, Move: 1, Attack: -1 },
+        3: { Image: "res/Archer/29.jpg", Initiative: 29, Move: 0, Attack: -1, Range: 1, Immobilize: true, Shuffle: true },
+        4: { Image: "res/Archer/31.jpg", Initiative: 31, Move: 0, Attack: 0 },
+        5: { Image: "res/Archer/32.jpg", Initiative: 32, Move: 0, Attack: 1, Range: -1 },
+        6: { Image: "res/Archer/44.jpg", Initiative: 44, Move: -1, Attack: 1 },
+        7: { Image: "res/Archer/56.jpg", Initiative: 56, Attack: -1, Target: 2 },
+        8: { Image: "res/Archer/68.jpg", Initiative: 68, Attack: 1, Range: 1, Shuffle: true },
     },
     "shaman": {
-        1: { Image: "res/Shaman/1.jpg", Initiative: 0, },
-        2: { Image: "res/Shaman/2.jpg", Initiative: 0, },
-        3: { Image: "res/Shaman/3.jpg", Initiative: 0, },
-        4: { Image: "res/Shaman/4.jpg", Initiative: 0, },
-        5: { Image: "res/Shaman/5.jpg", Initiative: 0, },
-        6: { Image: "res/Shaman/6.jpg", Initiative: 0, },
-        7: { Image: "res/Shaman/7.jpg", Initiative: 0, },
-        8: { Image: "res/Shaman/8.jpg", Initiative: 0, },
+        1: { Image: "res/Shaman/1.jpg", Initiative: 8, Move: 0, Attack: -1, Disarm: true },
+        2: { Image: "res/Shaman/2.jpg", Initiative: 23, Move: 0, Heal: [3,3], Shuffle: true },
+        3: { Image: "res/Shaman/3.jpg", Initiative: 89, Move: -1, Heal: [1, "Affect all adjacent allies"], Bless: true },
+        4: { Image: "res/Shaman/4.jpg", Initiative: 62, Move: 0, Attack: 0 },
+        5: { Image: "res/Shaman/5.jpg", Initiative: 8, Move: -1, Attack: 0, Immobilize: true },
+        6: { Image: "res/Shaman/6.jpg", Initiative: 9, Move: 1, Attack: -1, Curse: true, Target: 2 },
+        7: { Image: "res/Shaman/7.jpg", Initiative: 23, Move: 0, Heal: [3,3], Shuffle: true },
+        8: { Image: "res/Shaman/8.jpg", Initiative: 74, Move: -1, Attack: 1 },
     },
 
     "AncientArtillery": {
@@ -81,14 +81,14 @@ var MonsterCards = {
         8: { Image: "res/AncientArtillery/8.jpg", Initiative: 0, },
     },
     "boss":{
-        1: { Image: "res/boss/1.jpg", Initiative: 0, },
-        2: { Image: "res/boss/2.jpg", Initiative: 0, },
-        3: { Image: "res/boss/3.jpg", Initiative: 0, },
-        4: { Image: "res/boss/4.jpg", Initiative: 0, },
-        5: { Image: "res/boss/5.jpg", Initiative: 0, },
-        6: { Image: "res/boss/6.jpg", Initiative: 0, },
-        7: { Image: "res/boss/7.jpg", Initiative: 0, },
-        8: { Image: "res/boss/8.jpg", Initiative: 0, },
+        1: { Image: "res/boss/1.jpg", Initiative: 52, Move: -1, Attack: -1, Range: 3, Target: 2 },
+        2: { Image: "res/boss/2.jpg", Initiative: 17, Text: "Special 2", Shuffle: true, Special: 2 },
+        3: { Image: "res/boss/3.jpg", Initiative: 85, Text: "Special 1", Shuffle: true, Special: 1 },
+        4: { Image: "res/boss/4.jpg", Initiative: 79, Text: "Special 1", Shuffle: true, Special: 1 },
+        5: { Image: "res/boss/5.jpg", Initiative: 73, Text: "Special 1", Shuffle: true, Special: 1 },
+        6: { Image: "res/boss/6.jpg", Initiative: 36, Move: 0, Attack: 0 },
+        7: { Image: "res/boss/7.jpg", Initiative: 14, Text: "Special 2", Shuffle: true, Special: 2 },
+        8: { Image: "res/boss/8.jpg", Initiative: 11, Text: "Special 2", Shuffle: true, Special: 2 },
     },
     "CaveBear":{
         1: { Image: "res/CaveBear/1.jpg", Initiative: 0, },
@@ -101,14 +101,14 @@ var MonsterCards = {
         8: { Image: "res/CaveBear/8.jpg", Initiative: 0, },
     },
     "DeepTerror":{
-        1: { Image: "res/DeepTerror/1.jpg", Initiative: 0, },
-        2: { Image: "res/DeepTerror/2.jpg", Initiative: 0, },
-        3: { Image: "res/DeepTerror/3.jpg", Initiative: 0, },
-        4: { Image: "res/DeepTerror/4.jpg", Initiative: 0, },
-        5: { Image: "res/DeepTerror/5.jpg", Initiative: 0, },
-        6: { Image: "res/DeepTerror/6.jpg", Initiative: 0, },
-        7: { Image: "res/DeepTerror/7.jpg", Initiative: 0, },
-        8: { Image: "res/DeepTerror/8.jpg", Initiative: 0, },
+        1: { Image: "res/DeepTerror/1.jpg", Initiative: 75, Attack: 0, Poison: true, AttackAgain: { Attack: -1, Range: 5, Immobilize: true } },
+        2: { Image: "res/DeepTerror/2.jpg", Initiative: 75, Attack: [-2, "Target all adjacent enemies"], Disarm: true, AttackAgain: { Attack: 0, Range: 3, Target: 2 }  },
+        3: { Image: "res/DeepTerror/3.jpg", Initiative: 96, Attack: -2, Range: 6, Text: "Summon normal Deep Terror in a hex adjacent to the target" },
+        4: { Image: "res/DeepTerror/4.jpg", Initiative: 54, Text: "WOUND {Wound} and POISION {Poison} all adjacent enemies", Attack: 0, Range: 4 },
+        5: { Image: "res/DeepTerror/5.jpg", Initiative: 84, Attack: [-1, "Target all adjacent enemies"], AttackAgain: { Attack: 0, Range: 4, Wound: true } },
+        6: { Image: "res/DeepTerror/6.jpg", Initiative: 60, Attack: 0, Pierce: 3, Pattern: "img/ref/deepterror-1.png", Shuffle: true },
+        7: { Image: "res/DeepTerror/7.jpg", Initiative: 60, Attack: 0, Pierce: 3, Pattern: "img/ref/deepterror-1.png", Shuffle: true },
+        8: { Image: "res/DeepTerror/8.jpg", Initiative: 65, Attack: 0, Range: 3, Target: 3, Curse: true },
     },
     "GiantViper":{
         1: { Image: "res/GiantViper/1.jpg", Initiative: 0, },
@@ -131,14 +131,14 @@ var MonsterCards = {
         8: { Image: "res/HarrowerInfester/8.jpg", Initiative: 0, },
     },
     "Imp":{
-        1: { Image: "res/Imp/1.jpg", Initiative: 0, },
-        2: { Image: "res/Imp/2.jpg", Initiative: 0, },
-        3: { Image: "res/Imp/3.jpg", Initiative: 0, },
-        4: { Image: "res/Imp/4.jpg", Initiative: 0, },
-        5: { Image: "res/Imp/5.jpg", Initiative: 0, },
-        6: { Image: "res/Imp/6.jpg", Initiative: 0, },
-        7: { Image: "res/Imp/7.jpg", Initiative: 0, },
-        8: { Image: "res/Imp/8.jpg", Initiative: 0, },
+        1: { Image: "res/Imp/1.jpg", Initiative: 42, Move: 1, Heal: [2,3] },
+        2: { Image: "res/Imp/2.jpg", Initiative: 37, Move: 0, Attack: 0 },
+        3: { Image: "res/Imp/3.jpg", Initiative: 24, Strengthen: "Affect all allies within Range {Range} 2", Muddle: "Target all enemies within Range {Range} 2" },
+        4: { Image: "res/Imp/4.jpg", Initiative: 5, Shield: 5, HealSelf: 1 },
+        5: { Image: "res/Imp/5.jpg", Initiative: 37, Move: 0, Attack: 0 },
+        6: { Image: "res/Imp/6.jpg", Initiative: 76, Move: -1, Attack: -1 },
+        7: { Image: "res/Imp/7.jpg", Initiative: 43, Move: 0, Attack: -1, Target: 2, Curse: true, Shuffle: true },
+        8: { Image: "res/Imp/8.jpg", Initiative: 43, Move: 0, Attack: -1, Target: 2, Poison: true, Shuffle: true },
     },
     "Lurker": {
         1: { Image: "res/Lurker/1.jpg", Initiative: 0, },
@@ -211,24 +211,24 @@ var MonsterCards = {
         8: { Image: "res/StoneGolem/8.jpg", Initiative: 0, },
     },
     "VermlingScout":{
-        1: { Image: "res/VermlingScout/1.jpg", Initiative: 0, },
-        2: { Image: "res/VermlingScout/2.jpg", Initiative: 0, },
-        3: { Image: "res/VermlingScout/3.jpg", Initiative: 0, },
-        4: { Image: "res/VermlingScout/4.jpg", Initiative: 0, },
-        5: { Image: "res/VermlingScout/5.jpg", Initiative: 0, },
-        6: { Image: "res/VermlingScout/6.jpg", Initiative: 0, },
-        7: { Image: "res/VermlingScout/7.jpg", Initiative: 0, },
-        8: { Image: "res/VermlingScout/8.jpg", Initiative: 0, },
+        1: { Image: "res/VermlingScout/1.jpg", Initiative: 53, Move: 0, Attack: 0 },
+        2: { Image: "res/VermlingScout/2.jpg", Initiative: 54, Move: -2, Attack: 0, Range: 3, Poison: true },
+        3: { Image: "res/VermlingScout/3.jpg", Initiative: 69, Move: -1, Attack: 1 },
+        4: { Image: "res/VermlingScout/4.jpg", Initiative: 40, Move: 1, Attack: -1 },
+        5: { Image: "res/VermlingScout/5.jpg", Initiative: 79, Attack: -1, Range: 4, Target: 2 },
+        6: { Image: "res/VermlingScout/6.jpg", Initiative: 35, Move: 1, Jump: true, Loot: 1, Shuffle: true  },
+        7: { Image: "res/VermlingScout/7.jpg", Initiative: 92, Attack: 2, Poison: true, Shuffle: true },
+        8: { Image: "res/VermlingScout/8.jpg", Initiative: 29, Move: -1, Attack: -1, Range: 3 },
     },
     "WindDemon":{
-        1: { Image: "res/WindDemon/1.jpg", Initiative: 0, },
-        2: { Image: "res/WindDemon/2.jpg", Initiative: 0, },
-        3: { Image: "res/WindDemon/3.jpg", Initiative: 0, },
-        4: { Image: "res/WindDemon/4.jpg", Initiative: 0, },
-        5: { Image: "res/WindDemon/5.jpg", Initiative: 0, },
-        6: { Image: "res/WindDemon/6.jpg", Initiative: 0, },
-        7: { Image: "res/WindDemon/7.jpg", Initiative: 0, },
-        8: { Image: "res/WindDemon/8.jpg", Initiative: 0, },
+        1: { Image: "res/WindDemon/1.jpg", Initiative: 21, Move: 0, Attack: 0, Pull: 1, Wind: true, Shuffle: true },
+        2: { Image: "res/WindDemon/2.jpg", Initiative: 29, Move: 0, Attack: -1, Target: 2, Consume: { Type: "Wind", Push: 2 } },
+        3: { Image: "res/WindDemon/3.jpg", Initiative: 9, Attack: -1, HealSelf: 1, Consume: { Type: "Wind", Invisible: -1 } },
+        4: { Image: "res/WindDemon/4.jpg", Initiative: 43, Move: -1, Attack: 1, Consume: { Type: "Wind", Target: 2 } },
+        5: { Image: "res/WindDemon/5.jpg", Initiative: 2, Shield: 1, Move: -1, Attack: -1, Consume: { Type: "Any", Wind: true } },
+        6: { Image: "res/WindDemon/6.jpg", Initiative: 37, Move: 0, Attack: 0, Consume: { Type: "Wind", Text: "+1 Attack {Attack}", Pattern: "img/ref/winddemon-1.png" }, Pattern: "img/ref/earthdemon-1.png" },
+        7: { Image: "res/WindDemon/7.jpg", Initiative: 43, Push: [1, "Target all adjacent enemies"], Attack: 0, Consume: {Type: "Green", Range: -2 } },
+        8: { Image: "res/WindDemon/8.jpg", Initiative: 21, Move: 0, Attack: 0, Pull: 1, Wind: true, Shuffle: true },
     },
 
     "guard": {
@@ -268,7 +268,7 @@ var MonsterCards = {
         } },
         4: { Image: "res/FlameDemon/4.jpg", Initiative: 49, Attack: 0, Consume: {
             Type: "Fire",
-            Attack: 1,
+            Text: "+1 Attack {Attack}",
             Wound: true,   
         }},
         5: { Image: "res/FlameDemon/5.jpg", Initiative: 46, Attack: 0, Consume: { Type: "Fire" }, Shuffle: true },
@@ -343,9 +343,9 @@ var MonsterCards = {
 
 var Monsters = {
     "thebetrayer": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "The Betrayer",
+        LowLevel: "res/boss/betrayer-a.jpg",
+        HighLevel: "res/boss/betrayer-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -353,19 +353,31 @@ var Monsters = {
         },
     },
     "inoxbodyguard": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Inox Bodyguard",
+        LowLevel: "res/boss/guard-a.jpg",
+        HighLevel: "res/boss/guard-b.jpg",
         Cards: "boss",
-        Normal: {
-        },
-        Elite: {
+        Protection: { Poison: true, Stun: true, Disarm: true, Muddle: true },
+        Boss: {
+            HP: ['6*C','7*C','9*C','10*C'],
+            Move: [2,2,2,3],
+            Attack: ['C', '1+C', '1+C', '2+C'],
+            Special1: [
+                { Move: -1, Attack: -1, Pattern: "img/ref/inoxbodyguard-1.png" },
+                { Move: -1, Attack: -1, Pattern: "img/ref/inoxbodyguard-1.png" },
+                { Move: -1, Attack: -1, Pattern: "img/ref/inoxbodyguard-1.png" },
+                { Move: -1, Attack: -1, Pattern: "img/ref/inoxbodyguard-1.png" }],
+            Special2: [
+                { Move: 0, Attack: 0, Retaliate: 3 },
+                { Move: 0, Attack: 0, Retaliate: 3 },
+                { Move: 0, Attack: 0, Retaliate: 3 },
+                { Move: 0, Attack: 0, Retaliate: 4 }]
         },
     },
     "thecolorless": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "The Colorless",
+        LowLevel: "res/boss/colorless-a.jpg",
+        HighLevel: "res/boss/colorless-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -373,9 +385,9 @@ var Monsters = {
         },
     },
     "banditcommander": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Bandit Commander",
+        LowLevel: "res/boss/commander-a.jpg",
+        HighLevel: "res/boss/commander-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -383,19 +395,23 @@ var Monsters = {
         },
     },
     "primedemon": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Prime Demon",
+        LowLevel: "res/boss/demon-a.jpg",
+        HighLevel: "res/boss/demon-b.jpg",
         Cards: "boss",
-        Normal: {
-        },
-        Elite: {
+        Protection: { Poison: true, Stun: true, Disarm: true, Muddle: true, Immobilize: true, Wound: true },
+        Boss: {
+            HP: ['8*C','9*C','10*C','12*C'],
+            Move: [3,4,4,4],
+            Attack: [4,4,5,6],
+            Special1: { Text: "Throne moves. Summon Demon.", Move: 2, Attack: -1 },
+            Special2: { Text: "Throne moves. Summon Demon.", Move: 2, Attack: -1 },
         },
     },
     "elderdrake": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Elder Drake",
+        LowLevel: "res/boss/drake-a.jpg",
+        HighLevel: "res/boss/drake-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -403,9 +419,9 @@ var Monsters = {
         },
     },
     "thesightlesseye": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "The Sightless Eye",
+        LowLevel: "res/boss/eye-a.jpg",
+        HighLevel: "res/boss/eye-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -413,9 +429,9 @@ var Monsters = {
         },
     },
     "thegloom": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "The Gloom",
+        LowLevel: "res/boss/gloom-a.jpg",
+        HighLevel: "res/boss/gloom-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -423,19 +439,24 @@ var Monsters = {
         },
     },
     "captainoftheguard": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Captain of the Guard",
+        LowLevel: "res/boss/guard-a.jpg",
+        HighLevel: "res/boss/guard-b.jpg",
         Cards: "boss",
-        Normal: {
-        },
-        Elite: {
+        Cards: "boss",
+        Protection: { Wound: true, Stun: true, Disarm: true, Muddle: true },
+        Boss: {
+            HP: ['7*C','9*C','11*C','14*C'],
+            Move: [2,2,2,3],
+            Attack: [3,3,4,4],
+            Special1: { Text: "Heal {Heal} 2. Affect self and all allies" },
+            Special2: { Text: "All allies add +1 Attack {Attack} to all attacks this round", Attack: 1 },
         },
     },
     "wingedhorror": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Winged Horror",
+        LowLevel: "res/boss/horror-a.jpg",
+        HighLevel: "res/boss/horror-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -443,9 +464,9 @@ var Monsters = {
         },
     },
     "jekserah": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Jekserah",
+        LowLevel: "res/boss/jakserah-a.jpg",
+        HighLevel: "res/boss/jakserah-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -453,19 +474,23 @@ var Monsters = {
         },
     },
     "mercilessoverseer": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Merciless Overseer",
+        LowLevel: "res/boss/overseer-a.jpg",
+        HighLevel: "res/boss/overseer-b.jpg",
         Cards: "boss",
-        Normal: {
-        },
-        Elite: {
+        Protection: { Wound: true, Stun: true, Disarm: true, Curse: true },
+        Boss: {
+            HP: ['6*C','8*C','9*C','11*C'],
+            Move: [2,2,3,3],
+            Attack: 'V',
+            Special1: { Text: "All Scouts act again" },
+            Special2: { Text: "Summon Vermling Scouts" },
         },
     },
     "darkrider": {
-        Name: "Earth Demon",
-        LowLevel: "res/boss//a.jpg",
-        HighLevel: "res/boss//b.jpg",
+        Name: "Dark Rider",
+        LowLevel: "res/boss/rider-a.jpg",
+        HighLevel: "res/boss/rider-b.jpg",
         Cards: "boss",
         Normal: {
         },
@@ -500,8 +525,14 @@ var Monsters = {
         HighLevel: "res/DeepTerror/b.jpg",
         Cards: "DeepTerror",
         Normal: {
+            HP: [3,4,4,5],
+            Attack: [2,2,3,3],
+            Retaliate: [0,1,1,2],
         },
         Elite: {
+            HP: [5,6,7,8],
+            Attack: [3,3,4,4],
+            Retaliate: [0,1,1,2],
         },
     },
     "giantviper":{
@@ -530,12 +561,23 @@ var Monsters = {
         HighLevel: "res/Imp/black-b.jpg",
         Cards: "Imp",
         Normal: {
+            HP: [3,4,5,5],
+            Move: [1,1,1,1],
+            Attack: [1,1,1,2],
+            Range: [3,3,4,4],
+            Poison: [0,1,1,1]
         },
         Elite: {
+            HP: [4,6,8,8],
+            Move: [1,1,1,1],
+            Attack: [2,2,2,3],
+            Range: [3,3,4,4],
+            Poison: [1,1,1,1],
+            Disadvantage: [0,0,0,1]
         },
     },
     "forestimp":{
-        Name: "Earth Demon",
+        Name: "Forest Imp",
         LowLevel: "res/Imp/forest-a.jpg",
         HighLevel: "res/Imp/forest-b.jpg",
         Cards: "Imp",
@@ -620,8 +662,14 @@ var Monsters = {
         HighLevel: "res/VermlingScout/b.jpg",
         Cards: "VermlingScout",
         Normal: {
+            HP: [2,3,3,5],
+            Move: [3,3,3,3],
+            Attack: [1,1,2,2],
         },
         Elite: {
+            HP: [4,5,5,7],
+            Move: [3,3,4,4],
+            Attack: [2,2,3,3],
         },
     },
     "winddemon":{
@@ -630,8 +678,18 @@ var Monsters = {
         HighLevel: "res/winddemon/b.jpg",
         Cards: "WindDemon",
         Normal: {
+            HP: [3,3,4,5],
+            Move: [3,3,4,4],
+            Attack: [2,2,2,3],
+            Range: [3,3,3,3],
+            Shield: [1,2,2,2]
         },
         Elite: {
+            HP: [5,5,7,8],
+            Move: [4,4,5,5],
+            Attack: [3,3,3,4],
+            Range: [4,4,4,4],
+            Shield: [1,2,2,2]
         },
     },
 
@@ -643,8 +701,14 @@ var Monsters = {
         HighLevel: "res/EarthDemon/b.jpg",
         Cards: "earthdemon",
         Normal: {
+            HP: [7,9,12,13],
+            Move: [1,1,1,2],
+            Attack: [3,3,3,3],
         },
         Elite: {
+            HP: [10,13,18,20],
+            Move: [2,2,2,2],
+            Attack: [4,4,4,4],
         },
     },
     "sundemon": {
@@ -652,9 +716,20 @@ var Monsters = {
         LowLevel: "res/SunDemon/a.jpg",
         HighLevel: "res/SunDemon/b.jpg",
         Cards: "sundemon",
+        Flying: true,
         Normal: {
+            HP: [5,7,9,10],
+            Move: [2,2,2,2],
+            Attack: [2,2,2,3],
+            Shield: [1,1,1,1],
+            Advantage: true,
         },
         Elite: {
+            HP: [9,12,13,15],
+            Move: [2,2,2,3],
+            Attack: [3,3,4,4],
+            Shield: [1,1,1,1],
+            Advantage: true,
         },
     },
     "hound": {
@@ -663,8 +738,16 @@ var Monsters = {
         HighLevel: "res/Hound/b.jpg",
         Cards: "hound",
         Normal: {
+            HP: [4,4,6,8],
+            Move: [3,4,4,4],
+            Attack: [2,2,2,2],
+            Retaliate: [0,1,1,1]
         },
         Elite: {
+            HP: [6,6,7,8],
+            Move: [5,5,5,5],
+            Attack: [2,2,3,4],
+            Retaliate: [0,2,2,2]
         },
     },
     "livingspirit": {
@@ -673,8 +756,18 @@ var Monsters = {
         HighLevel: "res/LivingSpirit/b.jpg",
         Cards: "livingspirit",
         Normal: {
+            HP: [2,2,2,3],
+            Move: [2,2,3,3],
+            Attack: [2,2,2,3],
+            Range: [2,2,3,3],
+            Shield: [1,2,2,2]
         },
         Elite: {
+            HP: [3,3,3,4],
+            Move: [3,3,4,4],
+            Attack: [3,3,3,4],
+            Range: [3,3,4,4],
+            Shield: [2,3,3,3]
         },
     },
     "livingcorpse": {
@@ -683,8 +776,14 @@ var Monsters = {
         HighLevel: "res/LivingCorpse/b.jpg",
         Cards: "livingcorpse",
         Normal: {
+            HP: [5,7,9,10],
+            Move: [1,1,1,1],
+            Attack: [3,3,3,4],
         },
         Elite: {
+            HP: [10,10,13,13],
+            Move: [1,1,1,1],
+            Attack: [3,4,4,5],
         },
     },
     "inoxguard": {
@@ -693,8 +792,15 @@ var Monsters = {
         HighLevel: "res/Guard/inox_b.jpg",
         Cards: "guard",
         Normal: {
+            HP: [5,8,9,11],
+            Move: [2,2,2,3],
+            Attack: [2,2,3,3]
         },
         Elite: {
+            HP: [9,10,12,15],
+            Move: [1,2,2,2],
+            Attack: [3,3,4,4],
+            Retaliate: [1,2,2,3]
         },
     },
     "cityarcher": {
@@ -703,8 +809,20 @@ var Monsters = {
         HighLevel: "res/Archer/city-b.jpg",
         Cards: "archer",
         Normal: {
+            HP: [4,5,6,6],
+            Move: [1,1,1,2],
+            Attack: [2,2,3,3],
+            Range: [3,4,4,4],
+            Shield: [0,0,0,1],
+            Pierce: [0,0,0,0],
         },
         Elite: {
+            HP: [6,6,7,8],
+            Move: [1,1,1,2],
+            Attack: [3,3,4,4],
+            Range: [4,5,5,5],
+            Shield: [0,1,1,2],
+            Pierce: [0,1,2,2]
         },
     },
     "inoxarcher": {
@@ -713,8 +831,16 @@ var Monsters = {
         HighLevel: "res/Archer/inox-b.jpg",
         Cards: "archer",
         Normal: {
+            HP: [5,6,8,9],
+            Move: [2,2,2,2],
+            Attack: [2,2,2,3],
+            Range: [2,3,3,3]
         },
         Elite: {
+            HP: [7,8,11,13],
+            Move: [2,2,2,2],
+            Attack: [3,3,3,4],
+            Range: [3,4,4,4]
         },
     },
     "banditarcher": {
@@ -745,8 +871,16 @@ var Monsters = {
         HighLevel: "res/Shaman/inox-b.jpg",
         Cards: "shaman",
         Normal: {
+            HP: [4,6,7,9],
+            Move: [1,1,2,2],
+            Attack: [2,2,2,2],
+            Range: [3,3,3,4]
         },
         Elite: {
+            HP: [6,9,11,14],
+            Move: [2,2,3,3],
+            Attack: [3,3,3,3],
+            Range: [3,3,3,4]
         },
     },
 
@@ -775,8 +909,18 @@ var Monsters = {
         HighLevel: "res/Guard/city_b.jpg",
         Cards: "guard",
         Normal: {
+            HP: [5,5,7,8],
+            Move: [2,2,2,2],
+            Attack: [2,2,2,3],
+            Shield: [0,1,1,1],
+            Retaliate: [0,0,0,0]
         },
         Elite: {
+            HP: [6,6,9,9],
+            Move: [2,2,2,2],
+            Attack: [3,3,3,4],
+            Shield: [1,2,2,2],
+            Retaliate: [0,0,0,1]
         },
     },
 
@@ -905,11 +1049,6 @@ function GetMonsterStats(monster, elite, lvl) {
     return flat;
 }
 
-function StatsToTextWithImages(stats, pluss) {
-    var text = StatsToText(stats, pluss);
-    return StatsTextToImages(text);
-}
-
 function StatsTextToImages(text) {
     if (Number.isInteger(text))
         text = "" + text;
@@ -929,16 +1068,18 @@ function StatsTextToImages(text) {
     text = text.replace('{Invisible}','<img src="img/icons/invisible.png" class="statIcon">');
     text = text.replace('{Immobilize}','<img src="img/icons/immobilized.png" class="statIcon">');
 
+    text = text.replace('{Pierce}','<img src="img/icons/pierce.png" class="statIcon">');
+    text = text.replace('{Pull}','<img src="img/icons/pull.png" class="statIcon">');
+    text = text.replace('{Push}','<img src="img/icons/push.png" class="statIcon">');
+
     text = text.replace('{Fire}','<img src="img/icons/e-fire.png" class="statIcon">');
     text = text.replace('{Green}','<img src="img/icons/e-green.png" class="statIcon">');
     text = text.replace('{Night}','<img src="img/icons/e-night.png" class="statIcon">');
-    text = text.replace('{Pierce}','<img src="img/icons/pierce.png" class="statIcon">');
     text = text.replace('{Sun}','<img src="img/icons/e-sun.png" class="statIcon">');
     text = text.replace('{Wind}','<img src="img/icons/e-wind.png" class="statIcon">');
     text = text.replace('{Frost}','<img src="img/icons/e-snow.png" class="statIcon">');
 
-    text = text.replace('{Consume}','<img src="img/icons/consume.png" class="consume statIcon">');
-    
+    text = text.replace('{Consume}','<img src="img/icons/consume.png" class="consume statIcon">');      
 
     text = text.replace('{Any}','<img src="img/icons/any.png" class="statIcon">');
     text = text.replace('{Target}','<img src="img/icons/target.png" class="statIcon">');
@@ -986,6 +1127,7 @@ function GetSimpleStatTable(monster, initiative, lvl) {
             "Elite": eliteKeys[key] != undefined ? StatsTextToImages(StatDataFromStat(key, elite[key])) : "",
             "Initiative": initKeys[key] != undefined ? StatsTextToImages(StatDataFromStat(key, initiative[key], true)) : "",
             "Order": StatOrderFromKey(key),
+            "InitiativeImage": initiative.Image, 
         };
     }
 
@@ -1043,39 +1185,6 @@ function GetStatsOutcome(monster, initiative, elite, lvl, modifier) {
     return list;
 }
 
-function GetStatTable(initiative, monster, elite, lvl, modifier) {
-    var stats = GetMonsterStats(monster, elite, lvl);
-    var total = CombineStats(initiative, stats);
-    var modified = CombineStats(initiative, stats, modifier);
-    
-    var allKeys = {};
-    for (var key in stats) 
-        if (!StatIgnoreStat(key, stats[key]))
-            allKeys[key] = true;
-
-    for (var key in initiative) 
-        if (!StatIgnoreStat(key, initiative[key]))
-            allKeys[key] = true;
-
-    var table = {};
-    for (var key in allKeys) {
-        table[key] = {
-            "Header":  StatHeaderFromKey(key, initiative[key]),
-            "Stats": stats[key] != undefined ? StatDataFromStat(key, stats[key]) : "",
-            "Init": initiative[key] != undefined ? StatDataFromStat(key, initiative[key], true) : "",
-            "Total": total[key] != undefined ? StatDataFromStat(key, total[key]) : "",
-            "Modified": modified[key] != undefined ? StatDataFromStat(key, modified[key]) : "",
-        };
-    }
-
-    return table;
-}
-
-function GetCombinedStats(initiative, monster, elite, lvl, modifier) {
-    var stats = GetMonsterStats(monster, elite, lvl);
-    return CombineStats(initiative, stats, modifier);
-}
-
 function CombineStats(initiative, stats, modifier) {
     var result = Object.assign({}, stats);
     if (result.Attack && initiative.Attack == undefined)
@@ -1119,7 +1228,7 @@ function CombineStats(initiative, stats, modifier) {
 }
 
 function StatOrderFromKey(key) {
-    var index = ["Initiative", "HP", "Move", "Attack", "Range"].indexOf(key);
+    var index = ["Initiative", "HP", "Move", "Attack", "Pattern", "Range"].indexOf(key);
     if (index >= 0)
         return index;
     
@@ -1133,11 +1242,11 @@ function StatOrderFromKey(key) {
 }
 
 function StatHeaderFromKey(key, data) {
-    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilize", "Heal"].indexOf(key) >= 0) { 
+    if (["Attack", "Range", "Move", "Shield", "Target", "Pierce", "Retaliate", "Immobilize", "Heal", "Push", "Pull"].indexOf(key) >= 0) { 
         return key + " {"+key+"}";    
     }
 
-    if (["Text", "Shuffle","Strengthen", "Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
+    if (["Pattern", "Invisible","Special", "Advantage","Text", "Shuffle","Strengthen", "Curse", "Muddle", "Poison", "Wound", "Sun", "Night", "Frost", "Green", "Fire", "Wind", "Any"].indexOf(key) >= 0) { 
         return "";
     }
 
@@ -1164,7 +1273,7 @@ function StatIgnoreStat(key, data) {
 }
 
 function StatDataFromStat(key, data, pluss) {
-    if (["HP", "Attack", "Move", "Range", "Shield", "Target", "Pierce"].indexOf(key) >= 0) { 
+    if (["HP", "Attack", "Move", "Range", "Shield", "Target", "Pierce", "Pull", "Push"].indexOf(key) >= 0) { 
         if (Array.isArray(data))
             return (data[0] >= 0 && pluss ? '+' : '') + data[0] + " [" + data[1] + "]";
      
@@ -1172,11 +1281,13 @@ function StatDataFromStat(key, data, pluss) {
     }
 
     if (["Retaliate", "Immobilize", "Heal"].indexOf(key) >= 0) {
-        if (Array.isArray(data))
+        if (Array.isArray(data)) {
+            if (typeof data[1] === 'string')
+                return data[0] + " [ " + data[1] + "]";
             return data[0] + " ["+GetStatText('Range', data[1]) + "]";
+        }
         if (typeof data === 'string')
-            return data[0] + " [ " + data[1] + "]";
-
+            return "[ " + data + "]";
         return data;        
     }
 
@@ -1199,6 +1310,9 @@ function StatDataFromStat(key, data, pluss) {
     if (key == "Initiative")
         return data;
 
+    if (key == "Advantage")
+        return "Advantage";
+
     if (key == "Text")
         return data;
 
@@ -1206,11 +1320,17 @@ function StatDataFromStat(key, data, pluss) {
         return "{Shuffle}";
 
     if (key == "Conditional") 
-        return StatsToText(data, ', ');
+        return StatsToText(data, ', ', true);
 
     if (key == "Consume") 
-        return StatsToText(data, ', ');
+        return StatsToText(data, ', ', true);
                     
+    if (key == "Special")
+        return "Special " + data;
+
+    if (key == "Pattern")
+        return "<img src='"+data+"' class='pattern' />";
+
     alert('missing key: '+ key);
     console.log('missing key', key, data);
 }

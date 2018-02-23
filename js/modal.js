@@ -16,6 +16,12 @@ $(function() {
         $(this).toggleClass('d-none', true);
     });
 
+    $('.modal').on('open', function() {
+        var $modal = $(this);
+        $modal.toggleClass('d-none', false);
+        $modal.trigger('openModal');
+    });
+
     $('.modal .modal-content').on('click', function(e) { e.stopPropagation(); });
     $('.modal').on('click', function(event) {
         $(this).toggleClass('d-none', true);

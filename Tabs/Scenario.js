@@ -205,43 +205,6 @@ var PopulateActiveMonster = function() {
     }
 };
 
-var ShowTotalStatsText = function(modifier) {
-    var activeMonsterId = Gloomhaven.data.ActiveMonster;
-    if (activeMonsterId) {
-        var name = Gloomhaven.data.ActiveMonsters[activeMonsterId].Id;
-        var monster = Monsters[name];
-        var initiative = Gloomhaven.data.Monsters[name].ActiveCard;
-        var table = GetStatTable(initiative, monster, Gloomhaven.data.ActiveMonsters[activeMonsterId].Elite, Gloomhaven.data.ScenarioLevel, modifier);
-
-        var keyValues = [];
-        for (var key in table) 
-            keyValues.push([ key, StatOrderFromKey(key) ])
-        keyValues.sort(function compare(kv1, kv2) { return kv1[1] - kv2[1] });
-    
-        var html = "<div class='row w8'><div class='w1'></div><div class='w1'>Stats</div><div class='w2'>Initiative</div><div class='w2'>Total</div><div class='w2'>Modifier</div></div>";
-        for (var i = 0; i < keyValues.length; i++) {
-            var key = keyValues[i][0];
-            html += "<div class='row w8'><div class='w1'>"+table[key].Header+"</div><div class='w1'>"+table[key].Stats+"</div><div class='w2'>"+table[key].Init+"</div><div class='w2'>"+table[key].Total+"</div><div class='w2'>"+table[key].Modified+"</div></div>";
-        }
-        html = StatsTextToImages(html);
-
-        $(".totalStatsText").html(html);
-    }
-    else {
-        $(".totalStatsText").html('');
-    }
-};
-
-$('#active_monster').on('click', '.drawModifiers', function() {
-    var key = $(this).data('id');
-    var statuses = Gloomhaven.data.ActiveStatuses[key] || {};
-    var adv = !!statuses.Strengthen;
-    var dis = !!statuses.Muddled;
-    var result = Gloomhaven.DrawFromModifierDeck(adv, dis);
-    ShowTotalStatsText(result.Result);
-    showDraws(result, $('#active_monster'));
-});
-
 $(function() {    
     var $loc = $('#scenario_key');
     for (var key in Locations) {

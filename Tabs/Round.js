@@ -137,8 +137,10 @@ $(function() {
             if (item.Initiative.length == 0) continue;
             var row = obj.find('.initiative .template').clone();
             row.toggleClass('template', false);
+            
             if (item.Key == "Initiative") row.toggleClass("init-number", true);
             if (item.Key == "Shuffle") row.toggleClass("shuffle", true);
+            if (item.Key == "Pattern") row.toggleClass("pattern", true);
 
             if (item.Key == "Initiative")  {
                 row.toggleClass("init-number", true);

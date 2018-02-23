@@ -91,9 +91,33 @@ $(function() {
                     images[monster.Cards + acard] = cards[acard].Image;
         
 
-               // images[monster.Cards + 'low'] = cards[acard].LowLevel;
-               // images[monster.Cards + 'high'] = cards[acard].HighLevel;                
+               images[monster.Cards + 'low'] = cards[acard].LowLevel;
+               images[monster.Cards + 'high'] = cards[acard].HighLevel;                
             }
+        }
+
+        var nextLocations = {};
+        for (var key in Gloomhaven.data.AvailibleLocations) {
+            nextLocations[key] = true;
+            for (var i in Locations[key].Next) 
+                nextLocations[Locations[key].Next[i]] = true;
+        }
+        var nextMonsters = {};
+        for (var key in nextLocations) {
+            for (var i in Locations[key].Monsters) {
+                var type = Locations[key].Monsters[i].toLowerCase().replace(/ /g, '');
+                nextMonsters[type] = true;
+            }
+        }
+        for (var key in nextMonsters) {
+            if (Monsters[key].Normal.Move == undefined)
+                console.log('Missing stats for monster ', key);
+            var cards = MonsterCards[Monsters[key].Cards];
+            for (var acard in cards) 
+                if (!cards[acard].Initiative) {
+                    console.log('Missing initiative cards of type ', Monsters[key].Cards, key);
+                    break;
+                }
         }
 
         var imagesToLoad = [];
