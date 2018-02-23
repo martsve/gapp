@@ -120,6 +120,11 @@ $(function() {
             var row = obj.find('.c-row .template').clone();
             row.toggleClass('template', false);
             row.find('.c-header').html(item.Header);
+
+            if (monster.Boss) {
+                row.find('.c-elite').toggleClass('d-none', true);
+            }
+
             if (item.Normal == item.Elite && item.Normal.length > 5) {
                 row.find('.c-same').html(item.Normal).toggleClass('d-none', false);
                 row.find('.c-normal').toggleClass('d-none', true);

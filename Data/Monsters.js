@@ -1039,14 +1039,26 @@ var Monsters = {
 
 function GetMonsterStats(monster, elite, lvl) {
     var stats = elite ? monster.Elite : monster.Normal;
-    var flat = { Elite: elite, Level: lvl };
+    if (monster.Boss) {
+        stats = monster.Boss;
+        elite = false;
+    }
+    var flat = { Boss: monster.Boss != undefined,  Elite: elite, Level: lvl };
     for (var key in stats) {
+        var val;
         if (Array.isArray(stats[key])) {
-            flat[key] = stats[key][lvl];
+            val = stats[key][lvl];
         }
         else {
-            flat[key] = stats[key];
+            val = stats[key];
         }
+
+        if (typeof val === "string" && ["HP", "Attack"].indexOf(key) >= 0) {
+            var C = Object.keys(Gloomhaven.data.PlayerList).length;
+            var val = eval(val.replace('C', C));
+        }
+
+        flat[key] = val;
     }
     return flat;
 }
@@ -1163,6 +1175,7 @@ function GetStatsOutcome(monster, initiative, elite, lvl, modifier) {
     var table = {};
     for (var key in allKeys) {
         var headerData = total[key];
+        console.log('here is key',key);
         table[key] = {
             "Key": key,
             "Order": StatOrderFromKey(key),
@@ -1269,7 +1282,7 @@ function StatHeaderFromKey(key, data) {
 }
 
 function StatIgnoreStat(key, data) {   
-    if (["Elite", "Level", "Image", "Type"].indexOf(key) >= 0) { 
+    if (["Elite", "Level", "Image", "Type", "Boss"].indexOf(key) >= 0) { 
         return true;
     }
 
@@ -1327,12 +1340,9 @@ function StatDataFromStat(key, data, pluss) {
     if (key == "Shuffle")
         return "{Shuffle}";
 
-    if (key == "Conditional") 
+    if (["Conditional", "Special1", "Special2", "Consume"].indexOf(key) >= 0) 
         return StatsToText(data, ', ', true);
 
-    if (key == "Consume") 
-        return StatsToText(data, ', ', true);
-                    
     if (key == "Special")
         return "Special " + data;
 
